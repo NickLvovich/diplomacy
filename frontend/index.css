@@ -1,0 +1,7 @@
+path {
+  fill: transparent;
+}
+
+path:hover {
+  fill: rgba(200, 100, 150, 0.5);
+}
