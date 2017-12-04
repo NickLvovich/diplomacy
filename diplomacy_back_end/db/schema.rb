@@ -31,18 +31,8 @@ ActiveRecord::Schema.define(version: 20171204180942) do
     t.integer "unit_id"
     t.string "phase"
     t.string "order_type"
-    t.integer "from_territory_id"
-    t.integer "to_territory_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "territories", force: :cascade do |t|
-    t.string "name"
-    t.string "abbreviation"
-    t.string "territory_type"
-    t.boolean "supply_center"
-    t.integer "country_id"
+    t.string "from_territory"
+    t.string "to_territory"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -58,8 +48,8 @@ ActiveRecord::Schema.define(version: 20171204180942) do
   create_table "units", force: :cascade do |t|
     t.string "unit_type"
     t.string "coast"
+    t.string "territory"
     t.integer "country_id"
-    t.integer "territory_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

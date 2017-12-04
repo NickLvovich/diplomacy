@@ -5,8 +5,8 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.integer :unit_id
       t.string :phase
       t.string :order_type
-      t.integer :from_territory_id
-      t.integer :to_territory_id
+      t.string :from_territory
+      t.string :to_territory
 
       t.timestamps
     end
