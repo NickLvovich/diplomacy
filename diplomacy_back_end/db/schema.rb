@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 20171204180942) do
     t.string "order_type"
     t.string "from_territory"
     t.string "to_territory"
+    t.string "coast"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

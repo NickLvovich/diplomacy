@@ -44,9 +44,9 @@ boatman4 = Unit.create(unit_type: "fleet", territory: "WES",country: italy)
 armyman5 = Unit.create(unit_type: "army", territory: "Mar",country: germany)
 boatman5 = Unit.create(unit_type: "fleet",coast: "NC", territory: "Spa",country: russia)
 
-
-
-# t.string :unit_type
-# t.string :coast
-# t.string :territory
-# t.integer :country_id
+order1 = Order.create(turn: turnone, unit: armyman, phase: "Order Resolution Phase", order_type: "move", from_territory: "Alb", to_territory:"Gre")
+order2 = Order.create(turn: turntwo, unit: armyman2, phase: "Order Resolution Phase", order_type: "move", from_territory: "Apu", to_territory: "Rom")
+order3 = Order.create(turn: turnthree, unit: boatman, phase: "Order Resolution Phase", order_type: "move", from_territory: "Ank",to_territory: "AEG")
+order4 = Order.create(turn: turnone, unit: armyman3, phase: "Order Resolution Phase", order_type: "move", from_territory: "Nap", to_territory: "Apu")
+order5 = Order.create(turn: turnfour, unit: boatman, phase: "Order Resolution Phase", order_type: "move", from_territory: "AEG", to_territory: "EAS")
+order6 = Order.create(turn: turnfive, unit: boatman5, phase: "Order Resolution Phase", order_type: "move", from_territory: "Spa", coast:"SC", to_territory: "WES")

@@ -7,7 +7,7 @@ class CreateOrders < ActiveRecord::Migration[5.1]
       t.string :order_type
       t.string :from_territory
       t.string :to_territory
-
+      t.string :coast, default: nil
       t.timestamps
     end
   end
