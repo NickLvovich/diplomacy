@@ -1,0 +1,67 @@
+$Britain: rgb(42, 44, 128);
+$France: rgb(93, 135, 175);
+$Germany: rgb(83, 79, 75);
+$Italy: rgb(105, 130, 70);
+$Austria: rgb(143, 100, 96);
+$Russia: rgb(106, 114, 134);
+$Turkey: rgb(176, 156, 26);
+
+#map > path {
+  fill: transparent;
+  &:hover {
+    fill: rgba(200, 200, 200, 0.5);
+  }
+  &.Britain {
+    fill: $Britain;
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &.France {
+    fill: $France;
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &.Germany {
+    fill: $Germany;
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &.Italy {
+    fill: $Italy;
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &.Austria {
+    fill: $Austria;
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &.Russia {
+    fill: $Russia;
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+  &.Turkey {
+    fill: $Turkey;
+    opacity: 0.5;
+    &:hover {
+      opacity: 0.7;
+    }
+  }
+}
+
+.fleet.Britain path {
+  fill: $Britain;
+}

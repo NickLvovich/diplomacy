@@ -31,36 +31,32 @@ class Order {
 }
 
 class Country {
-  constructor(game, user, homeSupplyCenters, territories, armies, fleets) {
+  constructor(game, user, homeSupplyCenters, territories, units) {
     this.game = game
     this.user = user
     this.homeSupplyCenters = homeSupplyCenters
     this.territories = territories
-    this.armies = armies
-    this.fleets = fleets
+    this.units = units
   }
 }
 
 class Territory {
-  constructor(name, type, supplyCenter, landNeighbors, seaNeighbors) {
+  constructor(name, abbreviation, type, supplyCenter, landNeighbors, seaNeighbors, coordinates) {
     this.name = name
+    this.abbreviation = abbreviation
     this.type = type
     this.supplyCenter = supplyCenter
     this.landNeighbors = landNeighbors
     this.seaNeighbors = seaNeighbors
+    this.coordinates = coordinates
   }
 }
 
-class Army {
-  constructor(location) {
+class Unit {
+  constructor(type, location, coast) {
+    this.type = type
     this.location = location
-  }
-}
-
-class Fleet {
-  constructor(location, coast) {
-    this.location = location,
-    this.coast = coast  
+    this.coast = coast
   }
 }
 
@@ -111,3 +107,5 @@ class Timer {
   }
 
 }
+
+// 1100 1050

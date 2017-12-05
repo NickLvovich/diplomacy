@@ -1,13 +1,15 @@
 const territories = {
   ADR: new Territory(
     "Adriatic Sea",
+    "ADR",
     "water",
     false,
     ["Alb", "Apu", "Tri", "Ven"],
-    { all: ["Alb", "Apu", "ION", "Tri", "Ven"] }
+    { all: ["Alb", "Apu", "ION", "Tri", "Ven"] },
   ),
   AEG: new Territory(
     "Aegean Sea",
+    "AEG",
     "water",
     false,
     ["Bul", "Con", "Gre", "Smy"],
@@ -15,6 +17,7 @@ const territories = {
   ),
   Alb: new Territory(
     "Albania",
+    "Alb",
     "coastal",
     false,
     ["Gre", "Tri", "Ser"],
@@ -22,6 +25,7 @@ const territories = {
   ),
   Ank: new Territory(
     "Ankara",
+    "Ank",
     "coastal",
     true,
     ["Arm", "Con", "Smy"],
@@ -29,6 +33,7 @@ const territories = {
   ),
   Apu: new Territory(
     "Apulia",
+    "Apu",
     "coastal",
     false,
     ["Nap", "Rom", "Ven"],
@@ -36,6 +41,7 @@ const territories = {
   ),
   Arm: new Territory(
     "Armenia",
+    "Arm",
     "coastal",
     false,
     ["Ank", "Sev", "Smy", "Syr"],
@@ -43,6 +49,7 @@ const territories = {
   ),
   BAL: new Territory(
     "Baltic Sea",
+    "BAL",
     "water",
     false,
     ["Ber", "Den", "Kie", "Lvn", "Pru", "Swe"],
@@ -50,6 +57,7 @@ const territories = {
   ),
   BAR: new Territory(
     "Barents Sea",
+    "BAR",
     "water",
     false,
     ["Nwy", "Stp"],
@@ -57,6 +65,7 @@ const territories = {
   ),
   Bel: new Territory(
     "Belgium",
+    "Bel",
     "coastal",
     true,
     ["Bur", "Hol", "Pic", "Ruh"],
@@ -64,6 +73,7 @@ const territories = {
   ),
   Ber: new Territory(
     "Berlin",
+    "Ber",
     "coastal",
     true,
     ["Kie", "Mun", "Pru", "Sil"],
@@ -71,6 +81,7 @@ const territories = {
   ),
   BLA: new Territory(
     "Black Sea",
+    "BLA",
     "water",
     false,
     ["Ank", "Arm", "Bul", "Con", "Rum", "Sev"],
@@ -78,6 +89,7 @@ const territories = {
   ),
   Boh: new Territory(
     "Bohemia",
+    "Boh",
     "inland",
     false,
     ["Gal", "Mun", "Sil", "Tyr", "Vie"],
@@ -85,6 +97,7 @@ const territories = {
   ),
   BOT: new Territory(
     "Gulf of Bothnia",
+    "BOT",
     "water",
     false,
     ["Fin", "Lvn", "Stp", "Swe"],
@@ -92,6 +105,7 @@ const territories = {
   ),
   Bre: new Territory(
     "Brest",
+    "Bre",
     "coastal",
     false,
     ["Gas", "Par", "Pic"],
@@ -99,6 +113,7 @@ const territories = {
   ),
   Bud: new Territory(
     "Budapest",
+    "Bud",
     "inland",
     true,
     ["Gal", "Rum", "Ser", "Tri", "Vie"],
@@ -106,6 +121,7 @@ const territories = {
   ),
   Bul: new Territory(
     "Bulgaria",
+    "Bul",
     "coastal",
     true,
     ["Con", "Gre", "Ser", "Rum"],
@@ -116,6 +132,7 @@ const territories = {
   ),
   Bur: new Territory(
     "Burgundy",
+    "Bur",
     "inland",
     false,
     ["Bel", "Gas", "Mar", "Mun", "Ruh", "Par", "Pic"],
@@ -123,6 +140,7 @@ const territories = {
   ),
   Cly: new Territory(
     "Clyde",
+    "Cly",
     "coastal",
     false,
     ["Edi", "Lvp"],
@@ -130,6 +148,7 @@ const territories = {
   ),
   Con: new Territory(
     "Constantinople",
+    "Con",
     "coastal",
     true,
     ["Ank", "Bul", "Smy"],
@@ -137,6 +156,7 @@ const territories = {
   ),
   Den: new Territory(
     "Denmark",
+    "Den",
     "coastal",
     true,
     ["Kie", "Swe"],
@@ -144,6 +164,7 @@ const territories = {
   ),
   EAS: new Territory(
     "Eastern Mediterranean",
+    "EAS",
     "water",
     false,
     ["Smy", "Syr"],
@@ -151,13 +172,16 @@ const territories = {
   ),
   Edi: new Territory(
     "Edinburgh",
+    "Edi",
     "coastal",
     true,
     ["Cly", "Lvp", "Yor"],
-    { all: ["Cly", "NTH", "NWG", "Yor"] }
+    { all: ["Cly", "NTH", "NWG", "Yor"] },
+    { main: { x: "1040", y: "800" } }
   ),
   ENG: new Territory(
     "English Channel",
+    "ENG",
     "water",
     false,
     ["Bel", "Bre", "Lon", "Pic", "Wal"],
@@ -165,6 +189,7 @@ const territories = {
   ),
   Fin: new Territory(
     "Finland",
+    "Fin",
     "coastal",
     false,
     ["Nwy", "Stp", "Swe"],
@@ -172,6 +197,7 @@ const territories = {
   ),
   Gal: new Territory(
     "Galicia",
+    "Gal",
     "inland",
     false,
     ["Boh", "Bud", "Rum", "Sil", "Ukr", "Vie", "War"],
@@ -179,6 +205,7 @@ const territories = {
   ),
   Gas: new Territory(
     "Gascony",
+    "Gas",
     "coastal",
     false,
     ["Bre", "Bur", "Mar", "Spa", "Par"],
@@ -186,6 +213,7 @@ const territories = {
   ),
   Gre: new Territory(
     "Greece",
+    "Gre",
     "coastal",
     true,
     ["Alb", "Bul", "Ser"],
@@ -193,6 +221,7 @@ const territories = {
   ),
   HEL: new Territory(
     "Helgoland Bight",
+    "HEL",
     "water",
     false,
     ["Den", "Hol", "Kie"],
@@ -200,6 +229,7 @@ const territories = {
   ),
   Hol: new Territory(
     "Holland",
+    "Hol",
     "coastal",
     true,
     ["Bel", "Kie", "Ruh"],
@@ -207,6 +237,7 @@ const territories = {
   ),
   ION: new Territory(
     "Ionian Sea",
+    "ION",
     "water",
     false,
     ["Alb", "Apu", "Gre", "Nap", "Tun"],
@@ -214,6 +245,7 @@ const territories = {
   ),
   IRI: new Territory(
     "Irish Sea",
+    "IRI",
     "water",
     false,
     ["Lvp", "Wal"],
@@ -221,6 +253,7 @@ const territories = {
   ),
   Kie: new Territory(
     "Kiel",
+    "Kie",
     "coastal",
     true,
     ["Ber", "Den", "Hol", "Mun", "Ruh"],
@@ -228,6 +261,7 @@ const territories = {
   ),
   Lon: new Territory(
     "London",
+    "Lon",
     "coastal",
     true,
     ["Wal", "Yor"],
@@ -235,6 +269,7 @@ const territories = {
   ),
   Lvn: new Territory(
     "Livonia",
+    "Lvn",
     "coastal",
     false,
     ["Mos", "Pru", "Stp", "War"],
@@ -242,6 +277,7 @@ const territories = {
   ),
   Lvp: new Territory(
     "Liverpool",
+    "Lvp",
     "coastal",
     true,
     ["Cly", "Edi", "Wal", "Yor"],
@@ -249,6 +285,7 @@ const territories = {
   ),
   LYO: new Territory(
     "Gulf of Lyon",
+    "LYO",
     "water",
     false,
     ["Mar", "Pie", "Spa", "Tus"],
@@ -256,6 +293,7 @@ const territories = {
   ),
   MAO: new Territory(
     "Mid Atlantic Ocean",
+    "MAO",
     "water",
     false,
     ["Bre", "Gas", "Naf", "Por", "Spa"],
@@ -263,6 +301,7 @@ const territories = {
   ),
   Mar: new Territory(
     "Marseilles",
+    "Mar",
     "coastal",
     true,
     ["Bur", "Gas", "Pie", "Spa"],
@@ -270,6 +309,7 @@ const territories = {
   ),
   Mos: new Territory(
     "Moscow",
+    "Mos",
     "inland",
     true,
     ["Lvn", "Sev", "Stp", "Ukr", "War"],
@@ -277,6 +317,7 @@ const territories = {
   ),
   Mun: new Territory(
     "Munich",
+    "Mun",
     "inland",
     true,
     ["Ber", "Boh", "Bur", "Kie", "Ruh", "Sil", "Tyr"],
@@ -284,6 +325,7 @@ const territories = {
   ),
   Naf: new Territory(
     "North Africa",
+    "Naf",
     "coastal",
     false,
     ["Tun"],
@@ -291,6 +333,7 @@ const territories = {
   ),
   NAO: new Territory(
     "North Atlantic Ocean",
+    "NAO",
     "water",
     false,
     ["Cly", "Lvp"],
@@ -298,6 +341,7 @@ const territories = {
   ),
   Nap: new Territory(
     "Naples",
+    "Nap",
     "coastal",
     true,
     ["Apu", "Rom"],
@@ -305,6 +349,7 @@ const territories = {
   ),
   NTH: new Territory(
     "North Sea",
+    "NTH",
     "water",
     false,
     ["Bel", "Den", "Edi", "Hol", "Lon", "Nwy", "Yor"],
@@ -312,6 +357,7 @@ const territories = {
   ),
   NWG: new Territory(
     "Norwegian Sea",
+    "NWG",
     "water",
     false,
     ["Cly", "Edi", "Nwy"],
@@ -319,6 +365,7 @@ const territories = {
   ),
   Nwy: new Territory(
     "Norway",
+    "Nwy",
     "coastal",
     true,
     ["Fin", "Stp", "Swe"],
@@ -326,6 +373,7 @@ const territories = {
   ),
   Par: new Territory(
     "Paris",
+    "Par",
     "inland",
     true,
     ["Bre", "Bur", "Gas", "Pic"],
@@ -333,6 +381,7 @@ const territories = {
   ),
   Pic: new Territory(
     "Picardy",
+    "Pic",
     "coastal",
     false,
     ["Bel", "Bre", "Bur", "Par"],
@@ -340,6 +389,7 @@ const territories = {
   ),
   Pie: new Territory(
     "Piedmont",
+    "Pie",
     "coastal",
     false,
     ["Mar", "Tus", "Tyr", "Ven"],
@@ -347,6 +397,7 @@ const territories = {
   ),
   Por: new Territory(
     "Portugal",
+    "Por",
     "coastal",
     true,
     ["Spa"],
@@ -354,6 +405,7 @@ const territories = {
   ),
   Pru: new Territory(
     "Prussia",
+    "Pru",
     "coastal",
     false,
     ["Ber", "Lvn", "Sil", "War"],
@@ -361,12 +413,14 @@ const territories = {
   ),
   Rom: new Territory(
     "Rome",
+    "Rom",
     "coastal",
     false,
     ["Apu", "Nap", "Tus", "Ven"]
   ),
   Ruh: new Territory(
     "Ruhr",
+    "Ruh",
     "inland",
     false,
     ["Bel", "Bur", "Hol", "Kie", "Mun"],
@@ -374,6 +428,7 @@ const territories = {
   ),
   Rum: new Territory(
     "Rumania",
+    "Rum",
     "coastal",
     true,
     ["Bud", "Bul", "Gal", "Ser", "Sev", "Ukr"],
@@ -381,6 +436,7 @@ const territories = {
   ),
   Ser: new Territory(
     "Serbia",
+    "Ser",
     "inland",
     true,
     ["Alb", "Bud", "Bul", "Gre", "Rum", "Tri"],
@@ -388,6 +444,7 @@ const territories = {
   ),
   Sev: new Territory(
     "Sevastopol",
+    "Sev",
     "coastal",
     true,
     ["Arm", "Mos", "Rum", "Ukr"],
@@ -395,6 +452,7 @@ const territories = {
   ),
   Sil: new Territory(
     "Silesia",
+    "Sil",
     "inland",
     false,
     ["Ber", "Boh", "Gal", "Mun", "Pru", "War"],
@@ -402,6 +460,7 @@ const territories = {
   ),
   SKA: new Territory(
     "Skagerrak",
+    "SKA",
     "water",
     false,
     ["Den", "Nwy", "Swe"],
@@ -409,6 +468,7 @@ const territories = {
   ),
   Smy: new Territory(
     "Smyrna",
+    "Smy",
     "coastal",
     true,
     ["Ank", "Arm", "Con", "Syr"],
@@ -416,6 +476,7 @@ const territories = {
   ),
   Spa: new Territory(
     "Spain",
+    "Spa",
     "coastal",
     true,
     ["Gas", "Mar", "Por"],
@@ -426,6 +487,7 @@ const territories = {
   ),
   Stp: new Territory(
     "St.Petersburg",
+    "Stp",
     "coastal",
     true,
     ["Fin", "Lvn", "Mos", "Nwy"],
@@ -436,6 +498,7 @@ const territories = {
   ),
   Swe: new Territory(
     "Sweden",
+    "Swe",
     "coastal",
     true,
     ["Den", "Fin", "Nwy"],
@@ -443,6 +506,7 @@ const territories = {
   ),
   Syr: new Territory(
     "Syria",
+    "Syr",
     "coastal",
     false,
     ["Arm", "Smy"],
@@ -450,6 +514,7 @@ const territories = {
   ),
   Tri: new Territory(
     "Trieste",
+    "Tri",
     "coastal",
     true,
     ["Alb", "Bud", "Ser", "Tyr", "Ven", "Vie"],
@@ -457,6 +522,7 @@ const territories = {
   ),
   Tun: new Territory(
     "Tunisia",
+    "Tun",
     "coastal",
     true,
     ["Naf"],
@@ -464,6 +530,7 @@ const territories = {
   ),
   Tus: new Territory(
     "Tuscany",
+    "Tus",
     "coastal",
     false,
     ["Pie", "Rom", "Ven"],
@@ -471,6 +538,7 @@ const territories = {
   ),
   Tyr: new Territory(
     "Tyrolia",
+    "Tyr",
     "inland",
     false,
     ["Boh", "Mun", "Pie", "Tri", "Ven", "Vie"],
@@ -478,6 +546,7 @@ const territories = {
   ),
   TYS: new Territory(
     "Tyrrhenian Sea",
+    "TYS",
     "water",
     false,
     ["Nap", "Rom", "Tun", "Tus"],
@@ -485,6 +554,7 @@ const territories = {
   ),
   Ukr: new Territory(
     "Ukraine",
+    "Ukr",
     "inland",
     false,
     ["Gal", "Mos", "Rum", "Sev", "War"],
@@ -492,6 +562,7 @@ const territories = {
   ),
   Ven: new Territory(
     "Venice",
+    "Ven",
     "coastal",
     true,
     ["Apu", "Pie", "Rom", "Tri", "Tus", "Tyr"],
@@ -499,6 +570,7 @@ const territories = {
   ),
   Vie: new Territory(
     "Vienna",
+    "Vie",
     "inland",
     true,
     ["Boh", "Bud", "Gal", "Tri", "Tyr"],
@@ -506,6 +578,7 @@ const territories = {
   ),
   Wal: new Territory(
     "Wales",
+    "Wal",
     "coastal",
     false,
     ["Lon", "Lvp", "Yor"],
@@ -513,12 +586,14 @@ const territories = {
   ),
   War: new Territory(
     "Warsaw",
+    "War",
     "inland",
     true,
     ["Gal", "Lvn", "Mos", "Pru", "Sil", "Ukr"]
   ),
   WES: new Territory(
     "Western Mediterranean",
+    "WES",
     "water",
     false,
     ["Naf", "Spa", "Tun"],
@@ -526,6 +601,7 @@ const territories = {
   ),
   Yor: new Territory(
     "Yorkshire",
+    "Yor",
     "coastal",
     false,
     ["Edi", "Lon", "Lvp", "Wal"],

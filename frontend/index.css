@@ -1,7 +1,44 @@
-path {
-  fill: transparent;
-}
+#map > path {
+  fill: transparent; }
+  #map > path:hover {
+    fill: rgba(200, 200, 200, 0.5); }
+  #map > path.Britain {
+    fill: #2a2c80;
+    opacity: 0.5; }
+    #map > path.Britain:hover {
+      opacity: 0.7; }
+  #map > path.France {
+    fill: #5d87af;
+    opacity: 0.5; }
+    #map > path.France:hover {
+      opacity: 0.7; }
+  #map > path.Germany {
+    fill: #534f4b;
+    opacity: 0.5; }
+    #map > path.Germany:hover {
+      opacity: 0.7; }
+  #map > path.Italy {
+    fill: #698246;
+    opacity: 0.5; }
+    #map > path.Italy:hover {
+      opacity: 0.7; }
+  #map > path.Austria {
+    fill: #8f6460;
+    opacity: 0.5; }
+    #map > path.Austria:hover {
+      opacity: 0.7; }
+  #map > path.Russia {
+    fill: #6a7286;
+    opacity: 0.5; }
+    #map > path.Russia:hover {
+      opacity: 0.7; }
+  #map > path.Turkey {
+    fill: #b09c1a;
+    opacity: 0.5; }
+    #map > path.Turkey:hover {
+      opacity: 0.7; }
 
-path:hover {
-  fill: rgba(200, 100, 150, 0.5);
-}
+.fleet.Britain path {
+  fill: #2a2c80; }
+
+/*# sourceMappingURL=index.css.map */

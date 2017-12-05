@@ -7,6 +7,8 @@ function updateDisplay() {
 function play() {
   switch (game.currentTurn.phase) {
     case "Diplomatic Phase":
+      game.currentTurn.season === "Spring" ? colorTerritories() : null  
+      addUnits();
       updateDisplay();
       currentTimer = new Timer(15);
       break;
@@ -35,7 +37,7 @@ function play() {
 function switchPhase() {
   currentTimer.stopTimer();
   switch (game.currentTurn.phase) {
-    case "Diplomatic Phase":
+    case "Diplomatic Phase": 
       game.currentTurn.phase = "Order Writing Phase";
       break;
     case "Order Writing Phase":
@@ -72,3 +74,23 @@ function switchPhase() {
 }
 
 play();
+
+function colorTerritories() {
+  Object.keys(countries).forEach(countryKey => {
+    for (let territory of countries[countryKey].territories) {
+      document.getElementById(territory.abbreviation).classList.add(countryKey);
+    }
+  })
+}
+
+function addUnits() {
+  Object.keys(countries).forEach(countryKey => {
+    for (let unit of countries[countryKey].units) {
+      if (unit.type === "fleet" && unit.location.coordinates) {
+        const x = unit.location.coordinates.main.x
+        const y = unit.location.coordinates.main.y
+        gameMap.innerHTML += fleetSVG(x, y, countryKey);
+      }  
+    }
+  })
+}

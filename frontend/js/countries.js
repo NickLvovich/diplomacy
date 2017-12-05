@@ -12,12 +12,10 @@ const countries = {
       territories.Cly
     ],
     [
-      new Army(territories.Lvp)
+      new Unit("army", territories.Lvp, null),
+      new Unit("fleet", territories.Edi, null),
+      new Unit("fleet", territories.Lon, null)
     ],
-    [
-      new Fleet(territories.Edi, null),
-      new Fleet(territories.Lon, null)
-    ]
   ),
   France: new Country(
     game,
@@ -32,12 +30,10 @@ const countries = {
       territories.Gas
     ],
     [
-      new Army(territories.Par),
-      new Army(territories.Mar)
+      new Unit("army", territories.Par, null),
+      new Unit("army", territories.Mar, null),
+      new Unit("fleet", territories.Bre, null)
     ],
-    [
-      new Fleet(territories.Bre, null)
-    ]
   ),
   Germany: new Country(
     game,
@@ -52,12 +48,10 @@ const countries = {
       territories.Sil
     ],
     [
-      new Army(territories.Ber),
-      new Army(territories.Mun)
+      new Unit("army", territories.Ber, null),
+      new Unit("army", territories.Mun, null),
+      new Unit("fleet", territories.Kie, null)
     ],
-    [
-      new Fleet(territories.Kie, null)
-    ]
   ),
   Italy: new Country(
     game,
@@ -72,12 +66,10 @@ const countries = {
       territories.Apu
     ],
     [
-      new Army(territories.Rom),
-      new Army(territories.Ven)
+      new Unit("army", territories.Rom, null),
+      new Unit("army", territories.Ven, null),
+      new Unit("fleet", territories.Nap, null)
     ],
-    [
-      new Fleet(territories.Nap, null)
-    ]
   ),
   Austria: new Country(
     game,
@@ -92,12 +84,10 @@ const countries = {
       territories.Gal
     ],
     [
-      new Army(territories.Vie),
-      new Army(territories.Bud)
+      new Unit("army", territories.Vie, null),
+      new Unit("army", territories.Bud, null),
+      new Unit("fleet", territories.Tri, null)
     ],
-    [
-      new Fleet(territories.Tri, null)
-    ]
   ),
   Russia: new Country(
     game,
@@ -117,15 +107,13 @@ const countries = {
       territories.Ukr
     ],
     [
-      new Army(territories.Mos),
-      new Army(territories.War)
+      new Unit("army", territories.Mos, null),
+      new Unit("army", territories.War, null),
+      new Unit("fleet", territories.Stp, "SC"),
+      new Unit("fleet", territories.Sev, null)
     ],
-    [
-      new Fleet(territories.Stp, "SC"),
-      new Fleet(territories.Sev, null)
-    ]
   ),
-  Ottoman: new Country(
+  Turkey: new Country(
     game,
     users.u7,
     [territories.Con, territories.Ank, territories.Smy],
@@ -137,11 +125,9 @@ const countries = {
       territories.Syr,
     ],
     [
-      new Army(territories.Con),
-      new Army(territories.Smy)
+      new Unit("army", territories.Con, null),
+      new Unit("army", territories.Smy, null),
+      new Unit("fleet", territories.Ank, null)
     ],
-    [
-      new Fleet(territories.Ank, null)
-    ]
   )
 }
