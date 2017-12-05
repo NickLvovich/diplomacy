@@ -6,7 +6,7 @@ const territories = {
     false,
     ["Alb", "Apu", "Tri", "Ven"],
     { all: ["Alb", "Apu", "ION", "Tri", "Ven"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1640, y: 1800 } }
   ),
   AEG: new Territory(
     "Aegean Sea",
@@ -15,7 +15,7 @@ const territories = {
     false,
     ["Bul", "Con", "Gre", "Smy"],
     { all: ["Bul_SC", "Con", "EAS", "Gre", "ION", "Smy"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 2070, y: 2150 } }
   ),
   Alb: new Territory(
     "Albania",
@@ -24,7 +24,7 @@ const territories = {
     false,
     ["Gre", "Tri", "Ser"],
     { all: ["ADR", "Gre", "ION", "Tri"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1800, y: 1880 } }
   ),
   Ank: new Territory(
     "Ankara",
@@ -42,7 +42,7 @@ const territories = {
     false,
     ["Nap", "Rom", "Ven"],
     { all: ["ADR", "ION", "Nap", "Ven"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1650, y: 1880 } }
   ),
   Arm: new Territory(
     "Armenia",
