@@ -75,3 +75,28 @@ function createTurn(season, year, gameId) {
   }
   fetch('http://localhost:3000/turns', obj).then(res => res.json())
 }
+
+function editUnit(unitId, unitType, territory, countryId, coast){
+  let obj = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "put",
+      body: JSON.stringify({unit_type: unitType, territory: territory, country_id: countryId, coast: coast})
+  }
+  let url = 'http://localhost:3000/units/' + unitId + "/"
+  fetch(url, obj).then(res => res.json())
+}
+
+function deleteUnit(unitId) {
+  let obj = {
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      method: "delete"
+  }
+  let url = 'http://localhost:3000/units/' + unitId + "/"
+  fetch(url, obj)
+}

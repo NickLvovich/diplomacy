@@ -25,6 +25,11 @@ class UnitsController < ApplicationController
     end
   end
 
+  def destroy
+    unit = Unit.find(params[:id])
+    unit.delete
+  end
+
   private
 
   def unit_params
