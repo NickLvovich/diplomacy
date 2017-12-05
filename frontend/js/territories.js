@@ -595,7 +595,7 @@ const territories = {
     true,
     ["Naf"],
     { all: ["ION", "Naf", "TYS", "WES"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1275, y: 2200 } }
   ),
   Tus: new Territory(
     "Tuscany",
@@ -604,7 +604,7 @@ const territories = {
     false,
     ["Pie", "Rom", "Ven"],
     { all: ["LYO", "Pie", "Rom", "TYS"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1400, y: 1735 } }
   ),
   Tyr: new Territory(
     "Tyrolia",
@@ -613,7 +613,7 @@ const territories = {
     false,
     ["Boh", "Mun", "Pie", "Tri", "Ven", "Vie"],
     null,
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1470, y: 1500 } }
   ),
   TYS: new Territory(
     "Tyrrhenian Sea",
@@ -622,7 +622,7 @@ const territories = {
     false,
     ["Nap", "Rom", "Tun", "Tus"],
     { all: ["ION", "LYO", "Nap", "Rom", "Tun", "Tus", "WES"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1400, y: 1950 } }
   ),
   Ukr: new Territory(
     "Ukraine",
@@ -631,7 +631,7 @@ const territories = {
     false,
     ["Gal", "Mos", "Rum", "Sev", "War"],
     null,
-    { main: { x: 0, y: 0 } }
+    { main: { x: 2150, y: 1300 } }
   ),
   Ven: new Territory(
     "Venice",
@@ -658,7 +658,7 @@ const territories = {
     false,
     ["Lon", "Lvp", "Yor"],
     { all: ["ENG", "IRI", "Lon", "Lvp"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 925, y: 1100 } }
   ),
   War: new Territory(
     "Warsaw",
@@ -676,7 +676,7 @@ const territories = {
     false,
     ["Naf", "Spa", "Tun"],
     { all: ["LYO", "MAO", "Naf", "Spa_SC", "Tun", "TYS"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x:1050, y: 2000 } }
   ),
   Yor: new Territory(
     "Yorkshire",
@@ -685,6 +685,6 @@ const territories = {
     false,
     ["Edi", "Lon", "Lvp", "Wal"],
     { all: ["Edi", "Lon", "NTH"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x:1060, y: 995 } }
   )
 }
