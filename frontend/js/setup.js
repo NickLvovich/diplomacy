@@ -2,6 +2,8 @@ const turn = document.getElementById("turn")
 const phase = document.getElementById("phase")
 const timer = document.getElementById("timer")
 const timerToggleButton = document.getElementById("timer_toggle")
+const gameMap = document.getElementById("map")
+const territoryDescription = document.getElementById("territory_description")
 let currentTimer;
 
 const users = {

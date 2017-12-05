@@ -7,6 +7,8 @@ function updateDisplay() {
 function play() {
   switch (game.currentTurn.phase) {
     case "Diplomatic Phase":
+      game.currentTurn.season === "Spring" ? colorTerritories() : null  
+      addUnits();
       updateDisplay();
       currentTimer = new Timer(15);
       break;
@@ -35,7 +37,7 @@ function play() {
 function switchPhase() {
   currentTimer.stopTimer();
   switch (game.currentTurn.phase) {
-    case "Diplomatic Phase":
+    case "Diplomatic Phase": 
       game.currentTurn.phase = "Order Writing Phase";
       break;
     case "Order Writing Phase":
@@ -72,3 +74,51 @@ function switchPhase() {
 }
 
 play();
+
+function colorTerritories() {
+  Object.keys(countries).forEach(countryKey => {
+    for (let territory of countries[countryKey].territories) {
+      document.getElementById(territory.abbreviation).classList.add(countryKey);
+    }
+  })
+}
+
+function addUnits() {
+  Object.keys(countries).forEach(countryKey => {
+    for (let unit of countries[countryKey].units) {
+      if (unit.type === "fleet") {
+        if (!unit.coast) {
+          const x = unit.location.coordinates.main.x
+          const y = unit.location.coordinates.main.y
+          gameMap.innerHTML += fleetSVG(x, y, countryKey);
+        } else {
+          const x = unit.location.coordinates[unit.coast].x
+          const y = unit.location.coordinates[unit.coast].y
+          gameMap.innerHTML += fleetSVG(x, y, countryKey);
+        }     
+      } else if (unit.type === "army") {
+        const x = unit.location.coordinates.main.x
+        const y = unit.location.coordinates.main.y
+        gameMap.innerHTML += armySVG(x, y, countryKey);
+      }
+    }
+  })
+  const x = territories.Arm.coordinates.main.x
+  const y = territories.Arm.coordinates.main.y
+  gameMap.innerHTML += armySVG(x, y);
+}
+
+document.querySelectorAll("#map > path").forEach(path => {
+  path.addEventListener("mouseover", e => {
+    const terr = territories[e.target.id]
+    let owner = "Water"
+    if (terr.type === "coastal" || terr.type === "inland") {
+      owner = terr.findOwner();
+    }
+    if (owner === "Water") {
+      territoryDescription.innerHTML = `${terr.name} (${terr.abbreviation}) — Water${terr.findOccupied()}`
+    } else {
+      territoryDescription.innerHTML = `${terr.name} (${terr.abbreviation}) — ${countries[owner].possessive}${terr.findOccupied()}`
+    }
+  })
+})
