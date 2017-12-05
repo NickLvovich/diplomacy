@@ -28,7 +28,6 @@ class UnitsController < ApplicationController
   def destroy
     unit = Unit.find(params[:id])
     unit.delete
-
   end
 
   private
