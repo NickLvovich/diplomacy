@@ -18,6 +18,13 @@ class UnitsController < ApplicationController
     end
   end
 
+  def update
+    unit = Unit.find(params[:id])
+    if unit.update(unit_params)
+      render json:unit
+    end
+  end
+
   private
 
   def unit_params
