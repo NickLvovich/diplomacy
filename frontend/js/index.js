@@ -94,3 +94,18 @@ function addUnits() {
     }
   })
 }
+
+document.querySelectorAll("#map > path").forEach(path => {
+  path.addEventListener("mouseover", e => {
+    const terr = territories[e.target.id]
+    let owner = "Water"
+    if (terr.type === "coastal" || terr.type === "inland") {
+      owner = terr.findOwner();
+    }
+    if (owner === "Water") {
+      territoryDescription.innerHTML = `${terr.name} (${terr.abbreviation}) — Water${terr.findOccupied()}`
+    } else {
+      territoryDescription.innerHTML = `${terr.name} (${terr.abbreviation}) — ${countries[owner].possessive}${terr.findOccupied()}`
+    }
+  })
+})

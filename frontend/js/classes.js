@@ -31,12 +31,13 @@ class Order {
 }
 
 class Country {
-  constructor(game, user, homeSupplyCenters, territories, units) {
+  constructor(game, user, homeSupplyCenters, territories, units, possessive) {
     this.game = game
     this.user = user
     this.homeSupplyCenters = homeSupplyCenters
     this.territories = territories
     this.units = units
+    this.possessive = possessive
   }
 }
 
@@ -49,6 +50,29 @@ class Territory {
     this.landNeighbors = landNeighbors
     this.seaNeighbors = seaNeighbors
     this.coordinates = coordinates
+  }
+
+  findOwner() {
+    for (let countryKey of Object.keys(countries)) {
+      const result = countries[countryKey].territories.find(function(territory) {
+        return territory === this;
+      }, this);
+      if (result) {
+        return countryKey;
+      }
+    }
+  }
+
+  findOccupied() {
+    for (let countryKey of Object.keys(countries)) {
+      const result = countries[countryKey].units.find(function (unit) {
+        return unit.location === this;
+      }, this);
+      if (result) {
+        return ` — ${countries[countryKey].possessive} ${result.type}`
+      }
+    }
+    return "";
   }
 }
 
