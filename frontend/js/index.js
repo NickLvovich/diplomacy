@@ -103,6 +103,9 @@ function addUnits() {
       }
     }
   })
+  const x = territories.Arm.coordinates.main.x
+  const y = territories.Arm.coordinates.main.y
+  gameMap.innerHTML += armySVG(x, y);
 }
 
 document.querySelectorAll("#map > path").forEach(path => {
