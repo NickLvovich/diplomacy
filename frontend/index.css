@@ -38,7 +38,32 @@
     #map > path.Turkey:hover {
       opacity: 0.7; }
 
-.fleet.Britain path {
+.fleet.Britain path,
+.army.Britain path {
   fill: #2a2c80; }
+
+.fleet.France path,
+.army.France path {
+  fill: #5d87af; }
+
+.fleet.Germany path,
+.army.Germany path {
+  fill: #534f4b; }
+
+.fleet.Italy path,
+.army.Italy path {
+  fill: #698246; }
+
+.fleet.Austria path,
+.army.Austria path {
+  fill: #8f6460; }
+
+.fleet.Russia path,
+.army.Russia path {
+  fill: #6a7286; }
+
+.fleet.Turkey path,
+.army.Turkey path {
+  fill: #b09c1a; }
 
 /*# sourceMappingURL=index.css.map */

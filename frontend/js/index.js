@@ -91,8 +91,16 @@ function addUnits() {
           const x = unit.location.coordinates.main.x
           const y = unit.location.coordinates.main.y
           gameMap.innerHTML += fleetSVG(x, y, countryKey);
-        }        
-      }  
+        } else {
+          const x = unit.location.coordinates[unit.coast].x
+          const y = unit.location.coordinates[unit.coast].y
+          gameMap.innerHTML += fleetSVG(x, y, countryKey);
+        }     
+      } else if (unit.type === "army") {
+        const x = unit.location.coordinates.main.x
+        const y = unit.location.coordinates.main.y
+        gameMap.innerHTML += armySVG(x, y, countryKey);
+      }
     }
   })
 }

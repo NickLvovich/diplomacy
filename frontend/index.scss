@@ -62,6 +62,31 @@ $Turkey: rgb(176, 156, 26);
   }
 }
 
-.fleet.Britain path {
+.fleet.Britain path,
+.army.Britain path {
   fill: $Britain;
+}
+.fleet.France path,
+.army.France path {
+  fill: $France;
+}
+.fleet.Germany path,
+.army.Germany path {
+  fill: $Germany;
+}
+.fleet.Italy path,
+.army.Italy path {
+  fill: $Italy;
+}
+.fleet.Austria path,
+.army.Austria path {
+  fill: $Austria;
+}
+.fleet.Russia path,
+.army.Russia path {
+  fill: $Russia;
+}
+.fleet.Turkey path,
+.army.Turkey path {
+  fill: $Turkey;
 }
