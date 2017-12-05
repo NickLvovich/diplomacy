@@ -86,10 +86,12 @@ function colorTerritories() {
 function addUnits() {
   Object.keys(countries).forEach(countryKey => {
     for (let unit of countries[countryKey].units) {
-      if (unit.type === "fleet" && unit.location.coordinates) {
-        const x = unit.location.coordinates.main.x
-        const y = unit.location.coordinates.main.y
-        gameMap.innerHTML += fleetSVG(x, y, countryKey);
+      if (unit.type === "fleet") {
+        if (!unit.coast) {
+          const x = unit.location.coordinates.main.x
+          const y = unit.location.coordinates.main.y
+          gameMap.innerHTML += fleetSVG(x, y, countryKey);
+        }        
       }  
     }
   })
