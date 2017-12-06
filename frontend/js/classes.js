@@ -21,12 +21,13 @@ class Turn {
 }
 
 class Order {
-  constructor(turn, type, piece, currentLoc, destination) {
+  constructor(turn, type, unit, currentLoc, destination) {
     this.turn = turn
     this.type = type
-    this.piece = piece
+    this.unit = unit
     this.currentLoc = currentLoc
     this.destination = destination
+    this.support = 0
   }
 }
 
