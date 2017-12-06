@@ -106,10 +106,6 @@ class Territory {
 
 class Unit {
   constructor(id, type, location, coast) {
-<<<<<<< HEAD
-=======
-
->>>>>>> 82c8e2badd68f3f90d9fb70fe46799a05381c9fc
     this.id = id
     this.type = type
     this.location = location
