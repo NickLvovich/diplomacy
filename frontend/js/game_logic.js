@@ -24,6 +24,6 @@
 
 // Is support cut(helper)
 
- Checking to see if armies are looking to go to the same location.
- Check to see if there is support
-  and if it is cut.
+//  Checking to see if armies are looking to go to the same location.
+//  Check to see if there is support
+//   and if it is cut.
