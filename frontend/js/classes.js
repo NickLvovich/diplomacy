@@ -5,7 +5,8 @@ class User {
 }
 
 class Game {
-  constructor(name, currentTurn, active) {
+  constructor(id, name, currentTurn, active) {
+    this.id = id
     this.name = name
     this.currentTurn = currentTurn
     this.active = active
@@ -105,6 +106,10 @@ class Territory {
 
 class Unit {
   constructor(id, type, location, coast) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 82c8e2badd68f3f90d9fb70fe46799a05381c9fc
     this.id = id
     this.type = type
     this.location = location
@@ -150,8 +155,8 @@ class Timer {
       } else {
         alert(`${game.currentTurn.phase} complete!`)
         switchPhase();
-      }  
-    }          
+      }
+    }
   }
 
   stopTimer() {

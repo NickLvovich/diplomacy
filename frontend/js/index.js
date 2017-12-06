@@ -7,7 +7,7 @@ function updateDisplay() {
 function play() {
   switch (game.currentTurn.phase) {
     case "Diplomatic Phase":
-      game.currentTurn.season === "Spring" ? colorTerritories() : null  
+      game.currentTurn.season === "Spring" ? colorTerritories() : null
       addUnits();
       updateDisplay();
       currentTimer = new Timer(15);
@@ -37,7 +37,7 @@ function play() {
 function switchPhase() {
   currentTimer.stopTimer();
   switch (game.currentTurn.phase) {
-    case "Diplomatic Phase": 
+    case "Diplomatic Phase":
       game.currentTurn.phase = "Order Writing Phase";
       break;
     case "Order Writing Phase":
@@ -56,17 +56,17 @@ function switchPhase() {
         case ("Fall"):
           game.currentTurn.phase = "Gaining and Losing Units Phase"
           break;
-        default: 
+        default:
           alert("Something went wrong");
           break;
-      }  
+      }
       break;
     case "Gaining and Losing Units Phase":
       game.currentTurn.phase = "Diplomatic Phase";
       game.currentTurn.season = "Spring"
       game.currentTurn.year += 1;
       break;
-    default: 
+    default:
       alert("Something went wrong");
       break;
   }
@@ -95,7 +95,7 @@ function addUnits() {
           const x = unit.location.coordinates[unit.coast].x
           const y = unit.location.coordinates[unit.coast].y
           gameMap.innerHTML += fleetSVG(x, y, countryKey);
-        }     
+        }
       } else if (unit.type === "army") {
         const x = unit.location.coordinates.main.x
         const y = unit.location.coordinates.main.y
@@ -162,7 +162,7 @@ document.addEventListener("DOMContentLoaded", e => {
             clearTargets();
           }          
         }
-      }      
+      }
     })
   })
   document.addEventListener("keydown", e => {
@@ -171,7 +171,7 @@ document.addEventListener("DOMContentLoaded", e => {
 })
 
 function triggerSupportMode() {
-  
+
   // If no unit is selected, prompt the user to select a unit
   if (!document.querySelector(".targeted")) {
     document.querySelector("#info_text").innerHTML = "Please select which unit should do the supporting";
@@ -191,5 +191,5 @@ function triggerSupportMode() {
     const terr = territories[target.id]
     addTargetsSupport(terr, target)
   }
-  inputMode = "support";  
+  inputMode = "support";
 }
