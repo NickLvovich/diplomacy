@@ -21,10 +21,10 @@ class Turn {
 }
 
 class Order {
-  constructor(turn, type, piece, currentLoc, destination) {
+  constructor(turn, type, unit, currentLoc, destination) {
     this.turn = turn
     this.type = type
-    this.piece = piece
+    this.unit = unit
     this.currentLoc = currentLoc
     this.destination = destination
   }
@@ -78,7 +78,6 @@ class Territory {
 
 class Unit {
   constructor(type, location, coast) {
-
     this.type = type
     this.location = location
     this.coast = coast
