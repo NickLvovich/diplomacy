@@ -103,20 +103,99 @@ function addUnits() {
       }
     }
   })
+<<<<<<< HEAD
   
+=======
+>>>>>>> 4c844d887d1e4140ca89cafde6c6a9d92be78399
 }
 
-document.querySelectorAll("#map > path").forEach(path => {
-  path.addEventListener("mouseover", e => {
-    const terr = territories[e.target.id]
-    let owner = "Water"
-    if (terr.type === "coastal" || terr.type === "inland") {
-      owner = terr.findOwner();
-    }
-    if (owner === "Water") {
-      territoryDescription.innerHTML = `${terr.name} (${terr.abbreviation}) — Water${terr.findOccupied()}`
-    } else {
-      territoryDescription.innerHTML = `${terr.name} (${terr.abbreviation}) — ${countries[owner].possessive}${terr.findOccupied()}`
-    }
+document.addEventListener("DOMContentLoaded", e => {
+  document.querySelectorAll("#map > path").forEach(path => {
+    path.addEventListener("mouseover", e => {
+      const terr = territories[e.target.id]
+      let owner = "Water"
+      if (terr.type === "coastal" || terr.type === "inland") {
+        owner = terr.findOwner();
+      }
+      if (owner === "Water") {
+        document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) — Water`
+      } else {
+        document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) — ${countries[owner].possessive}`
+      }
+    })
+    path.addEventListener("mouseleave", e => {
+      document.getElementById("territory_description").textContent = ""
+    })
+    path.addEventListener("click", e => {
+      const terr = territories[e.target.id]
+      const target = e.target
+      if (inputMode === "normal") {
+        if (target === document.querySelector(".targeted")) {
+          const info = territories[document.querySelector(".targeted").id]
+          alert(`${info.findOccupied().type} in ${info.name} holds`)
+          clearTargets();
+        } else if (target.classList.contains("potentialMove")) {
+          const fromInfo = territories[document.querySelector(".targeted").id]
+          const toInfo = territories[target.id]
+          alert(`${fromInfo.findOccupied().type} in ${fromInfo.name} moves to ${toInfo.name}`);
+          clearTargets();
+        } else {
+          if (terr.findOccupied()) {
+            checkForOtherTargets();
+            addTargets(terr, target);
+          } else {
+            clearTargets();
+          }
+        }
+      } else if (inputMode === "support") {
+        if (!document.querySelector(".targeted")) {
+          addTargetsSupport(terr, target);
+        } else if (target.classList.contains("potentialMove") && !document.querySelector(".targeted2")) {
+          supportStep2(terr, target);
+        } else if (target.classList.contains("potentialMove") && document.querySelector(".targeted2")) {
+          const fromInfo = territories[document.querySelector(".targeted").id]
+          const fromInfo2 = territories[document.querySelector(".targeted2").id]
+          const toInfo = territories[target.id]
+          alert(`${fromInfo.findOccupied().type} in ${fromInfo.name} supports ${fromInfo2.findOccupied().type} in ${fromInfo2.name} move to ${toInfo.name}`);
+          clearTargets();
+        } else if (target.classList.contains("targeted2")) {
+          const fromInfo = territories[document.querySelector(".targeted").id]
+          const toInfo = territories[target.id]
+          alert(`${fromInfo.findOccupied().type} in ${fromInfo.name} supports ${toInfo.findOccupied().type} in ${toInfo.name} holding`);
+          clearTargets();
+        }
+      }      
+    })
+  })
+<<<<<<< HEAD
+})
+=======
+  document.addEventListener("keydown", e => {
+    e.key === "Escape" ? clearTargets() : null;
   })
 })
+
+function triggerSupportMode() {
+  
+  // If no unit is selected, prompt the user to select a unit
+  if (!document.querySelector(".targeted")) {
+    document.querySelector("#info_text").innerHTML = "Please select which unit should do the supporting";
+  } else if (document.querySelector(".targeted")) {
+    document.querySelector("#info_text").innerHTML = "Please select which unit you'd like the selected unit to support";
+    Object.keys(document.getElementsByClassName("potentialMove")).forEach(abbr => {
+      if (document.getElementById(abbr)) {
+        document.getElementById(abbr).classList.remove("potentialMove");
+      }
+    })
+    Object.keys(document.getElementsByClassName("targeted2")).forEach(abbr => {
+      if (document.getElementById(abbr)) {
+        document.getElementById(abbr).classList.remove("targeted2");
+      }
+    })
+    const target = document.querySelector(".targeted")
+    const terr = territories[target.id]
+    addTargetsSupport(terr, target)
+  }
+  inputMode = "support";  
+}
+>>>>>>> 4c844d887d1e4140ca89cafde6c6a9d92be78399
