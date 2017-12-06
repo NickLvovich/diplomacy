@@ -103,10 +103,6 @@ function addUnits() {
       }
     }
   })
-<<<<<<< HEAD
-  
-=======
->>>>>>> 4c844d887d1e4140ca89cafde6c6a9d92be78399
 }
 
 document.addEventListener("DOMContentLoaded", e => {
@@ -164,19 +160,16 @@ document.addEventListener("DOMContentLoaded", e => {
           alert(`${fromInfo.findOccupied().type} in ${fromInfo.name} supports ${toInfo.findOccupied().type} in ${toInfo.name} holding`);
           clearTargets();
         }
-      }      
+      }
     })
   })
-<<<<<<< HEAD
-})
-=======
   document.addEventListener("keydown", e => {
     e.key === "Escape" ? clearTargets() : null;
   })
 })
 
 function triggerSupportMode() {
-  
+
   // If no unit is selected, prompt the user to select a unit
   if (!document.querySelector(".targeted")) {
     document.querySelector("#info_text").innerHTML = "Please select which unit should do the supporting";
@@ -196,6 +189,5 @@ function triggerSupportMode() {
     const terr = territories[target.id]
     addTargetsSupport(terr, target)
   }
-  inputMode = "support";  
+  inputMode = "support";
 }
->>>>>>> 4c844d887d1e4140ca89cafde6c6a9d92be78399
