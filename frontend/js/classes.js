@@ -5,8 +5,7 @@ class User {
 }
 
 class Game {
-  constructor(id, name, currentTurn, active) {
-    this.id = id
+  constructor( name, currentTurn, active) {
     this.name = name
     this.currentTurn = currentTurn
     this.active = active
@@ -78,9 +77,8 @@ class Territory {
 }
 
 class Unit {
-  constructor(id, type, location, coast) {
+  constructor(type, location, coast) {
 
-    this.id = id
     this.type = type
     this.location = location
     this.coast = coast
