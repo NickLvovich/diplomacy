@@ -12,12 +12,12 @@ let allUnitsNested = [germanyUnits, franceUnits, britainUnits, italyUnits, austr
 let allUnitsArray = [].concat.apply([], allUnitsNested)
 
 
-let ordersArray = [new Order(1, "move", countries.Germany.units[0], territories.Ber, territories.Kie ),
+let ordersArray = [new Order(1, "support", countries.Germany.units[0], territories.Mun, territories.Bur ),
                    new Order(1, "move", countries.Germany.units[1], territories.Mun, territories.Bur ),
-                   new Order(1, "move", countries.Germany.units[2], territories.Kie, territories.Ruh ),
+                   new Order(1, "move", countries.Germany.units[2], territories.Kie, territories.Mar ),
                    new Order(1, "move", countries.France.units[0], territories.Par, territories.Bur ),
                    new Order(1, "support", countries.France.units[1], territories.Par, territories.Bur ),
-                   new Order(1, "move", countries.France.units[2], territories.Bre, territories.Gas )]
+                   new Order(1, "move", countries.France.units[2], territories.Bre, territories.Mar )]
 
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
@@ -56,7 +56,7 @@ function resolveConflict(ordersArray, conflict){
   var conflictingOrders =  ordersArray.filter(order => {
     return order.destination == conflict
   })
-  return conflictingOrders.
+  return conflictingOrders
 }
 
 const supports = (ordersArray) => {
@@ -69,21 +69,26 @@ const supports = (ordersArray) => {
 function addSupports(ordersArray){
   let supportArray = supports(ordersArray)
   ordersArray.forEach( order => {
-    if (supportArray.find(support => support.destination === order.destination && support.currentLoc === order.currentLoc) && order.type != "support"){
-        order.support++;
+    if (supportArray.find(support => !areSupportsCutOff(ordersArray, support) && support.destination === order.destination && support.currentLoc === order.currentLoc) && order.type != "support"){
+      order.support++;
     }
   })
 }
 
+function areSupportsCutOff(ordersArray, support){
+  if (getMoveDestinations(ordersArray).includes(support.unit.location)){
+    return true
+  }
+}
+ // && areSupportsCutOff(ordersArray, support) != "true"
 
 
-
-// Is the territory occupied (helper)
 
 // Method to loop through countries for unit locations
-function getUnitLocations(){
-  allUnitsArray.forEach( unit =>
-  console.log(unit.location))
+function getMoveDestinations(ordersArray){
+  return ordersArray.map(order => {
+  return order.destination
+  })
 }
 
 
