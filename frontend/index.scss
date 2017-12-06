@@ -13,52 +13,64 @@ $Turkey: rgb(176, 156, 26);
   }
   &.Britain {
     fill: $Britain;
-    opacity: 0.5;
+    fill-opacity: 0.5;
     &:hover {
-      opacity: 0.7;
+      fill-opacity: 0.7;
     }
   }
   &.France {
     fill: $France;
-    opacity: 0.5;
+    fill-opacity: 0.5;
     &:hover {
-      opacity: 0.7;
+      fill-opacity: 0.7;
     }
   }
   &.Germany {
     fill: $Germany;
-    opacity: 0.5;
+    fill-opacity: 0.5;
     &:hover {
-      opacity: 0.7;
+      fill-opacity: 0.7;
     }
   }
   &.Italy {
     fill: $Italy;
-    opacity: 0.5;
+    fill-opacity: 0.5;
     &:hover {
-      opacity: 0.7;
+      fill-opacity: 0.7;
     }
   }
   &.Austria {
     fill: $Austria;
-    opacity: 0.5;
+    fill-opacity: 0.5;
     &:hover {
-      opacity: 0.7;
+      fill-opacity: 0.7;
     }
   }
   &.Russia {
     fill: $Russia;
-    opacity: 0.5;
+    fill-opacity: 0.5;
     &:hover {
-      opacity: 0.7;
+      fill-opacity: 0.7;
     }
   }
   &.Turkey {
     fill: $Turkey;
-    opacity: 0.5;
+    fill-opacity: 0.5;
     &:hover {
-      opacity: 0.7;
+      fill-opacity: 0.7;
     }
+  }
+  &.targeted {
+    stroke: yellow;
+    stroke-width: 10px;
+  }
+  &.targeted2 {
+    stroke: blue;
+    stroke-width: 10px;
+  }
+  &.potentialMove {
+    stroke: red;
+    stroke-width: 10px;
   }
 }
 

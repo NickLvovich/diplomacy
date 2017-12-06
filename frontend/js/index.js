@@ -103,20 +103,93 @@ function addUnits() {
       }
     }
   })
-
 }
 
-document.querySelectorAll("#map > path").forEach(path => {
-  path.addEventListener("mouseover", e => {
-    const terr = territories[e.target.id]
-    let owner = "Water"
-    if (terr.type === "coastal" || terr.type === "inland") {
-      owner = terr.findOwner();
-    }
-    if (owner === "Water") {
-      territoryDescription.innerHTML = `${terr.name} (${terr.abbreviation}) — Water${terr.findOccupied()}`
-    } else {
-      territoryDescription.innerHTML = `${terr.name} (${terr.abbreviation}) — ${countries[owner].possessive}${terr.findOccupied()}`
-    }
+document.addEventListener("DOMContentLoaded", e => {
+  document.querySelectorAll("#map > path").forEach(path => {
+    path.addEventListener("mouseover", e => {
+      const terr = territories[e.target.id]
+      let owner = "Water"
+      if (terr.type === "coastal" || terr.type === "inland") {
+        owner = terr.findOwner();
+      }
+      if (owner === "Water") {
+        document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) — Water`
+      } else {
+        document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) — ${countries[owner].possessive}`
+      }
+    })
+    path.addEventListener("mouseleave", e => {
+      document.getElementById("territory_description").textContent = ""
+    })
+    path.addEventListener("click", e => {
+      const terr = territories[e.target.id]
+      const target = e.target
+      if (inputMode === "normal") {
+        if (target === document.querySelector(".targeted")) {
+          const info = territories[document.querySelector(".targeted").id]
+          createOrReplaceOrder(game.currentTurn, "Hold", terr.findUnit(), terr, terr)
+          clearTargets();
+        } else if (target.classList.contains("potentialMove")) {
+          const fromTerr = territories[document.querySelector(".targeted").id]
+          const toTerr = territories[target.id]
+          createOrReplaceOrder(game.currentTurn, "Move",fromTerr.findUnit(), fromTerr, toTerr)
+          clearTargets();
+        } else {
+          if (terr.findOccupied()) {
+            checkForOtherTargets();
+            addTargets(terr, target);
+          } else {
+            clearTargets();
+          }
+        }
+      } else if (inputMode === "support") {
+        if (!document.querySelector(".targeted")) {
+          addTargetsSupport(terr, target);
+        } else if (target.classList.contains("potentialMove") && !document.querySelector(".targeted2")) {
+          supportStep2(terr, target);
+        } else if (target.classList.contains("potentialMove") && document.querySelector(".targeted2")) {
+          const fromInfo = territories[document.querySelector(".targeted").id]
+          const fromInfo2 = territories[document.querySelector(".targeted2").id]
+          const toInfo = territories[target.id]
+          createOrReplaceOrder(game.currentTurn, "Support", fromInfo.findUnit(), fromInfo2, toInfo)
+          clearTargets();
+        } else if (target.classList.contains("targeted2")) {
+          if (territories[document.querySelector(".targeted").id].findRelevantNeighbors().includes(target.id)) {
+            const fromInfo = territories[document.querySelector(".targeted").id]
+            const toInfo = territories[target.id]
+            createOrReplaceOrder(game.currentTurn, "Support", fromInfo.findUnit(), toInfo, toInfo)
+            clearTargets();
+          }          
+        }
+      }
+    })
+  })
+  document.addEventListener("keydown", e => {
+    e.key === "Escape" ? clearTargets() : null;
   })
 })
+
+function triggerSupportMode() {
+
+  // If no unit is selected, prompt the user to select a unit
+  if (!document.querySelector(".targeted")) {
+    document.querySelector("#info_text").innerHTML = "Please select which unit should do the supporting";
+  } else if (document.querySelector(".targeted")) {
+    document.querySelector("#info_text").innerHTML = "Please select which unit you'd like the selected unit to support";
+    Object.keys(document.getElementsByClassName("potentialMove")).forEach(abbr => {
+      if (document.getElementById(abbr)) {
+        document.getElementById(abbr).classList.remove("potentialMove");
+      }
+    })
+    Object.keys(document.getElementsByClassName("targeted2")).forEach(abbr => {
+      if (document.getElementById(abbr)) {
+        document.getElementById(abbr).classList.remove("targeted2");
+      }
+    })
+    const target = document.querySelector(".targeted")
+    const terr = territories[target.id]
+    addTargetsSupport(terr, target)
+  }
+  inputMode = "support";
+}
