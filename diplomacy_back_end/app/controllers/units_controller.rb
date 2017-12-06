@@ -11,7 +11,6 @@ class UnitsController < ApplicationController
   end
 
   def create
-    byebug
     unit = Unit.new(unit_params)
     if unit.save
       render json:unit

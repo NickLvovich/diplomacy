@@ -1,4 +1,4 @@
-function createGame(gameName) {
+function createGameToAPI(gameName) {
   let obj = {
       headers: {
         'Accept': 'application/json',
@@ -7,10 +7,13 @@ function createGame(gameName) {
       method: "post",
       body: JSON.stringify({name: gameName})
   }
-  fetch('http://localhost:3000/games/', obj).then(res => res.json())
+  fetch('http://localhost:3000/games/', obj).then(res => res.json()).then(json => {
+    debugger;
+    new Game (json.id, json.name, 0, true);
+  })
 }
 
-function createUser(userName) {
+function createUserToAPI(userName) {
   let obj = {
       headers: {
         'Accept': 'application/json',
@@ -22,7 +25,7 @@ function createUser(userName) {
   fetch('http://localhost:3000/users/', obj).then(res => res.json())
 }
 
-function createCountry(countryName, userId, gameId) {
+function createCountryToAPI(countryName, userId, gameId) {
   let obj = {
       headers: {
         'Accept': 'application/json',
@@ -34,7 +37,7 @@ function createCountry(countryName, userId, gameId) {
   fetch('http://localhost:3000/countries', obj).then(res => res.json())
 }
 
-function createUnit(unitType,territory, countryId, coast) {
+function createUnitToAPI(unitType,territory, countryId, coast) {
   let obj = {
       headers: {
         'Accept': 'application/json',
@@ -43,10 +46,12 @@ function createUnit(unitType,territory, countryId, coast) {
       method: "post",
       body: JSON.stringify({unit_type: unitType, territory: territory, country_id: countryId, coast: coast})
   }
-  fetch('http://localhost:3000/units', obj).then(res => res.json())
+  fetch('http://localhost:3000/units', obj).then(res => res.json()).then(json => {
+      return new Unit(json.id, json.unit_type, json.territory, json.coast);
+  })
 }
 
-function createOrder(turnId, unitId, phase, orderType, fromTerritory, toTerritory, coast) {
+function createOrderToAPI(turnId, unitId, phase, orderType, fromTerritory, toTerritory, coast) {
   let obj = {
       headers: {
         'Accept': 'application/json',
@@ -64,7 +69,7 @@ function createOrder(turnId, unitId, phase, orderType, fromTerritory, toTerritor
   fetch('http://localhost:3000/orders', obj).then(res => res.json())
 }
 
-function createTurn(season, year, gameId) {
+function createTurnToAPI(season, year, gameId) {
   let obj = {
       headers: {
         'Accept': 'application/json',
@@ -76,7 +81,7 @@ function createTurn(season, year, gameId) {
   fetch('http://localhost:3000/turns', obj).then(res => res.json())
 }
 
-function editUnit(unitId, unitType, territory, countryId, coast){
+function editUnitToAPI(unitId, unitType, territory, countryId, coast){
   let obj = {
       headers: {
         'Accept': 'application/json',
@@ -89,7 +94,7 @@ function editUnit(unitId, unitType, territory, countryId, coast){
   fetch(url, obj).then(res => res.json())
 }
 
-function deleteUnit(unitId) {
+function deleteUnitToAPI(unitId) {
   let obj = {
       headers: {
         'Accept': 'application/json',
