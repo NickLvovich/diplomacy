@@ -128,12 +128,12 @@ document.addEventListener("DOMContentLoaded", e => {
       if (inputMode === "normal") {
         if (target === document.querySelector(".targeted")) {
           const info = territories[document.querySelector(".targeted").id]
-          alert(`${info.findOccupied().type} in ${info.name} holds`)
+          createOrReplaceOrder(game.currentTurn, "Hold", terr.findUnit(), terr, terr)
           clearTargets();
         } else if (target.classList.contains("potentialMove")) {
-          const fromInfo = territories[document.querySelector(".targeted").id]
-          const toInfo = territories[target.id]
-          alert(`${fromInfo.findOccupied().type} in ${fromInfo.name} moves to ${toInfo.name}`);
+          const fromTerr = territories[document.querySelector(".targeted").id]
+          const toTerr = territories[target.id]
+          createOrReplaceOrder(game.currentTurn, "Move",fromTerr.findUnit(), fromTerr, toTerr)
           clearTargets();
         } else {
           if (terr.findOccupied()) {
@@ -152,13 +152,15 @@ document.addEventListener("DOMContentLoaded", e => {
           const fromInfo = territories[document.querySelector(".targeted").id]
           const fromInfo2 = territories[document.querySelector(".targeted2").id]
           const toInfo = territories[target.id]
-          alert(`${fromInfo.findOccupied().type} in ${fromInfo.name} supports ${fromInfo2.findOccupied().type} in ${fromInfo2.name} move to ${toInfo.name}`);
+          createOrReplaceOrder(game.currentTurn, "Support", fromInfo.findUnit(), fromInfo2, toInfo)
           clearTargets();
         } else if (target.classList.contains("targeted2")) {
-          const fromInfo = territories[document.querySelector(".targeted").id]
-          const toInfo = territories[target.id]
-          alert(`${fromInfo.findOccupied().type} in ${fromInfo.name} supports ${toInfo.findOccupied().type} in ${toInfo.name} holding`);
-          clearTargets();
+          if (territories[document.querySelector(".targeted").id].findRelevantNeighbors().includes(target.id)) {
+            const fromInfo = territories[document.querySelector(".targeted").id]
+            const toInfo = territories[target.id]
+            createOrReplaceOrder(game.currentTurn, "Support", fromInfo.findUnit(), toInfo, toInfo)
+            clearTargets();
+          }          
         }
       }
     })
