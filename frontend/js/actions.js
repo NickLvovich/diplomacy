@@ -133,10 +133,11 @@ function supportStep2(terr, target) {
   } else if (terr.findOccupied().type === "fleet") {
     if (terr.findOccupied().coast) {
       for (let n of terr.seaNeighbors[terr.findOccupied().coast]) {
-        for (let n2 of terr2.landNeighbors) {
-          n === n2 ? common.push(n) : null;
-        }
-        if (terr2.seaNeighbors) {
+        if (terr2.findOccupied().type === "army") {
+          for (let n2 of terr2.landNeighbors) {
+            n === n2 ? common.push(n) : null;
+          }
+        } else if (terr2.findOccupied().type === "fleet") {
           if (terr2.findOccupied().coast) {
             for (let n2 of terr2.seaNeighbors[terr.findOccupied().coast]) {
               n === n2 ? common.push(n) : null;
@@ -146,14 +147,15 @@ function supportStep2(terr, target) {
               n === n2 ? common.push(n) : null;
             }
           }
-        }
+        }         
       }
     } else {
       for (let n of terr.seaNeighbors.all) {
-        for (let n2 of terr2.landNeighbors) {
-          n === n2 ? common.push(n) : null;
-        }
-        if (terr2.seaNeighbors) {
+        if (terr2.findOccupied().type === "army") {
+          for (let n2 of terr2.landNeighbors) {
+            n === n2 ? common.push(n) : null;
+          }
+        } else if (terr2.findOccupied().type === "fleet") {
           if (terr2.findOccupied().coast) {
             for (let n2 of terr2.seaNeighbors[terr.findOccupied().coast]) {
               n === n2 ? common.push(n) : null;
@@ -190,4 +192,32 @@ function clearTargets() {
       document.getElementById(abbr).classList.remove("targeted2");
     }
   })
+}
+
+function createOrReplaceOrder(turn, type, unit, currentLoc, destination) {
+  const orderIndex = orderStore.findIndex(order => {
+    return order.unit.location === unit.location
+  }, unit)
+  if (orderIndex >= 0) {
+    orderStore.splice(orderIndex, 1, new Order(turn, type, unit, currentLoc, destination))
+  } else {
+    orderStore.push(new Order(turn, type, unit, currentLoc, destination))
+  }
+  updateOrderDisplay();
+}
+
+function updateOrderDisplay() {
+  let listItems = ""
+  for (let order of orderStore) {
+    if (order.type === "Hold") {
+      listItems += `<li>${order.unit.findOwner().possessive} ${order.unit.type} in ${order.unit.location.name} holds</li>`
+    } else if (order.type === "Move") {
+      listItems += `<li>${order.unit.findOwner().possessive} ${order.unit.type} in ${order.unit.location.name} moves to ${order.destination.name}</li>`
+    } else if (order.type === "Support" && order.currentLoc !== order.destination) {
+      listItems += `<li>${order.unit.findOwner().possessive} ${order.unit.type} in ${order.unit.location.name} supports ${order.currentLoc.name} to ${order.destination.name}</li>`
+    } else if (order.type === "Support" && order.currentLoc === order.destination) {
+      listItems += `<li>${order.unit.findOwner().possessive} ${order.unit.type} in ${order.unit.location.name} supports ${order.currentLoc.name} holding</li>`
+    }
+  }
+  orders.innerHTML = listItems;
 }

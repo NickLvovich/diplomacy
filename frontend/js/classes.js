@@ -21,17 +21,18 @@ class Turn {
 }
 
 class Order {
-  constructor(turn, type, piece, currentLoc, destination) {
+  constructor(turn, type, unit, currentLoc, destination) {
     this.turn = turn
     this.type = type
-    this.piece = piece
+    this.unit = unit
     this.currentLoc = currentLoc
     this.destination = destination
   }
 }
 
 class Country {
-  constructor(game, user, homeSupplyCenters, territories, units, possessive) {
+  constructor(id, game, user, homeSupplyCenters, territories, units, possessive) {
+    this.id = id
     this.game = game
     this.user = user
     this.homeSupplyCenters = homeSupplyCenters
@@ -77,13 +78,48 @@ class Territory {
       }
     }
   }
+
+  findUnit() {    
+    for (let countryKey of Object.keys(countries)) {
+      const result = countries[countryKey].units.find(function (unit) {
+        return unit.location === this;
+      }, this);
+      if (result) {
+        return result;
+      }
+    }
+  }
+
+  findRelevantNeighbors() {
+    if (this.findOccupied().type === "army") {
+      return this.landNeighbors
+    } else if (this.findOccupied().type === "fleet") {
+      if (this.findOccupied().coast) {
+        return this.seaNeighbors[this.findOccupied().coast]
+      } else {
+        return this.seaNeighbors.all;
+      }
+    }
+  }
 }
 
 class Unit {
-  constructor(type, location, coast) {
+  constructor(id, type, location, coast) {
+    this.id = id
     this.type = type
     this.location = location
     this.coast = coast
+  }
+
+  findOwner() {
+    for (let countryKey of Object.keys(countries)) {
+      const result = countries[countryKey].units.find(function (unit) {
+        return unit.id === this.id;
+      }, this);
+      if (result) {
+        return countries[countryKey];
+      }
+    }
   }
 }
 
