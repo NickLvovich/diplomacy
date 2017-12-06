@@ -69,10 +69,13 @@ class Territory {
         return unit.location === this;
       }, this);
       if (result) {
-        return ` — ${countries[countryKey].possessive} ${result.type}`
+        return {
+          type: result.type,
+          country: countryKey,
+          coast: result.coast
+        }
       }
     }
-    return "";
   }
 }
 
