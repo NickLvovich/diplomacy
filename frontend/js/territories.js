@@ -306,7 +306,7 @@ const territories = {
     false,
     ["Mos", "Pru", "Stp", "War"],
     { all: ["BAL", "BOT", "Pru", "Stp_SC"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 2000, y: 900 } }
   ),
   Lvp: new Territory(
     "Liverpool",
@@ -324,7 +324,7 @@ const territories = {
     false,
     ["Mar", "Pie", "Spa", "Tus"],
     { all: ["Mar", "Pie", "Spa_SC", "Tus", "TYS", "WES"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1110, y: 1800 } }
   ),
   MAO: new Territory(
     "Mid Atlantic Ocean",
@@ -333,7 +333,7 @@ const territories = {
     false,
     ["Bre", "Gas", "Naf", "Por", "Spa"],
     { all: ["Bre", "ENG", "Gas", "IRI", "Naf", "NAO", "Por", "Spa_NC", "Spa_SC", "WES"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 200, y: 1600 } }
   ),
   Mar: new Territory(
     "Marseilles",
@@ -369,7 +369,7 @@ const territories = {
     false,
     ["Tun"],
     { all: ["MAO", "Tun", "WES"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 800, y: 2150 } }
   ),
   NAO: new Territory(
     "North Atlantic Ocean",
@@ -378,7 +378,7 @@ const territories = {
     false,
     ["Cly", "Lvp"],
     { all: ["Cly", "IRI", "Lvp", "MAO", "NWG"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 400, y: 500 } }
   ),
   Nap: new Territory(
     "Naples",
@@ -396,7 +396,7 @@ const territories = {
     false,
     ["Bel", "Den", "Edi", "Hol", "Lon", "Nwy", "Yor"],
     { all: ["Bel", "Den", "Edi", "ENG", "HEL", "Hol", "Lon", "NWG", "Nwy", "SKA", "Yor"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1240, y: 820 } }
   ),
   NWG: new Territory(
     "Norwegian Sea",
@@ -405,7 +405,7 @@ const territories = {
     false,
     ["Cly", "Edi", "Nwy"],
     { all: ["BAR", "Cly", "Edi", "NAO", "NTH", "Nwy"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1300, y: 240 } }
   ),
   Nwy: new Territory(
     "Norway",
@@ -414,7 +414,7 @@ const territories = {
     true,
     ["Fin", "Stp", "Swe"],
     { all: ["BAR", "NTH", "NWG", "SKA", "Stp_NC", "Swe"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1470, y: 600 } }
   ),
   Par: new Territory(
     "Paris",
@@ -432,7 +432,7 @@ const territories = {
     false,
     ["Bel", "Bre", "Bur", "Par"],
     { all: ["Bel", "Bre", "ENG"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1060, y: 1280 } }
   ),
   Pie: new Territory(
     "Piedmont",
@@ -441,7 +441,7 @@ const territories = {
     false,
     ["Mar", "Tus", "Tyr", "Ven"],
     { all: ["LYO", "Mar", "Tus"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1300, y: 1610 } }
   ),
   Por: new Territory(
     "Portugal",
@@ -450,7 +450,7 @@ const territories = {
     true,
     ["Spa"],
     { all: ["MAO", "Spa_NC", "Spa_SC"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 510, y: 1690 } }
   ),
   Pru: new Territory(
     "Prussia",
@@ -459,7 +459,7 @@ const territories = {
     false,
     ["Ber", "Lvn", "Sil", "War"],
     { all: ["BAL", "Ber", "Lvn"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1700, y: 1110 } }
   ),
   Rom: new Territory(
     "Rome",
@@ -477,7 +477,7 @@ const territories = {
     false,
     ["Bel", "Bur", "Hol", "Kie", "Mun"],
     null,
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1315, y: 1280 } }
   ),
   Rum: new Territory(
     "Rumania",
@@ -486,7 +486,7 @@ const territories = {
     true,
     ["Bud", "Bul", "Gal", "Ser", "Sev", "Ukr"],
     { all: ["BLA", "Bul_EC", "Sev"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 2150, y: 1630 } }
   ),
   Ser: new Territory(
     "Serbia",
@@ -495,7 +495,7 @@ const territories = {
     true,
     ["Alb", "Bud", "Bul", "Gre", "Rum", "Tri"],
     null,
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1850, y: 1740 } }
   ),
   Sev: new Territory(
     "Sevastopol",
@@ -513,7 +513,7 @@ const territories = {
     false,
     ["Ber", "Boh", "Gal", "Mun", "Pru", "War"],
     null,
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1650, y: 1234 } }
   ),
   SKA: new Territory(
     "Skagerrak",
@@ -522,7 +522,7 @@ const territories = {
     false,
     ["Den", "Nwy", "Swe"],
     { all: ["Den", "NTH", "Nwy", "Swe"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1465, y: 800 } }
   ),
   Smy: new Territory(
     "Smyrna",
@@ -543,7 +543,9 @@ const territories = {
       NC: ["Gas", "MAO", "Por"],
       SC: ["LYO", "MAO", "MAR", "Por", "WES"]
     },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 700, y: 1800 },
+    NC: { x: 700, y: 1620 },
+    SC: { x: 700, y: 1950 } }
   ),
   Stp: new Territory(
     "St.Petersburg",
@@ -556,8 +558,8 @@ const territories = {
       SC: ["BOT", "Fin", "Lvn"]
     },
     {
-      main: { x: 0, y: 0 },
-      NC: { x: 0, y: 0 },
+      main: { x: 2300, y: 600 },
+      NC: { x: 2500, y: 200 },
       SC: { x: 2125, y: 725 }
     }
   ),
@@ -568,7 +570,7 @@ const territories = {
     true,
     ["Den", "Fin", "Nwy"],
     { all: ["BAL", "BOT", "Den", "Fin", "Nwy", "SKA"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 1700, y: 500 } }
   ),
   Syr: new Territory(
     "Syria",
@@ -577,7 +579,7 @@ const territories = {
     false,
     ["Arm", "Smy"],
     { all: ["EAS", "Smy"] },
-    { main: { x: 0, y: 0 } }
+    { main: { x: 2800, y: 2150 } }
   ),
   Tri: new Territory(
     "Trieste",
