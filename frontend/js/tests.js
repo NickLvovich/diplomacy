@@ -1,3 +1,13 @@
+let germanyUnits = countries.Germany.units
+let franceUnits = countries.France.units
+let britainUnits = countries.Britain.units
+let italyUnits = countries.Italy.units
+let austriaUnits = countries.Austria.units
+let russiaUnits = countries.Russia.units
+let turkeyUnits = countries.Turkey.units
+let allUnitsNested = [germanyUnits, franceUnits, britainUnits, italyUnits, austriaUnits, russiaUnits, turkeyUnits]
+let allUnitsArray = [].concat.apply([], allUnitsNested)
+
 function retreatingArmysTest() {
   germanyUnits[0].location = territories.Ruh
   germanyUnits[2].location = territories.Bel
