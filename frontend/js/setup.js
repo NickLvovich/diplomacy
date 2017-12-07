@@ -8,7 +8,7 @@ const coastSelectionButtons = document.getElementById("coast_selection_buttons")
 let inputMode = "normal"
 let currentTimer;
 
-let orderStore = [];
+const orderStore = [];
 
 const users = {
   u1: new User("user1"),

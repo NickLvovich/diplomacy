@@ -31,7 +31,6 @@ function play() {
       currentTimer = new Timer(5);
       break;
     default:
-      debugger;  
       alert("Something went wrong");
       break;
   }
@@ -164,14 +163,14 @@ document.addEventListener("DOMContentLoaded", e => {
                 clearTargets();
               }
             } else {
-              
+
               createOrReplaceOrder(game.currentTurn, "Move", fromTerr.findUnit(), fromTerr, toTerr)
               for (let convoyPath of document.querySelectorAll(".targeted2")) {
                 createOrReplaceOrder(game.currentTurn, "Convoy", territories[convoyPath.id].findUnit(), fromTerr, toTerr)
               }
               clearTargets();
-            }   
-          }                
+            }
+          }
         } else {
           if (terr.findOccupied()) {
             checkForOtherTargets();
