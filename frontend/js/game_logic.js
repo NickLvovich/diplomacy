@@ -1,25 +1,4 @@
 
-//  Since all information about where untis are comes from orders, we no longer need this data.
-// let germanyUnits = countries.Germany.units
-// let franceUnits = countries.France.units
-// let britainUnits = countries.Britain.units
-// let italyUnits = countries.Italy.units
-// let austriaUnits = countries.Austria.units
-// let russiaUnits = countries.Russia.units
-// let turkeyUnits = countries.Turkey.units
-// let allUnitsNested = [germanyUnits, franceUnits, britainUnits, italyUnits, austriaUnits, russiaUnits, turkeyUnits]
-// let allUnitsArray = [].concat.apply([], allUnitsNested)
-
-
-// // This data is for testing - delete before trying to take in live data
-// let ordersArray = [new Order(1, "support", countries.Germany.units[0], territories.Mun, territories.Bur ),
-//                    new Order(1, "move", countries.Germany.units[1], territories.Mun, territories.Bur ),
-//                    new Order(1, "move", countries.Germany.units[2], territories.Kie, territories.Mar ),
-//
-//                    new Order(1, "move", countries.France.units[0], territories.Par, territories.Bur ),
-//                    new Order(1, "support", countries.France.units[1], territories.Par, territories.Bur ),
-//                    new Order(1, "move", countries.France.units[2], territories.Bre, territories.Mar )]
-// //
 
 
 function moveResolution(ordersArray){

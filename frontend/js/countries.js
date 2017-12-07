@@ -127,7 +127,11 @@ const countries = {
       new Unit(16, "army", territories.Mos, null),
       new Unit(17, "army", territories.War, null),
       new Unit(18, "fleet", territories.Stp, "SC"),
-      new Unit(19, "fleet", territories.Sev, null)
+      new Unit(19, "fleet", territories.Sev, null),
+      new Unit(17, "army", territories.Pie, null),
+      new Unit(17, "army", territories.Tyr, null),
+      new Unit(17, "army", territories.Boh, null)
+
     ],
     "Russia",
     "Russian"
