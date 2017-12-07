@@ -18,6 +18,8 @@ function play() {
       break;
     case "Order Resolution Phase":
       retreatingUnits = orderResolution(orderStore);
+      addUnits();
+      clearOrderDiplay()
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
@@ -83,6 +85,11 @@ function colorTerritories() {
       document.getElementById(territory.abbreviation).classList.add(countryKey);
     }
   })
+}
+
+function clearOrderDiplay() {
+  var orders = document.querySelectorAll('.order')
+  orders.forEach(x => x.remove())
 }
 
 function addUnits() {
