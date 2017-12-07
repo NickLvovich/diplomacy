@@ -83,12 +83,16 @@ play();
 function colorTerritories() {
   Object.keys(countries).forEach(countryKey => {
     for (let unit of countries[countryKey].units) {
-      if (unit.location.findOwner() !== countryKey) {
-        const a = countries[unit.location.findOwner()].territories.findIndex(terr => {
-          return terr === unit.location;
-        })
-        const b = countries[unit.location.findOwner()].territories.splice(a, 1)
-        countries[countryKey].territories.push(b[0]);
+      if (unit.location.findOwner() !== countryKey && unit.location.type !== "water") {
+        try {
+          const a = countries[unit.location.findOwner()].territories.findIndex(terr => {
+            return terr === unit.location;
+          })
+          const b = countries[unit.location.findOwner()].territories.splice(a, 1)
+          countries[countryKey].territories.push(b[0]);
+        } catch (err) {
+          debugger;
+        }  
       }
     }
   })
