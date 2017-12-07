@@ -86,6 +86,8 @@ function colorTerritories() {
 }
 
 function addUnits() {
+  let oldData = [...document.querySelectorAll(".fleet"), ...document.querySelectorAll(".army")]
+  oldData.forEach( x => x.remove())
   Object.keys(countries).forEach(countryKey => {
     for (let unit of countries[countryKey].units) {
       if (unit.type === "fleet") {
