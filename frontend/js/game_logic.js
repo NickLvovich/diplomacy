@@ -14,11 +14,8 @@ let allUnitsArray = [].concat.apply([], allUnitsNested)
 
 let ordersArray = [new Order(1, "support", countries.Germany.units[0], territories.Mun, territories.Bur ),
                    new Order(1, "move", countries.Germany.units[1], territories.Mun, territories.Bur ),
-<<<<<<< HEAD
-                   new Order(1, "support", countries.Germany.units[2], territories.Mun, territories.Bur ),
-=======
                    new Order(1, "move", countries.Germany.units[2], territories.Kie, territories.Mar ),
->>>>>>> 723a29b1e1234bd0910f0469b035626a287b8cd9
+
                    new Order(1, "move", countries.France.units[0], territories.Par, territories.Bur ),
                    new Order(1, "support", countries.France.units[1], territories.Par, territories.Bur ),
                    new Order(1, "move", countries.France.units[2], territories.Bre, territories.Mar )]
