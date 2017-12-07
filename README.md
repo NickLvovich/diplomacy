@@ -1,4 +1,4 @@
-## Diplomacy
+![Diplomacy](http://avalonhill.wizards.com/sites/default/files/media/diplomacy_logo.png)
 
 Diplomacy is based on the classic board game of the same name created by Allan B. Calhamer and currently published by Hasbro.  The official ruleset can be found in PDF form thanks to [Wizards of the Coast](https://www.wizards.com/avalonhill/rules/diplomacy.pdf), while a more abbreviated "quick start" ruleset can be found at [Ultra Diplomacy](http://www.ultradiplomacy.com/game-rules.php).
 
