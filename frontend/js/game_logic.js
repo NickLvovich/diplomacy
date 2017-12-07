@@ -139,3 +139,7 @@ function getMoveDestinations(ordersArray){
 // Is there support (helper)
 
 // Is support cut(helper)
+
+//  Checking to see if armies are looking to go to the same location.
+//  Check to see if there is support
+//   and if it is cut.

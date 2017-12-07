@@ -31,6 +31,7 @@ function play() {
       currentTimer = new Timer(5);
       break;
     default:
+      debugger;  
       alert("Something went wrong");
       break;
   }
@@ -116,6 +117,7 @@ document.addEventListener("DOMContentLoaded", e => {
         owner = terr.findOwner();
       }
       if (owner === "Water") {
+        debugger;
         document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) — Water`
       } else {
         document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) — ${countries[owner].possessive}`
