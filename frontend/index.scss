@@ -6,6 +6,57 @@ $Austria: rgb(143, 100, 96);
 $Russia: rgb(106, 114, 134);
 $Turkey: rgb(176, 156, 26);
 
+$colorThemeMenu: #0B3954;
+$colorThemeButtons: #012622;
+$colorThemeMap: #6C0E23;
+$colorThemeChat: #6E7271;
+
+body {
+  font-family: 'Open Sans', sans-serif;
+  p {
+    margin: 0;
+  }
+}
+
+.page-nav {
+  background-color: $colorThemeMenu;
+  .brand-logo {
+    font-family: 'Spectral SC', serif;
+  }
+  #signup {
+    background-color: $colorThemeButtons;
+  }
+}
+
+#map_action_bar {
+  margin-left: -1px;
+  margin-top: 50px;
+  nav {
+    background-color: $colorThemeMap;
+    #timer, 
+    #support_button {
+      color: white;
+      padding-left: 20px;
+      padding-right: 20px;
+      &:focus {
+        background-color: inherit;
+      }
+    }
+    #turn_and_phase {
+      display: inline-block;
+      padding-top: 11px;
+      #phase {
+        font-size: .75rem;
+        line-height: normal;
+      }
+      #turn {
+        font-size: 1.5rem;
+        line-height: normal;
+      }
+    }
+  }
+}
+
 #map > path {
   fill: transparent;
   &:hover {
@@ -101,4 +152,49 @@ $Turkey: rgb(176, 156, 26);
 .fleet.Turkey path,
 .army.Turkey path {
   fill: $Turkey;
+}
+
+.page-footer {
+  background-color: $colorThemeChat;
+  height: 24px;
+  margin-left: -1px;
+  margin-top: -6px;
+  padding-top: 0;
+}
+
+tbody {
+  display: block;
+  height: 200px;
+  overflow: auto;
+}
+
+thead,
+tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed;
+}
+
+thead {
+  width: calc( 100% - 1em)
+}
+
+table {
+  width: 100%;
+}
+
+#menu-button {
+  background-color: $colorThemeButtons;
+}
+
+#view-chat {
+  background-color: $colorThemeChat;
+}
+
+#view-orders {
+  background-color: $colorThemeMenu;
+}
+
+#switch-phase {
+  background-color: $colorThemeMap;
 }

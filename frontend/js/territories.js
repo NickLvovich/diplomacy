@@ -554,7 +554,7 @@ const territories = {
     ["Gas", "Mar", "Por"],
     {
       NC: ["Gas", "MAO", "Por"],
-      SC: ["LYO", "MAO", "MAR", "Por", "WES"]
+      SC: ["LYO", "MAO", "Mar", "Por", "WES"]
     },
     { main: { x: 700, y: 1800 },
     NC: { x: 700, y: 1620 },

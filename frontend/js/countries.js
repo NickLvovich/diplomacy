@@ -13,10 +13,11 @@ const countries = {
       territories.Cly
     ],
     [
-      new Unit(1, "army", territories.Yor, null),
-      new Unit(2, "fleet", territories.NTH, null),
-      new Unit(3, "fleet", territories.Lon, null)
+      new Unit(1, "army", territories.Lon, null),
+      new Unit(2, "fleet", territories.ENG, null),
+      new Unit(3, "fleet", territories.MAO, null)
     ],
+    "Britain",
     "British"
   ),
   France: new Country(
@@ -37,6 +38,7 @@ const countries = {
       new Unit(5, "army", territories.Mar, null),
       new Unit(6, "fleet", territories.Bre, null)
     ],
+    "France",
     "French"
   ),
   Germany: new Country(
@@ -57,6 +59,7 @@ const countries = {
       new Unit(8, "army", territories.Mun, null),
       new Unit(9, "fleet", territories.Kie, null)
     ],
+    "Germany",
     "German"
   ),
   Italy: new Country(
@@ -77,6 +80,7 @@ const countries = {
       new Unit(11, "army", territories.Ven, null),
       new Unit(12, "fleet", territories.Nap, null)
     ],
+    "Italy",
     "Italian"
   ),
   Austria: new Country(
@@ -97,6 +101,7 @@ const countries = {
       new Unit(14, "army", territories.Bud, null),
       new Unit(15, "fleet", territories.Tri, null)
     ],
+    "Austria",
     "Austrian"
   ),
   Russia: new Country(
@@ -123,6 +128,7 @@ const countries = {
       new Unit(18, "fleet", territories.Stp, "SC"),
       new Unit(19, "fleet", territories.Sev, null)
     ],
+    "Russia",
     "Russian"
   ),
   Turkey: new Country(
@@ -140,8 +146,9 @@ const countries = {
     [
       new Unit(20, "army", territories.Con, null),
       new Unit(21, "army", territories.Smy, null),
-      new Unit(22, "fleet", territories.Ank, null)
+      new Unit(22, "fleet", territories.BLA, null)
     ],
+    "Turkey",
     "Turkish"
   ),
   Neutral: new Country(
