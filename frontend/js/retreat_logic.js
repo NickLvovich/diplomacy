@@ -18,16 +18,18 @@ let occupiedTerritories = []
 function deleteUnitsThatCannotRetreat(retreatArray){
   retreatArray.forEach(unit => {
     if (unit.type === "army"){
-      if (!!landNeighborsOccupied(unit.location.landNeighbors)){
-        console.log(`Deleting unit in ${unit.location.name}`)
-        delete(unit)
+      if (landNeighborsOccupied(unit.location.landNeighbors)){
+        country = unit.findOwner()
+        console.log(`${country.name} lost a unit in ${unit.location.name}`)
+        country.units = country.units.filter(countryUnit => countryUnit != unit)
     }
   }
     else {
       if (unit.type === "fleet"){
-        if (!!seaNeighborsOccupied(unit.location.seaNeighbors)){
-          console.log(`Deleting unit in ${unit.location.name}`)
-          delete(unit)
+        if (seaNeighborsOccupied(unit.location.seaNeighbors)){
+          country = unit.findOwner()
+          console.log(`${country.name} lost a unit in ${unit.location.name}`)
+          country.units = country.units.filter(countryUnit => countryUnit != unit)
           }
         }
       }
@@ -35,20 +37,31 @@ function deleteUnitsThatCannotRetreat(retreatArray){
   }
 
 function landNeighborsOccupied(landNeighbors){
+  occupationArray = []
   landNeighbors.forEach(territory =>{
-    console.log(occupiedTerritories.includes(territory))
-  if (!occupiedTerritories.includes(territory))
+    occupationArray.push(occupiedTerritories.includes(territory))
+})
+  if (occupationArray.includes(false)){
     return false
-  })
+  }
+  else {
+    return true
+  }
 }
 
 function seaNeighborsOccupied(seaNeighbors){
   neighborsNested = Object.values(seaNeighbors)
   neighborsArray = [].concat.apply([], neighborsNested)
-  neighborsArray.forEach(territory => {
-  if (!occupiedTerritories.includes(territory))
+  occupationArray = []
+  neighborsArray.forEach(territory =>{
+    occupationArray.push(occupiedTerritories.includes(territory))
+})
+  if (occupationArray.includes(false)){
     return false
-  })
+  }
+  else {
+    return true
+  }
 }
 
   function findAllUnitsLocations(){
