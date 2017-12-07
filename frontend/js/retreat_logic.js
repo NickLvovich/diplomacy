@@ -27,8 +27,9 @@ function deleteUnitsThatCannotRetreat(retreatArray){
     else {
       if (unit.type === "fleet"){
         if (seaNeighborsOccupied(unit.location.seaNeighbors)){
-          console.log(`Deleting unit in ${unit.location.name}`)
-          delete(unit)
+          country = unit.findOwner()
+          console.log(`${country.name} lost a unit in ${unit.location.name}`)
+          country.units = country.units.filter(countryUnit => countryUnit != unit)
           }
         }
       }
@@ -40,7 +41,6 @@ function landNeighborsOccupied(landNeighbors){
   landNeighbors.forEach(territory =>{
     occupationArray.push(occupiedTerritories.includes(territory))
 })
-
   if (occupationArray.includes(false)){
     return false
   }
@@ -52,10 +52,16 @@ function landNeighborsOccupied(landNeighbors){
 function seaNeighborsOccupied(seaNeighbors){
   neighborsNested = Object.values(seaNeighbors)
   neighborsArray = [].concat.apply([], neighborsNested)
-  neighborsArray.forEach(territory => {
-  if (!occupiedTerritories.includes(territory))
+  occupationArray = []
+  neighborsArray.forEach(territory =>{
+    occupationArray.push(occupiedTerritories.includes(territory))
+})
+  if (occupationArray.includes(false)){
     return false
-  })
+  }
+  else {
+    return true
+  }
 }
 
   function findAllUnitsLocations(){
