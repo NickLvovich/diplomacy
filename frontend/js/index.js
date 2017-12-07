@@ -7,8 +7,8 @@ function updateDisplay() {
 function play() {
   switch (game.currentTurn.phase) {
     case "Diplomatic Phase":
-      game.currentTurn.year === 1901 ? colorTerritories() : null
       addUnits();
+      game.currentTurn.year === 1901 ? colorTerritories() : null
       updateDisplay();
       addEventListeners();
       currentTimer = new Timer(15);
@@ -81,9 +81,22 @@ play();
 function colorTerritories() {
   Object.keys(countries).forEach(countryKey => {
     for (let unit of countries[countryKey].units) {
+      if (unit.location.findOwner() !== countryKey) {
+        const a = countries[unit.location.findOwner()].territories.findIndex(terr => {
+          return terr === unit.location;
+        })
+        const b = countries[unit.location.findOwner()].territories.splice(a, 1)
+        countries[countryKey].territories.push(b[0]);
+      }
     }
+  })
+  Object.keys(countries).forEach(countryKey => {
     for (let territory of countries[countryKey].territories) {
-      document.getElementById(territory.abbreviation).classList.add(countryKey);
+      // debugger;
+      if (!document.getElementById(territory.abbreviation).classList.contains(countryKey)) {
+        document.getElementById(territory.abbreviation).className = "";
+        document.getElementById(territory.abbreviation).classList.add(countryKey);
+      }
     }
   })
 }
