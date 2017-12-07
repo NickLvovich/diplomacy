@@ -112,16 +112,25 @@ body {
     }
   }
   &.targeted {
-    stroke: yellow;
-    stroke-width: 10px;
+    fill: yellow;
+    fill-opacity: 0.5;
+    &:hover {
+      fill-opacity: 0.7;
+    }
   }
   &.targeted2 {
-    stroke: blue;
-    stroke-width: 10px;
+    fill: blue;
+    fill-opacity: 0.5;
+    &:hover {
+      fill-opacity: 0.7;
+    }
   }
   &.potentialMove {
-    stroke: red;
-    stroke-width: 10px;
+    fill: red;
+    fill-opacity: 0.5;
+    &:hover {
+      fill-opacity: 0.7;
+    }
   }
 }
 

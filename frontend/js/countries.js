@@ -13,9 +13,9 @@ const countries = {
       territories.Cly
     ],
     [
-      new Unit(1, "army", territories.Lon, null),
-      new Unit(2, "fleet", territories.ENG, null),
-      new Unit(3, "fleet", territories.MAO, null)
+      new Unit(1, "army", territories.Lvp, null),
+      new Unit(2, "fleet", territories.Lon, null),
+      new Unit(3, "fleet", territories.Edi, null)
     ],
     "Britain",
     "British"
@@ -146,7 +146,7 @@ const countries = {
     [
       new Unit(20, "army", territories.Con, null),
       new Unit(21, "army", territories.Smy, null),
-      new Unit(22, "fleet", territories.BLA, null)
+      new Unit(22, "fleet", territories.Ank, null)
     ],
     "Turkey",
     "Turkish"
