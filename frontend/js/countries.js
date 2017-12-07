@@ -99,7 +99,10 @@ const countries = {
     [
       new Unit(13, "army", territories.Vie, null),
       new Unit(14, "army", territories.Bud, null),
-      new Unit(15, "fleet", territories.Tri, null)
+      new Unit(15, "fleet", territories.Tri, null),
+      new Unit(30, "army", territories.Boh, null),
+      new Unit(31, "army", territories.Tyr, null),
+      new Unit(32, "army", territories.Pie, null)
     ],
     "Austria",
     "Austrian"
