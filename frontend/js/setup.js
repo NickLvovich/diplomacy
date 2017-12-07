@@ -7,7 +7,7 @@ const orders = document.getElementById("orders");
 let inputMode = "normal"
 let currentTimer;
 
-const orderStore = [];
+let orderStore = [];
 
 const users = {
   u1: new User("user1"),
@@ -19,8 +19,6 @@ const users = {
   u7: new User("user7")
 };
 
+
 const game = new Game(1, "test game", new Turn(
-  "Spring", 1901, "Diplomatic Phase", 
-), true);
-
-
+  "Spring", 1901, "Diplomatic Phase"), true);

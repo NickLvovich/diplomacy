@@ -17,8 +17,10 @@ function play() {
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
+      retreatingUnits = orderResolution(orderStore);
       updateDisplay();
       currentTimer = new Timer(5);
+      orderStore = []
       break;
     case "Retreat and Disbanding Phase":
       updateDisplay();
@@ -162,7 +164,7 @@ document.addEventListener("DOMContentLoaded", e => {
             const toInfo = territories[target.id]
             createOrReplaceOrder(game.currentTurn, "Support", fromInfo.findUnit(), toInfo, toInfo)
             clearTargets();
-          }          
+          }
         }
       }
     })

@@ -1,3 +1,4 @@
+
 //  Since all information about where untis are comes from orders, we no longer need this data.
 // let germanyUnits = countries.Germany.units
 // let franceUnits = countries.France.units
@@ -19,6 +20,7 @@ let ordersArray = [new Order(1, "support", countries.Germany.units[0], territori
                    new Order(1, "support", countries.France.units[1], territories.Par, territories.Bur ),
                    new Order(1, "move", countries.France.units[2], territories.Bre, territories.Mar )]
 //
+
 
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
@@ -46,27 +48,39 @@ function orderResolution(ordersArray){
   let conflictingLocations = isThereConflict(ordersArray)
   let conflictOrders = conflictingOrders(ordersArray, conflictingLocations)
   let nonconflictingOrders = nonConflictingOrders(ordersArray, conflictingLocations)
-
+  let retreatingUnits= [];
   while (conflictingLocations.length > 0) {
-    let x = resolveConflict(conflictOrders, conflictingLocations[0])
-    if (x != undefined){
-      nonconflictingOrders.push(x)
+    let results = resolveConflict(conflictOrders, conflictingLocations[0])
+    if (results.winner != undefined){
+      nonconflictingOrders.push(results.winner[0])
+      let winningDestination = results.winner[0].destination
+      results.lost.forEach( loser => {
+        if (loser.unit.location === winningDestination){
+          retreatingUnits.push(loser.unit)
+        }
+      })
     }
     conflictingLocations.shift()
   }
   moveResolution(nonconflictingOrders);
-  return nonconflictingOrders
+  return retreatingUnits
+}
+
+function needToRetreat (array){
+
 }
 
 
 function resolveConflict(conflictOrders, conflict){
-  var conflictingOrders =  conflictOrders.filter(order => {
+  let conflictingOrders =  conflictOrders.filter(order => {
     return order.destination == conflict
   })
-  var maximum = Math.max.apply(Math, conflictingOrders.map(order => order.support));
-  conflictingOrders = conflictingOrders.filter( order => order.support === maximum)
-  if (conflictingOrders.length === 1){
-    return conflictingOrders[0];
+  let maximum = Math.max.apply(Math, conflictingOrders.map(order => order.support));
+  let possibleWinners = conflictingOrders.filter( order => order.support === maximum)
+  let losersArray = conflictingOrders.filter( order => order.support !== maximum)
+  let resultsHash = { winner: possibleWinners, lost: losersArray }
+  if (possibleWinners.length === 1){
+    return resultsHash;
   }
 }
 
