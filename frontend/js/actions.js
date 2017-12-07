@@ -181,7 +181,7 @@ function supportStep2(terr, target) {
 
 function clearTargets() {
   inputMode = "normal";
-  document.querySelector("#info_text").innerHTML = "";
+  infoText.innerHTML = "Select a unit to begin issuing orders";
   coastSelectionButtons.innerHTML = "";
   Object.keys(document.getElementsByClassName("targeted")).forEach(abbr => {
     if (document.getElementById(abbr)) {
