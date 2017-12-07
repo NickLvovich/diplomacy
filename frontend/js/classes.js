@@ -6,7 +6,7 @@ class User {
 
 class Game {
   constructor( id, name, currentTurn, active) {
-    this.id
+    this.id = id
     this.name = name
     this.currentTurn = currentTurn
     this.active = active

@@ -1,15 +1,25 @@
 
-// Order Resolution function
-// takes in an array of orders, which have (turn, type, unit (is an object), currentLoc, destination)
-let germanyUnits = countries.Germany.units
-let franceUnits = countries.France.units
-let britainUnits = countries.Britain.units
-let italyUnits = countries.Italy.units
-let austriaUnits = countries.Austria.units
-let russiaUnits = countries.Russia.units
-let turkeyUnits = countries.Turkey.units
-let allUnitsNested = [germanyUnits, franceUnits, britainUnits, italyUnits, austriaUnits, russiaUnits, turkeyUnits]
-let allUnitsArray = [].concat.apply([], allUnitsNested)
+//  Since all information about where untis are comes from orders, we no longer need this data.
+// let germanyUnits = countries.Germany.units
+// let franceUnits = countries.France.units
+// let britainUnits = countries.Britain.units
+// let italyUnits = countries.Italy.units
+// let austriaUnits = countries.Austria.units
+// let russiaUnits = countries.Russia.units
+// let turkeyUnits = countries.Turkey.units
+// let allUnitsNested = [germanyUnits, franceUnits, britainUnits, italyUnits, austriaUnits, russiaUnits, turkeyUnits]
+// let allUnitsArray = [].concat.apply([], allUnitsNested)
+
+
+// // This data is for testing - delete before trying to take in live data
+// let ordersArray = [new Order(1, "support", countries.Germany.units[0], territories.Mun, territories.Bur ),
+//                    new Order(1, "move", countries.Germany.units[1], territories.Mun, territories.Bur ),
+//                    new Order(1, "move", countries.Germany.units[2], territories.Kie, territories.Mar ),
+//
+//                    new Order(1, "move", countries.France.units[0], territories.Par, territories.Bur ),
+//                    new Order(1, "support", countries.France.units[1], territories.Par, territories.Bur ),
+//                    new Order(1, "move", countries.France.units[2], territories.Bre, territories.Mar )]
+// //
 
 
 function moveResolution(ordersArray){
@@ -35,7 +45,6 @@ function isThereConflict(ordersArray){
 }
 
 function orderResolution(ordersArray){
-  // grab conflicting locations
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
   let conflictOrders = conflictingOrders(ordersArray, conflictingLocations)
@@ -61,6 +70,7 @@ function orderResolution(ordersArray){
 function needToRetreat (array){
 
 }
+
 
 function resolveConflict(conflictOrders, conflict){
   let conflictingOrders =  conflictOrders.filter(order => {
@@ -125,22 +135,10 @@ function areSupportsCutOff(ordersArray, support){
     return true
   }
 }
- // && areSupportsCutOff(ordersArray, support) != "true"
 
 
-
-// Method to loop through countries for unit locations
 function getMoveDestinations(ordersArray){
   return ordersArray.map(order => {
   return order.destination
   })
 }
-
-
-// Is there support (helper)
-
-// Is support cut(helper)
-
-//  Checking to see if armies are looking to go to the same location.
-//  Check to see if there is support
-//   and if it is cut.

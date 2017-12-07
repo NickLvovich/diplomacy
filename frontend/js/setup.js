@@ -21,6 +21,7 @@ const users = {
   u7: new User("user7")
 };
 
+
 const game = new Game(1, "test game", new Turn(
-  "Spring", 1901, "Diplomatic Phase",
+  "Spring", 1901, "Diplomatic Phase"
 ), true);
