@@ -3,7 +3,7 @@
 
 
 // This is test data. Delete before trying to impliment full functionality.
-let retreatArray = [countries.Germany.units[0], countries.Germany.units[1], countries.Germany.units[2]]
+// let retreatArray = [countries.Germany.units[0], countries.Germany.units[1], countries.Germany.units[2]]
 
 
 let occupiedTerritories = []
@@ -18,14 +18,14 @@ let occupiedTerritories = []
 function deleteUnitsThatCannotRetreat(retreatArray){
   retreatArray.forEach(unit => {
     if (unit.type === "army"){
-      if (landNeighborsOccupied(unit.location.landNeighbors)){
+      if (!!landNeighborsOccupied(unit.location.landNeighbors)){
         console.log(`Deleting unit in ${unit.location.name}`)
         delete(unit)
     }
   }
     else {
       if (unit.type === "fleet"){
-        if (seaNeighborsOccupied(unit.location.seaNeighbors)){
+        if (!!seaNeighborsOccupied(unit.location.seaNeighbors)){
           console.log(`Deleting unit in ${unit.location.name}`)
           delete(unit)
           }
@@ -36,6 +36,7 @@ function deleteUnitsThatCannotRetreat(retreatArray){
 
 function landNeighborsOccupied(landNeighbors){
   landNeighbors.forEach(territory =>{
+    console.log(occupiedTerritories.includes(territory))
   if (!occupiedTerritories.includes(territory))
     return false
   })
