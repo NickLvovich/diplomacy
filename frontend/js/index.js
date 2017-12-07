@@ -18,6 +18,7 @@ function play() {
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
+      holdByDefault(orderStore)
       retreatingUnits = orderResolution(orderStore);
       deleteUnitsThatCannotRetreat(retreatingUnits)
       if (retreatingUnits != []) {

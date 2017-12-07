@@ -128,7 +128,7 @@ function holdByDefault(ordersArray){
   unitsWithOrders =  []
   orderStore.forEach(order => {  unitsWithOrders.push(order.unit)})
   allUnitsArray.forEach(unit => {
-    
+
     if (!unitsWithOrders.includes(unit)){
       createOrReplaceOrder(turn, "hold", unit, unit.location, unit.location )
     }
