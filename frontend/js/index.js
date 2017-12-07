@@ -7,9 +7,10 @@ function updateDisplay() {
 function play() {
   switch (game.currentTurn.phase) {
     case "Diplomatic Phase":
-      game.currentTurn.season === "Spring" ? colorTerritories() : null
       addUnits();
+      game.currentTurn.year === 1901 ? colorTerritories() : null
       updateDisplay();
+      addEventListeners();
       currentTimer = new Timer(15);
       break;
     case "Order Writing Phase":
@@ -18,6 +19,8 @@ function play() {
       break;
     case "Order Resolution Phase":
       retreatingUnits = orderResolution(orderStore);
+      addUnits();
+      clearOrderDiplay()
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
@@ -29,6 +32,7 @@ function play() {
       break;
     case "Gaining and Losing Units Phase":
       updateDisplay();
+      colorTerritories();
       currentTimer = new Timer(5);
       break;
     default:
@@ -54,7 +58,6 @@ function switchPhase() {
         case ("Spring"):
           game.currentTurn.phase = "Diplomatic Phase";
           game.currentTurn.season = "Fall"
-          game.currentTurn.year += 1;
           break;
         case ("Fall"):
           game.currentTurn.phase = "Gaining and Losing Units Phase"
@@ -80,10 +83,30 @@ play();
 
 function colorTerritories() {
   Object.keys(countries).forEach(countryKey => {
-    for (let territory of countries[countryKey].territories) {
-      document.getElementById(territory.abbreviation).classList.add(countryKey);
+    for (let unit of countries[countryKey].units) {
+      if (unit.location.findOwner() !== countryKey) {
+        const a = countries[unit.location.findOwner()].territories.findIndex(terr => {
+          return terr === unit.location;
+        })
+        const b = countries[unit.location.findOwner()].territories.splice(a, 1)
+        countries[countryKey].territories.push(b[0]);
+      }
     }
   })
+  Object.keys(countries).forEach(countryKey => {
+    for (let territory of countries[countryKey].territories) {
+      // debugger;
+      if (!document.getElementById(territory.abbreviation).classList.contains(countryKey)) {
+        document.getElementById(territory.abbreviation).className = "";
+        document.getElementById(territory.abbreviation).classList.add(countryKey);
+      }
+    }
+  })
+}
+
+function clearOrderDiplay() {
+  var orders = document.querySelectorAll('.order')
+  orders.forEach(x => x.remove())
 }
 
 function addUnits() {
@@ -110,7 +133,7 @@ function addUnits() {
   })
 }
 
-document.addEventListener("DOMContentLoaded", e => {
+function addEventListeners() {
   document.querySelectorAll("#map > path").forEach(path => {
     path.addEventListener("mouseover", e => {
       const terr = territories[e.target.id]
@@ -212,7 +235,7 @@ document.addEventListener("DOMContentLoaded", e => {
   document.addEventListener("keydown", e => {
     e.key === "s" ? triggerSupportMode() : null;
   })
-})
+}
 
 function triggerSupportMode() {
   // If no unit is selected, prompt the user to select a unit
