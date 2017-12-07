@@ -14,8 +14,8 @@ const countries = {
     ],
     [
       new Unit(1, "army", territories.Lvp, null),
-      new Unit(2, "fleet", territories.Edi, null),
-      new Unit(3, "fleet", territories.Lon, null)
+      new Unit(2, "fleet", territories.Lon, null),
+      new Unit(3, "fleet", territories.Edi, null)
     ],
     "Britain",
     "British"

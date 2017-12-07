@@ -5,6 +5,7 @@ const timer = document.getElementById("timer")
 const gameMap = document.getElementById("map")
 const orders = document.getElementById("orders");
 const coastSelectionButtons = document.getElementById("coast_selection_buttons")
+const infoText = document.querySelector("#info_text");
 let inputMode = "normal"
 let currentTimer;
 

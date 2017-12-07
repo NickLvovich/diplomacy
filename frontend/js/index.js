@@ -136,6 +136,7 @@ document.addEventListener("DOMContentLoaded", e => {
     path.addEventListener("click", e => {
       const terr = territories[e.target.id]
       const target = e.target
+      infoText.innerHTML = "Select where you want the unit to move";
       if (inputMode === "normal") {
         if (target === document.querySelector(".targeted")) {
           const info = territories[document.querySelector(".targeted").id]
@@ -157,7 +158,7 @@ document.addEventListener("DOMContentLoaded", e => {
                 return arr
               }, [])
               if (possibleCoasts.length > 1) {
-                document.querySelector("#info_text").innerHTML = "Which coast should the unit move to?";
+                infoText.innerHTML = "Which coast should the unit move to?";
                 coastSelectionButtons.innerHTML = `
               <button class="coast_selection">${possibleCoasts[0]}</button>
               <button class="coast_selection">${possibleCoasts[1]}</button>`
@@ -192,6 +193,7 @@ document.addEventListener("DOMContentLoaded", e => {
         if (!document.querySelector(".targeted")) {
           addTargetsSupport(terr, target);
         } else if (target.classList.contains("potentialMove") && !document.querySelector(".targeted2")) {
+          infoText.innerHTML = "Select where you want the supported unit to move";
           supportStep2(terr, target);
         } else if (target.classList.contains("potentialMove") && document.querySelector(".targeted2")) {
           const fromInfo = territories[document.querySelector(".targeted").id]
@@ -213,15 +215,17 @@ document.addEventListener("DOMContentLoaded", e => {
   document.addEventListener("keydown", e => {
     e.key === "Escape" ? clearTargets() : null;
   })
+  document.addEventListener("keydown", e => {
+    e.key === "s" ? triggerSupportMode() : null;
+  })
 })
 
 function triggerSupportMode() {
-
   // If no unit is selected, prompt the user to select a unit
   if (!document.querySelector(".targeted")) {
-    document.querySelector("#info_text").innerHTML = "Please select which unit should do the supporting";
+    infoText.innerHTML = "Please select which unit should do the supporting";
   } else if (document.querySelector(".targeted")) {
-    document.querySelector("#info_text").innerHTML = "Please select which unit you'd like the selected unit to support";
+    infoText.innerHTML = "Please select which unit you'd like the selected unit to support";
     Object.keys(document.getElementsByClassName("potentialMove")).forEach(abbr => {
       if (document.getElementById(abbr)) {
         document.getElementById(abbr).classList.remove("potentialMove");
