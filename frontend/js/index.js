@@ -17,8 +17,10 @@ function play() {
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
+      retreatingUnits = orderResolution(orderStore);
       updateDisplay();
       currentTimer = new Timer(5);
+      orderStore = []
       break;
     case "Retreat and Disbanding Phase":
       updateDisplay();
@@ -29,7 +31,6 @@ function play() {
       currentTimer = new Timer(5);
       break;
     default:
-      debugger;  
       alert("Something went wrong");
       break;
   }
@@ -163,14 +164,14 @@ document.addEventListener("DOMContentLoaded", e => {
                 clearTargets();
               }
             } else {
-              
+
               createOrReplaceOrder(game.currentTurn, "Move", fromTerr.findUnit(), fromTerr, toTerr)
               for (let convoyPath of document.querySelectorAll(".targeted2")) {
                 createOrReplaceOrder(game.currentTurn, "Convoy", territories[convoyPath.id].findUnit(), fromTerr, toTerr)
               }
               clearTargets();
-            }   
-          }                
+            }
+          }
         } else {
           if (terr.findOccupied()) {
             checkForOtherTargets();
@@ -197,7 +198,7 @@ document.addEventListener("DOMContentLoaded", e => {
             const toInfo = territories[target.id]
             createOrReplaceOrder(game.currentTurn, "Support", fromInfo.findUnit(), toInfo, toInfo)
             clearTargets();
-          }          
+          }
         }
       }
     })

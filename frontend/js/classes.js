@@ -5,7 +5,7 @@ class User {
 }
 
 class Game {
-  constructor(id, name, currentTurn, active) {
+  constructor( id, name, currentTurn, active) {
     this.id = id
     this.name = name
     this.currentTurn = currentTurn
@@ -28,6 +28,7 @@ class Order {
     this.unit = unit
     this.currentLoc = currentLoc
     this.destination = destination
+    this.support = 0
     this.coast = coast
   }
 }
@@ -82,7 +83,7 @@ class Territory {
     }
   }
 
-  findUnit() {    
+  findUnit() {
     for (let countryKey of Object.keys(countries)) {
       const result = countries[countryKey].units.find(function (unit) {
         return unit.location === this;
@@ -140,7 +141,7 @@ class Unit {
             }
           }
         }
-      }      
+      }
     } else if (this.type === "fleet") {
       if (this.coast) {
         possibleLocations = [...this.location.seaNeighbors[this.coast]]
