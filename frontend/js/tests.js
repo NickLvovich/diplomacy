@@ -31,3 +31,7 @@ function retreatingArmysTest() {
     return false;
   }
 }
+
+function displayDisplacedUnitsTest(){
+  displayDisplacedUnits(units)
+}
