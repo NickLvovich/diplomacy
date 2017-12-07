@@ -13,8 +13,8 @@ const countries = {
       territories.Cly
     ],
     [
-      new Unit(1, "army", territories.Lvp, null),
-      new Unit(2, "fleet", territories.Edi, null),
+      new Unit(1, "army", territories.Yor, null),
+      new Unit(2, "fleet", territories.NTH, null),
       new Unit(3, "fleet", territories.Lon, null)
     ],
     "British"

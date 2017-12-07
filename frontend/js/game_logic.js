@@ -121,6 +121,7 @@ function areSupportsCutOff(ordersArray, support){
   }
 }
 
+
 function getMoveDestinations(ordersArray){
   return ordersArray.map(order => {
   return order.destination
