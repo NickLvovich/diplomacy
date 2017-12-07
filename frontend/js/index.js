@@ -8,7 +8,7 @@ function play() {
   switch (game.currentTurn.phase) {
     case "Diplomatic Phase":
       addUnits();
-      game.currentTurn.year === 1901 ? colorTerritories() : null
+      game.currentTurn.year === 1901 && game.currentTurn.season === "Spring" ? colorTerritories() : null
       updateDisplay();
       addEventListeners();
       currentTimer = new Timer(15);
