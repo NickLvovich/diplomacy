@@ -123,7 +123,7 @@ const supports = (ordersArray) => {
 function addSupports(ordersArray){
   let supportArray = supports(ordersArray)
   ordersArray.forEach( order => {
-    if (supportArray.find(support => !areSupportsCutOff(ordersArray, support) && support.destination === order.destination && support.currentLoc === order.currentLoc) && order.type != "support"){
+    if (supportArray.find(support => !areSupportsCutOff(ordersArray, support) && support.destination === order.destination && support.currentLoc === order.currentLoc) && order.type != "Support"){
       order.support++;
     }
   })
