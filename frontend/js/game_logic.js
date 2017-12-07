@@ -18,9 +18,7 @@ let ordersArray = [new Order(1, "support", countries.Germany.units[0], territori
                    new Order(1, "move", countries.France.units[0], territories.Par, territories.Bur ),
                    new Order(1, "support", countries.France.units[1], territories.Par, territories.Bur ),
                    new Order(1, "move", countries.France.units[2], territories.Bre, territories.Mar )]
-
-
-
+//
 
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
