@@ -19,7 +19,6 @@ function play() {
       break;
     case "Order Resolution Phase":
       retreatingUnits = orderResolution(orderStore);
-      debugger
       addUnits();
       clearOrderDiplay()
       updateDisplay();
