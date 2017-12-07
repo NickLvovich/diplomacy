@@ -146,7 +146,7 @@ const countries = {
     [
       new Unit(20, "army", territories.Con, null),
       new Unit(21, "army", territories.Smy, null),
-      new Unit(22, "fleet", territories.BLA, null)
+      new Unit(22, "fleet", territories.Ank, null)
     ],
     "Turkey",
     "Turkish"
