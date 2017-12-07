@@ -79,6 +79,7 @@ const countries = {
       new Unit(10, "army", territories.Rom, null),
       new Unit(11, "army", territories.Ven, null),
       new Unit(12, "fleet", territories.Nap, null)
+
     ],
     "Italy",
     "Italian"
@@ -99,12 +100,7 @@ const countries = {
     [
       new Unit(13, "army", territories.Vie, null),
       new Unit(14, "army", territories.Bud, null),
-      new Unit(15, "fleet", territories.Tri, null),
-      new Unit(30, "army", territories.Alb, null),
-      new Unit(31, "army", territories.Tyr, null),
-      new Unit(32, "fleet", territories.ADR, null),
-      new Unit(34, "fleet", territories.ION, null),
-      new Unit(33, "fleet", territories.Apu, null)
+      new Unit(15, "fleet", territories.Tri, null)
     ],
     "Austria",
     "Austrian"

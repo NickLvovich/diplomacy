@@ -19,8 +19,8 @@ function play() {
       break;
     case "Order Resolution Phase":
       retreatingUnits = orderResolution(orderStore);
+      deleteUnitsThatCannotRetreat(retreatingUnits)
       if (retreatingUnits != []) {
-        debugger;
         retreatingUnits.forEach( issue => alert(retreatingUnits.name))
       }
       addUnits();
@@ -30,7 +30,6 @@ function play() {
       orderStore = []
       break;
     case "Retreat and Disbanding Phase":
-      deleteUnitsThatCannotRetreat(retreatingUnits)
       updateDisplay();
       currentTimer = new Timer(5);
       break;
@@ -89,6 +88,7 @@ function colorTerritories() {
   Object.keys(countries).forEach(countryKey => {
     for (let unit of countries[countryKey].units) {
       if (unit.location.findOwner() !== countryKey) {
+
         const a = countries[unit.location.findOwner()].territories.findIndex(terr => {
           return terr === unit.location;
         })
