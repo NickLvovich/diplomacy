@@ -1,5 +1,5 @@
 function updateDisplay() {
-  timerToggleButton.innerHTML = "Pause Timer";
+  // timerToggleButton.innerHTML = "Pause Timer";
   phase.innerHTML = game.currentTurn.phase;
   turn.innerHTML = `${game.currentTurn.season} ${game.currentTurn.year}`
 }
@@ -117,10 +117,9 @@ document.addEventListener("DOMContentLoaded", e => {
         owner = terr.findOwner();
       }
       if (owner === "Water") {
-        debugger;
-        document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) — Water`
+        document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) - Water`
       } else {
-        document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) — ${countries[owner].possessive}`
+        document.getElementById("territory_description").textContent = `${terr.name} (${terr.abbreviation}) - ${countries[owner].possessive}`
       }
     })
     path.addEventListener("mouseleave", e => {
@@ -137,8 +136,42 @@ document.addEventListener("DOMContentLoaded", e => {
         } else if (target.classList.contains("potentialMove")) {
           const fromTerr = territories[document.querySelector(".targeted").id]
           const toTerr = territories[target.id]
-          createOrReplaceOrder(game.currentTurn, "Move",fromTerr.findUnit(), fromTerr, toTerr)
-          clearTargets();
+          if (fromTerr.findOccupied().type === "army" && toTerr.type === "water") {
+            commenceConvoy(e);
+          } else {
+            if (toTerr.seaNeighbors &&
+              Object.keys(toTerr.seaNeighbors).length > 1 &&
+              territories[document.querySelector(".targeted").id].findOccupied().type === "fleet") {
+              const possibleCoasts = fromTerr.seaNeighbors.all.reduce((arr, abbr) => {
+                if (abbr.match(/_(.{2})$/)) {
+                  arr.push(abbr.match(/_(.{2})$/)[1])
+                }
+                return arr
+              }, [])
+              if (possibleCoasts.length > 1) {
+                document.querySelector("#info_text").innerHTML = "Which coast should the unit move to?";
+                coastSelectionButtons.innerHTML = `
+              <button class="coast_selection">${possibleCoasts[0]}</button>
+              <button class="coast_selection">${possibleCoasts[1]}</button>`
+                for (let button of document.querySelectorAll(".coast_selection")) {
+                  button.addEventListener("click", e => {
+                    createOrReplaceOrder(game.currentTurn, "Move", fromTerr.findUnit(), fromTerr, toTerr, e.target.textContent)
+                    clearTargets();
+                  })
+                }
+              } else {
+                createOrReplaceOrder(game.currentTurn, "Move", fromTerr.findUnit(), fromTerr, toTerr, possibleCoasts[0])
+                clearTargets();
+              }
+            } else {
+              
+              createOrReplaceOrder(game.currentTurn, "Move", fromTerr.findUnit(), fromTerr, toTerr)
+              for (let convoyPath of document.querySelectorAll(".targeted2")) {
+                createOrReplaceOrder(game.currentTurn, "Convoy", territories[convoyPath.id].findUnit(), fromTerr, toTerr)
+              }
+              clearTargets();
+            }   
+          }                
         } else {
           if (terr.findOccupied()) {
             checkForOtherTargets();
@@ -196,4 +229,16 @@ function triggerSupportMode() {
     addTargetsSupport(terr, target)
   }
   inputMode = "support";
+}
+
+$('.fixed-action-btn').floatingActionButton({
+  direction: 'top', // Direction menu comes out
+  hoverEnabled: true, // Hover enabled
+  toolbarEnabled: false // Toolbar transition enabled
+});
+
+function toggleModal() {
+  let elem = document.querySelector('.modal');
+  let instance = new M.Modal(elem)
+  instance.open();
 }
