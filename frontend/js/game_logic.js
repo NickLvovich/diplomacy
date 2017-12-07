@@ -11,20 +11,20 @@
 // let allUnitsArray = [].concat.apply([], allUnitsNested)
 
 
-// This data is for testing - delete before trying to take in live data
-let ordersArray = [new Order(1, "support", countries.Germany.units[0], territories.Mun, territories.Bur ),
-                   new Order(1, "move", countries.Germany.units[1], territories.Mun, territories.Bur ),
-                   new Order(1, "move", countries.Germany.units[2], territories.Kie, territories.Mar ),
-
-                   new Order(1, "move", countries.France.units[0], territories.Par, territories.Bur ),
-                   new Order(1, "support", countries.France.units[1], territories.Par, territories.Bur ),
-                   new Order(1, "move", countries.France.units[2], territories.Bre, territories.Mar )]
+// // This data is for testing - delete before trying to take in live data
+// let ordersArray = [new Order(1, "support", countries.Germany.units[0], territories.Mun, territories.Bur ),
+//                    new Order(1, "move", countries.Germany.units[1], territories.Mun, territories.Bur ),
+//                    new Order(1, "move", countries.Germany.units[2], territories.Kie, territories.Mar ),
 //
+//                    new Order(1, "move", countries.France.units[0], territories.Par, territories.Bur ),
+//                    new Order(1, "support", countries.France.units[1], territories.Par, territories.Bur ),
+//                    new Order(1, "move", countries.France.units[2], territories.Bre, territories.Mar )]
+// //
 
 
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    if (order.type === "move" || order.type === "hold")
+    if (order.type === "Move" || order.type === "Hold")
     order.unit.location = order.destination
   })
 }
@@ -51,7 +51,7 @@ function orderResolution(ordersArray){
   let retreatingUnits= [];
   while (conflictingLocations.length > 0) {
     let results = resolveConflict(conflictOrders, conflictingLocations[0])
-    if (results.winner != undefined){
+    if (results != undefined){
       nonconflictingOrders.push(results.winner[0])
       let winningDestination = results.winner[0].destination
       results.lost.forEach( loser => {
@@ -109,13 +109,13 @@ function nonConflictingOrders(ordersArray, conflictingLocations){
 }
 
 function orderTypeHoldOrMove(order) {
-  return order.type == "move" || order.type == "hold"
+  return order.type == "Move" || order.type == "Hold"
 }
 
 
 const supports = (ordersArray) => {
   return ordersArray.filter(order => {
-    return order.type === "support"
+    return order.type === "Support"
   })
 }
 
