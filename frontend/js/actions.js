@@ -79,7 +79,7 @@ function addTargetsSupport(terr, target) {
               potentialSupports.push(abbr2);
             }
           }
-        }       
+        }
         if (territories[parsedAbbr].seaNeighbors) {
           for (let coast of Object.keys(territories[parsedAbbr].seaNeighbors)) {
             for (let abbr2 of territories[parsedAbbr].seaNeighbors[coast]) {
@@ -92,7 +92,7 @@ function addTargetsSupport(terr, target) {
                   null
                 } else {
                   potentialSupports.push(item);
-                }             
+                }
               }
             }
           }
@@ -152,7 +152,7 @@ function supportStep2(terr, target) {
               n === n2 ? common.push(n) : null;
             }
           }
-        }         
+        }
       }
     } else {
       for (let n of terr.seaNeighbors.all) {
@@ -216,8 +216,8 @@ function updateOrderDisplay() {
   let listItems = "";
   for (let order of orderStore) {
     if (order.type === "Hold") {
-      listItems += `      
-      <tr>
+      listItems += `
+      <tr class="order">
         <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
         <td>${order.unit.type[0].toUpperCase()} - ${order.unit.location.name}</td>
         <td>Hold</td>
@@ -229,7 +229,7 @@ function updateOrderDisplay() {
       let item;
       if (order.coast) {
         item = `
-        <tr>
+        <tr class="order">
           <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
           <td>${order.unit.type[0].toUpperCase()} - ${order.unit.location.name}</td>
           <td>Move</td>
@@ -239,7 +239,7 @@ function updateOrderDisplay() {
         </tr>`
       } else {
         item = `
-        <tr>
+        <tr class="order">
           <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
           <td>${order.unit.type[0].toUpperCase()} - ${order.unit.location.name}</td>
           <td>Move</td>
@@ -251,7 +251,7 @@ function updateOrderDisplay() {
       listItems += item;
     } else if (order.type === "Support" && order.currentLoc !== order.destination) {
       listItems += `
-      <tr>
+      <tr class="order">
         <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
         <td>${order.unit.type[0].toUpperCase()} - ${order.unit.location.name}</td>
         <td>Support</td>
@@ -261,7 +261,7 @@ function updateOrderDisplay() {
       </tr>`
     } else if (order.type === "Support" && order.currentLoc === order.destination) {
       listItems += `
-      <tr>
+      <tr class="order">
         <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
         <td>${order.unit.type[0].toUpperCase()} - ${order.unit.location.name}</td>
         <td>Support</td>
@@ -271,7 +271,7 @@ function updateOrderDisplay() {
       </tr>`
     } else if (order.type === "Convoy") {
       listItems += `
-      <tr>
+      <tr class="order">
         <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
         <td>${order.unit.type[0].toUpperCase()} - ${order.unit.location.name}</td>
         <td>Convoy</td>

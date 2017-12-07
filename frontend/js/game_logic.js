@@ -25,6 +25,7 @@
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
     if (order.type === "Move" || order.type === "Hold")
+    order.unit.coast = order.coast
     order.unit.location = order.destination
   })
 }
