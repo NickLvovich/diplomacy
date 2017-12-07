@@ -8,13 +8,13 @@ body {
   .page-nav .brand-logo {
     font-family: 'Spectral SC', serif; }
   .page-nav #signup {
-    background-color: #012622; }
+    background-color: #488286; }
 
 #map_action_bar {
   margin-left: -1px;
   margin-top: 50px; }
   #map_action_bar nav {
-    background-color: #6C0E23; }
+    background-color: #4E7F64; }
     #map_action_bar nav #timer,
     #map_action_bar nav #support_button {
       color: white;
@@ -111,7 +111,7 @@ body {
   fill: #b09c1a; }
 
 .page-footer {
-  background-color: #6E7271;
+  background-color: #474448;
   height: 24px;
   margin-left: -1px;
   margin-top: -6px;
@@ -135,15 +135,15 @@ table {
   width: 100%; }
 
 #menu-button {
-  background-color: #012622; }
+  background-color: #488286; }
 
 #view-chat {
-  background-color: #6E7271; }
+  background-color: #474448; }
 
 #view-orders {
   background-color: #0B3954; }
 
 #switch-phase {
-  background-color: #6C0E23; }
+  background-color: #4E7F64; }
 
 /*# sourceMappingURL=index.css.map */
