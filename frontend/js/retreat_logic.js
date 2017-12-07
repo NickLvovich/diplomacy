@@ -16,6 +16,7 @@ let occupiedTerritories = []
 
 
 function deleteUnitsThatCannotRetreat(retreatArray){
+  debugger
   retreatArray.forEach(unit => {
     if (unit.type === "army"){
       if (landNeighborsOccupied(unit.location.landNeighbors)){

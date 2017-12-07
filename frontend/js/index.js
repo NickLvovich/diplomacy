@@ -26,6 +26,7 @@ function play() {
       orderStore = []
       break;
     case "Retreat and Disbanding Phase":
+      deleteUnitsThatCannotRetreat(retreatingUnits)
       updateDisplay();
       currentTimer = new Timer(5);
       break;
