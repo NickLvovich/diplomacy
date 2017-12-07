@@ -22,23 +22,25 @@ class Turn {
 }
 
 class Order {
-  constructor(turn, type, unit, currentLoc, destination) {
+  constructor(turn, type, unit, currentLoc, destination, coast) {
     this.turn = turn
     this.type = type
     this.unit = unit
     this.currentLoc = currentLoc
     this.destination = destination
+    this.coast = coast
   }
 }
 
 class Country {
-  constructor(id, game, user, homeSupplyCenters, territories, units, possessive) {
+  constructor(id, game, user, homeSupplyCenters, territories, units, name, possessive) {
     this.id = id
     this.game = game
     this.user = user
     this.homeSupplyCenters = homeSupplyCenters
     this.territories = territories
     this.units = units
+    this.name = name
     this.possessive = possessive
   }
 }
@@ -122,6 +124,32 @@ class Unit {
       }
     }
   }
+
+  findWhereItCanMove() {
+    let possibleLocations = []
+    if (this.type === "army") {
+      possibleLocations = [...this.location.landNeighbors]
+      if (this.location.seaNeighbors) {
+        for (let coast of Object.keys(this.location.seaNeighbors)) {
+          for (let abbr of this.location.seaNeighbors[coast]) {
+            let parsedAbbr;
+            /_/.test(abbr) ? parsedAbbr = abbr.split("_")[0] : parsedAbbr = abbr;
+            const territory = territories[parsedAbbr]
+            if (territory.type === "water" && territory.findOccupied() && !possibleLocations.includes(parsedAbbr)) {
+              possibleLocations.push(parsedAbbr);
+            }
+          }
+        }
+      }      
+    } else if (this.type === "fleet") {
+      if (this.coast) {
+        possibleLocations = [...this.location.seaNeighbors[this.coast]]
+      } else {
+        possibleLocations = [...this.location.seaNeighbors.all]
+      }
+    }
+    return possibleLocations;
+  }
 }
 
 class Timer {
@@ -162,10 +190,10 @@ class Timer {
   timerToggle() {
     if (this.active) {
       this.active = false;
-      timerToggleButton.innerHTML = "Start Timer";
+      // timerToggleButton.innerHTML = "Start Timer";
     } else {
       this.active = true;
-      timerToggleButton.innerHTML = "Pause Timer";
+      // timerToggleButton.innerHTML = "Pause Timer";
       setTimeout(() => this.runTimer(), 1000);
     }
   }
