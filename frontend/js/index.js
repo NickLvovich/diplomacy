@@ -30,17 +30,13 @@ function play() {
     case "Order Resolution Phase":
       holdByDefault(orderStore)
       orderResolution(orderStore);
-      printOrderMessages(orderStore);
-      // debugger
-      // if (retreatingUnits != []) {
-      //   displayDisplacedUnits(retreatingUnits)
-      // }
-      retreatingUnits = orderResolution(orderStore);
-      deleteUnitsThatCannotRetreat(retreatingUnits)
-      // if (retreatingUnits != []) {
-      //   retreatingUnits.forEach( issue => alert(retreatingUnits.name))
-      // }
 
+      moveResolution(orderStore);
+      printOrderMessages(orderStore);
+      let retreats = filterForRetreats(orderStore)
+      if (retreats != []) {
+        displayDisplacedUnits(retreats)
+      }
       addUnits();
       updateDisplay();
       currentTimer = new Timer(5);

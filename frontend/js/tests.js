@@ -21,8 +21,11 @@ function retreatingArmysTest() {
                      new Order(1, "Move", franceUnits[1], territories.Mar, territories.Spa ),
                      new Order(1, "Move", franceUnits[2], territories.Bre, territories.Gas )];
 
-  let attempt = orderResolution(ordersArray)
+  orderResolution(ordersArray);
+  needsToRetreat(ordersArray)
 
+  let attempt = filterForRetreats(ordersArray)
+  displayDisplacedUnits(attempt)
   let answer = [franceUnits[0]]
 
   if (attempt.length == answer.length && attempt.every((v,i)=> v === answer[i])) {

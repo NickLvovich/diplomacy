@@ -1,10 +1,12 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6a61cbb633a3413efc13b0f0ffaeb2f3cf9d6f27
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    if (order.type === "Move" || order.type === "Hold"){
+    if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
     order.unit.coast = order.coast
     order.unit.location = order.destination
-  }
   })
 }
 
@@ -42,10 +44,14 @@ function orderResolution(ordersArray){
     }
     conflictingLocations.shift()
   }
-  moveResolution(nonconflictingOrders);
-  return retreatingUnits
-}
 
+<<<<<<< HEAD
+=======
+  addStatusToNonConflictingOrders(ordersArray)
+  needsToRetreat(ordersArray)
+  return ordersArray
+}
+>>>>>>> 6a61cbb633a3413efc13b0f0ffaeb2f3cf9d6f27
 
 function printOrderMessages(ordersArray) {
   document.getElementById("headers").innerHTML = `
@@ -68,20 +74,51 @@ function printOrderMessages(ordersArray) {
 
 
 function resolveConflict(conflictOrders, conflict){
-  let conflictingOrders =  conflictOrders.filter(order => {
-    return order.destination == conflict
-  })
-  let maximum = Math.max.apply(Math, conflictingOrders.map(order => order.support));
-  let possibleWinners = conflictingOrders.filter( order => order.support === maximum)
-  let losersArray = conflictingOrders.filter( order => order.support !== maximum)
-  let resultsHash = { winner: possibleWinners, lost: losersArray }
-  if (possibleWinners.length === 1){
-    return resultsHash;
+  let maximum = Math.max.apply(Math, conflictOrders.map(order => order.support));
+  let morethanOne = conflictOrders.filter(order => order.support == maximum)
+  if (morethanOne.length > 1 ) {
+    conflictOrders.forEach( order => {
+      order.conflictOutcome = "neutral";
+      order.message = `${order.unit.findOwner().name} ${order.unit.type} didn't have enough support to take ${order.destination.name}`
+      })
+  } else {
+  conflictOrders.forEach(order => {
+      if (order.support == maximum){
+        order.message = `${order.unit.findOwner().name} ${order.type}s ${order.unit.type} from ${order.currentLoc.name} to ${order.destination.name}`
+        order.conflictOutcome = "winner"
+      } else {
+        order.conflictOutcome = "loser"
+        order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} ${order.type == "Hold" ? 'could not hold' : 'did not have support to move to'} ${order.destination.name}`
+      }
+    })
   }
 }
 
+<<<<<<< HEAD
 
 function addStatusToConflictingOrders(ordersArray){
+=======
+function needsToRetreat(ordersArray){
+  ordersArray.forEach( order => {
+    if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
+      order.retreat = true
+      order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} needs to retreat.`
+    }
+  })
+}
+
+function filterForRetreats(ordersArray){
+  let retreat = []
+  ordersArray.forEach (order => {
+    if (order.retreat == true) {
+      retreat.push(order.unit)
+    }
+  })
+  return retreat
+}
+
+function addStatusToNonConflictingOrders(ordersArray){
+>>>>>>> 6a61cbb633a3413efc13b0f0ffaeb2f3cf9d6f27
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
       order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} moves to ${order.destination.name}`
@@ -141,11 +178,20 @@ function areSupportsCutOff(ordersArray, support){
   }
 }
 
-
 function getMoveDestinations(ordersArray){
   return ordersArray.map(order => {
   return order.destination
   })
+}
+
+function displayDisplacedUnits(retreatingUnits){
+  let array = []
+  retreatingUnits.forEach( unit => {
+    let hash = {}
+    hash.unit = unit
+    hash.locations = availableLocations(unit)
+  })
+  return array
 }
 
 function holdByDefault(ordersArray){
@@ -155,7 +201,5 @@ function holdByDefault(ordersArray){
     if (!unitsWithOrders.includes(unit)){
       createOrReplaceOrder(game.currentTurn, "Hold", unit, unit.location, unit.location, unit.coast )
     }
-
-
   })
 }
