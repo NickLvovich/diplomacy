@@ -25,7 +25,6 @@ function isThereConflict(ordersArray){
 }
 
 function orderResolution(ordersArray){
-  holdByDefault(ordersArray)
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
   let conflictOrders = conflictingOrders(ordersArray, conflictingLocations)
@@ -128,9 +127,9 @@ function holdByDefault(ordersArray){
   unitsWithOrders =  []
   orderStore.forEach(order => {  unitsWithOrders.push(order.unit)})
   allUnitsArray.forEach(unit => {
-
     if (!unitsWithOrders.includes(unit)){
-      createOrReplaceOrder(turn, "hold", unit, unit.location, unit.location )
+      createOrReplaceOrder(game.currentTurn, "hold", unit, unit.location, unit.location )
+      debugger
     }
 
 
