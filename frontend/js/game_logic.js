@@ -1,6 +1,5 @@
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    debugger;
     if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
     order.unit.coast = order.coast
     order.unit.location = order.destination
@@ -72,7 +71,6 @@ function printOrderMessages(ordersArray) {
   div.appendChild(austriaUl);
   div.appendChild(russiaUl);
   div.appendChild(turkeyUl);
-  debugger;
 }
 
 function filterConflicts(array, location){
@@ -101,15 +99,13 @@ function resolveConflict(conflictOrders, conflict){
   }
 }
 
-function addDataToConsole(nonconflictingOrders){
-  let div = document.querySelector('.displaced')
-  let ul = document.createElement('ul')
-  nonconflictingOrders.forEach(order => {
-    let li = document.createElement('li')
-    li.innerText = `${order.unit.findOwner().name} ${order.type}s ${order.unit.type} from ${order.currentLoc.name} to ${order.destination.name}.`
-    ul.append(li)
+function needsToRetreat(ordersArray){
+  ordersArray.forEach( order => {
+    if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
+      order.retreat = true
+      order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} needs to retreat.`
+    }
   })
-  div.append(ul)
 }
 
 function addStatusToConflictingOrders(ordersArray){
@@ -134,15 +130,7 @@ function conflictingOrders(ordersArray, conflictingLocations){
     return ordersArray
 }
 
-function nonConflictingOrders(ordersArray, conflictingLocations){
- var newOrders = ordersArray
- let issues = [...conflictingLocations]
-  while (issues.length > 0 ) {
-      newOrders = newOrders.filter( order => order.destination != conflictingLocations[0])
-      issues.shift()
-  }
-  return newOrders
-}
+
 
 function orderTypeHoldOrMove(order) {
   return order.type == "Move" || order.type == "Hold"

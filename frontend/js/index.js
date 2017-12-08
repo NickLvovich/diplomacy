@@ -19,9 +19,9 @@ function play() {
       break;
     case "Order Resolution Phase":
       orderResolution(orderStore);
-      moveResolution(ordersStore);
+      moveResolution(orderStore);
       printOrderMessages(orderStore);
-
+      retreats = 
       // if (retreats != []) {
       //   displayDisplacedUnits(retreatingUnits)
       // }
