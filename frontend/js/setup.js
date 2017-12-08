@@ -1,15 +1,18 @@
 const turn = document.getElementById("turn")
 const phase = document.getElementById("phase")
 const timer = document.getElementById("timer")
-// const timerToggleButton = document.getElementById("timer_toggle")
 const gameMap = document.getElementById("map")
 const orders = document.getElementById("orders");
 const coastSelectionButtons = document.getElementById("coast_selection_buttons")
 const infoText = document.querySelector("#info_text");
+const buttons = document.querySelector("#buttons")
 let inputMode = "normal"
 let currentTimer;
+let unitIndex = 22;
 
 let orderStore = [];
+let gainingCountries = {}
+let losingCountries = {}
 
 const users = {
   u1: new User("user1"),

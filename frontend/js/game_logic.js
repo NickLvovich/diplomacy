@@ -1,8 +1,12 @@
+
+
+
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
     if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
     order.unit.coast = order.coast
     order.unit.location = order.destination
+  }
   })
 }
 
@@ -23,10 +27,20 @@ function isThereConflict(ordersArray){
 function orderResolution(ordersArray){
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
-  conflictingOrders(ordersArray, conflictingLocations)
-
+  let conflictOrders = conflictingOrders(ordersArray, conflictingLocations)
+  let nonconflictingOrders = nonConflictingOrders(ordersArray, conflictingLocations)
+  let retreatingUnits= [];
   while (conflictingLocations.length > 0) {
-    resolveConflict(filterConflicts(ordersArray, conflictingLocations[0]), conflictingLocations[0])
+    let results = resolveConflict(conflictOrders, conflictingLocations[0])
+    if (results != undefined){
+      nonconflictingOrders.push(results.winner[0])
+      let winningDestination = results.winner[0].destination
+      results.lost.forEach( loser => {
+        if (loser.unit.location === winningDestination){
+          retreatingUnits.push(loser.unit)
+        }
+      })
+    }
     conflictingLocations.shift()
   }
 
@@ -35,15 +49,7 @@ function orderResolution(ordersArray){
   return ordersArray
 }
 
-function printOrderMessages(ordersArray) {
-  let div = document.querySelector('#moves')
-  let fraceUl = document.createElement('ul')
-  let britianUl = document.createElement('ul')
-  let germanyUl = document.createElement('ul')
-  let italyUl = document.createElement('ul')
-  let austriaUl = document.createElement('ul')
-  let russiaUl = document.createElement('ul')
-  let turkeyUl = document.createElement('ul')
+function printOrderMessages(ordersArray){
 
   ordersArray.forEach ( order => {
     let li = document.createElement('li')
@@ -74,10 +80,6 @@ function printOrderMessages(ordersArray) {
   div.appendChild(turkeyUl);
 }
 
-function filterConflicts(array, location){
-  return array.filter(order => {
-    return order.conflict == true && order.conflictLocation == location.name})
-}
 
 function resolveConflict(conflictOrders, conflict){
   let maximum = Math.max.apply(Math, conflictOrders.map(order => order.support));
@@ -130,15 +132,16 @@ function addStatusToNonConflictingOrders(ordersArray){
 }
 
 function conflictingOrders(ordersArray, conflictingLocations){
+  let conflictOrders = []
   ordersArray.forEach( order => {
     conflictingLocations.forEach( location => {
       if (order.destination == location && orderTypeHoldOrMove(order)){
-        order.conflict = true
-        order.conflictLocation = location.name
+
+        conflictOrders.push(order);
       }
     })
   })
-    return ordersArray
+    return conflictOrders
 }
 
 function nonConflictingOrders(ordersArray, conflictingLocations){
@@ -192,4 +195,14 @@ function displayDisplacedUnits(retreatingUnits){
     hash.locations = availableLocations(unit)
   })
   return array
+}
+
+function holdByDefault(ordersArray){
+  unitsWithOrders =  []
+  orderStore.forEach(order => {  unitsWithOrders.push(order.unit)})
+  allUnitsArray.forEach(unit => {
+    if (!unitsWithOrders.includes(unit)){
+      createOrReplaceOrder(game.currentTurn, "hold", unit, unit.location, unit.location )
+    }
+  })
 }

@@ -123,7 +123,7 @@ const territories = {
     "Brest",
     "Bre",
     "coastal",
-    false,
+    true,
     ["Gas", "Par", "Pic"],
     { all: ["ENG", "Gas", "MAO", "Pic"] },
     { main: { x: 900, y: 1310 } }
@@ -478,7 +478,7 @@ const territories = {
     "Rome",
     "Rom",
     "coastal",
-    false,
+    true,
     ["Apu", "Nap", "Tus", "Ven"],
     { all: ["Nap", "Tus", "TYS"] },
     { main: { x: 1470, y: 1820 } }
