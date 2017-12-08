@@ -21,15 +21,9 @@ function play() {
       holdByDefault(orderStore)
       orderResolution(orderStore);
       printOrderMessages(orderStore);
-      // debugger
-      // if (retreatingUnits != []) {
-      //   displayDisplacedUnits(retreatingUnits)
-      // }
+
       retreatingUnits = orderResolution(orderStore);
       deleteUnitsThatCannotRetreat(retreatingUnits)
-      // if (retreatingUnits != []) {
-      //   retreatingUnits.forEach( issue => alert(retreatingUnits.name))
-      // }
 
       addUnits();
       clearOrderDiplay()
