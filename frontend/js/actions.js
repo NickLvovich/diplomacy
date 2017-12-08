@@ -340,6 +340,9 @@ function gainOrLoseUnits() {
 }
 
 function addEventListenersForGainingAndLosingUnitsPhase() {
+  if (document.querySelector(".targeted") || document.querySelector(".potentialMove")) {
+    infoText.innerHTML = "Select a yellow territory to create a new unit, or a red territory to delete a unit" 
+  }
   for (let path of document.querySelectorAll(".targeted")) {
     path.addEventListener("click", e => {
       // check if coastal, if so prompt for type

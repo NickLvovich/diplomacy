@@ -7,6 +7,7 @@ function updateDisplay() {
 function play() {
   switch (game.currentTurn.phase) {
     case "Diplomatic Phase":
+      infoText.innerHTML = "Select a unit to begin issuing orders"  
       addUnits();
       game.currentTurn.year === 1901 && game.currentTurn.season === "Spring" ? colorTerritories() : null
       updateDisplay();
@@ -24,13 +25,15 @@ function play() {
       `
       break;
     case "Order Writing Phase":
+      infoText.innerHTML = "Select a unit to begin issuing orders"    
       updateDisplay();
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
+      infoText.innerHTML = ""  
       orderResolution(orderStore);
-      moveResolution(orderStore);
       printOrderMessages(orderStore);
+      moveResolution(orderStore);
       // debugger
       // if (retreatingUnits != []) {
       //   displayDisplacedUnits(retreatingUnits)
@@ -45,12 +48,14 @@ function play() {
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
+      toggleModal()
       break;
     case "Retreat and Disbanding Phase":
+      infoText.innerHTML = "Select a displaced unit to enter a retreat order"    
       updateDisplay();
       currentTimer = new Timer(5);
       break;
-    case "Gaining and Losing Units Phase":
+    case "Gaining and Losing Units Phase":  
       updateDisplay();
       colorTerritories();
       gainOrLoseUnits();
