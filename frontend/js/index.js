@@ -24,12 +24,10 @@ function play() {
       orderResolution(orderStore);
       printOrderMessages(orderStore);
       moveResolution(orderStore);
-      // debugger
-      // if (retreatingUnits != []) {
-      //   displayDisplacedUnits(retreatingUnits)
-      // }
-      holdByDefault(orderStore)
-      retreatingUnits = orderResolution(orderStore);
+      retreatingUnits = filterForRetreats(orderStore)
+      if (retreatingUnits != []) {
+        displayDisplacedUnits(retreatingUnits)
+      }
       deleteUnitsThatCannotRetreat(retreatingUnits)
 
       addUnits();

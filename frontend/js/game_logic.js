@@ -33,9 +33,20 @@ function orderResolution(ordersArray) {
   }
 
   addStatusToConflictingOrders(ordersArray)
+  needsToRetreat(ordersArray)
   return ordersArray
 }
 
+function filterForRetreats(ordersArray){
+  let retreat = []
+  ordersArray.forEach (order => {
+    if (order.retreat == true) {
+      retreat.push(order.unit)
+    }
+  })
+  debugger;
+  return retreat
+}
 
 function printOrderMessages(ordersArray) {
   document.getElementById("headers").innerHTML = `
@@ -85,6 +96,7 @@ function resolveConflict(conflictOrders, conflict){
 function needsToRetreat(ordersArray){
   ordersArray.forEach( order => {
     if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
+      debugger;
       order.retreat = true
       order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} needs to retreat.`
     }
