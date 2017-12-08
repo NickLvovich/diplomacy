@@ -35,6 +35,7 @@ function play() {
     case "Gaining and Losing Units Phase":
       updateDisplay();
       colorTerritories();
+      gainOrLoseUnits();
       currentTimer = new Timer(5);
       break;
     default:
@@ -86,13 +87,16 @@ play();
 function colorTerritories() {
   Object.keys(countries).forEach(countryKey => {
     for (let unit of countries[countryKey].units) {
-      if (unit.location.findOwner() !== countryKey) {
-
-        const a = countries[unit.location.findOwner()].territories.findIndex(terr => {
-          return terr === unit.location;
-        })
-        const b = countries[unit.location.findOwner()].territories.splice(a, 1)
-        countries[countryKey].territories.push(b[0]);
+      if (unit.location.findOwner() !== countryKey && unit.location.type !== "water") {
+        try {
+          const a = countries[unit.location.findOwner()].territories.findIndex(terr => {
+            return terr === unit.location;
+          })
+          const b = countries[unit.location.findOwner()].territories.splice(a, 1)
+          countries[countryKey].territories.push(b[0]);
+        } catch (err) {
+          debugger;
+        }  
       }
     }
   })
@@ -100,7 +104,8 @@ function colorTerritories() {
     for (let territory of countries[countryKey].territories) {
       // debugger;
       if (!document.getElementById(territory.abbreviation).classList.contains(countryKey)) {
-        document.getElementById(territory.abbreviation).className = "";
+        const previousOwner = document.getElementById(territory.abbreviation).classList[0]
+        document.getElementById(territory.abbreviation).classList.remove(previousOwner)
         document.getElementById(territory.abbreviation).classList.add(countryKey);
       }
     }
@@ -121,16 +126,16 @@ function addUnits() {
         if (!unit.coast) {
           const x = unit.location.coordinates.main.x
           const y = unit.location.coordinates.main.y
-          gameMap.innerHTML += fleetSVG(x, y, countryKey);
+          gameMap.innerHTML += fleetSVG(x, y, countryKey, unit.id);
         } else {
           const x = unit.location.coordinates[unit.coast].x
           const y = unit.location.coordinates[unit.coast].y
-          gameMap.innerHTML += fleetSVG(x, y, countryKey);
+          gameMap.innerHTML += fleetSVG(x, y, countryKey, unit.id);
         }
       } else if (unit.type === "army") {
         const x = unit.location.coordinates.main.x
         const y = unit.location.coordinates.main.y
-        gameMap.innerHTML += armySVG(x, y, countryKey);
+        gameMap.innerHTML += armySVG(x, y, countryKey, unit.id);
       }
     }
   })

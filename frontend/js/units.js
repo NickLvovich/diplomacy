@@ -1,6 +1,7 @@
-const fleetSVG = (x, y, country) => ( `
+const fleetSVG = (x, y, country, id) => ( `
 <g
      class="fleet ${country}"
+     id="unit_${id}"
      transform="matrix(1.063691,0,0,1.5402909,${x},${y - 60})"
      >
     <path
@@ -77,9 +78,10 @@ const fleetSVG = (x, y, country) => ( `
 `
 )
 
-const armySVG = (x, y, country) => (`
+const armySVG = (x, y, country, id) => (`
 <g
      class="army ${country}"
+     id="unit_${id}"
      transform="matrix(0.05097244,-6.6165188e-4,6.6165188e-4,0.05097244,${x},${y})"
      >
     <path

@@ -302,3 +302,129 @@ function commenceConvoy(e) {
     }
   }
 }
+
+function gainOrLoseUnits() {
+  gainingCountries = {};
+  losingCountries = {};
+  // figure out which countries are losing/gaining units
+  for (let countryKey of Object.keys(countries)) {
+    if (countryKey !== "Neutral") {
+      const supplyCenterCount = countries[countryKey].countSupplyCenters();
+      const numberOfUnits = countries[countryKey].units.length
+      if (supplyCenterCount > numberOfUnits) {
+        gainingCountries[countryKey] = supplyCenterCount - numberOfUnits
+      } else if (supplyCenterCount < numberOfUnits) {
+        losingCountries[countryKey] = numberOfUnits - supplyCenterCount
+      }
+    }
+  }
+  // go through the keys in both those objects, highlight territories appropriately
+  for (let countryKey of Object.keys(gainingCountries)) {
+    // check home supply centers
+    for (let homeSupplyCenter of countries[countryKey].homeSupplyCenters) {
+      // if it still belongs to the original owner and isn't occupied, color it
+      if (homeSupplyCenter.findOwner() === countryKey && !homeSupplyCenter.findOccupied()) {
+        const regionPath = document.getElementById(homeSupplyCenter.abbreviation);
+        regionPath.classList.add("targeted")
+      }
+    }
+  }
+  for (let countryKey of Object.keys(losingCountries)) {
+    for (let unit of countries[countryKey].units) {
+      const regionPath = document.getElementById(unit.location.abbreviation);
+      regionPath.classList.add("potentialMove");
+    }
+  }
+  // add event listeners for both kinds of territories
+  addEventListenersForGainingAndLosingUnitsPhase();
+}
+
+function addEventListenersForGainingAndLosingUnitsPhase() {
+  for (let path of document.querySelectorAll(".targeted")) {
+    path.addEventListener("click", e => {
+      // check if coastal, if so prompt for type
+      if (territories[e.target.id].type === "coastal") {
+        infoText.innerHTML = "Do you want to build an army or a fleet there?"
+        // not sure why, but this passes e.target to the functions instead of e.target.id.
+        buttons.innerHTML = `
+        <button onclick="createUnit('army', ${e.target.id})">Army</button>
+        <button onclick="createUnit('fleet', ${e.target.id})">Fleet</button>`
+      } else {
+        createUnit("army", e.target, gainingCountries)
+      }
+    })
+  }
+  for (let path of document.querySelectorAll(".potentialMove")) {
+    path.addEventListener("click", e => {
+      // remove unit from country's array
+      const unit = territories[e.target.id].findUnit();
+      const unitOwner = unit.findOwner().name
+      const unitIndex = unit.findOwner().units.findIndex(unit2 => unit2 === unit)
+      unit.findOwner().units.splice(unitIndex, 1)
+      // delete unit from board
+      document.getElementById(`unit_${unit.id}`).remove()
+      // remove class from territory
+      e.target.classList.remove("potentialMove");
+      losingCountries[unitOwner] -= 1
+      if (losingCountries[unitOwner] === 0) {
+        for (let unit of countries[unitOwner].units) {
+          const path = document.getElementById(unit.location.abbreviation)
+          path.classList.contains("potentialMove") ? path.classList.remove("potentialMove") : null
+        }
+      }
+    })
+  }
+}
+
+function createUnit(type, target) {
+  // add unit to country's array
+  let newUnit;
+  for (let countryKey of Object.keys(countries)) {
+    // don't look at neutral
+    if (countryKey !== "Neutral") {
+      if (countries[countryKey].homeSupplyCenters.find(terr => terr.abbreviation === target.id)) {
+        if (target.id === "Stp" && type === "fleet") {
+          // add ID here
+          newUnit = new Unit(++unitIndex, fleet, territories[target.id], "SC")
+          countries.Russia.units.push(newUnit)
+        } else {
+          // and here
+          newUnit = new Unit(++unitIndex, type, territories[target.id], null)
+          countries[countryKey].units.push(newUnit)
+        }
+      }
+    }   
+  }
+  // render unit on game board
+  if (newUnit.type === "fleet") {
+    if (!newUnit.coast) {
+      const x = newUnit.location.coordinates.main.x
+      const y = newUnit.location.coordinates.main.y
+      gameMap.innerHTML += fleetSVG(x, y, newUnit.findOwner().name, newUnit.id);
+    } else {
+      const x = newUnit.location.coordinates[newUnit.coast].x
+      const y = newUnit.location.coordinates[newUnit.coast].y
+      gameMap.innerHTML += fleetSVG(x, y, newUnit.findOwner().name, newUnit.id);
+    }
+  } else if (newUnit.type === "army") {
+    const x = newUnit.location.coordinates.main.x
+    const y = newUnit.location.coordinates.main.y
+    gameMap.innerHTML += armySVG(x, y, newUnit.findOwner().name, newUnit.id);
+  }
+  // remove highlighting for target territory
+  for (let newTarget of document.querySelectorAll(".targeted")) {
+    newTarget.id === target.id ? newTarget.classList.remove("targeted") : null
+  }
+  // check if country has any more builds. If not, remove highlighting from the remainder of their home territories
+  gainingCountries[newUnit.findOwner().name] -= 1;
+  if (gainingCountries[newUnit.findOwner().name] === 0) {
+    for (let homeSupplyCenter of countries[newUnit.findOwner().name].homeSupplyCenters) {
+      const path = document.getElementById(homeSupplyCenter.abbreviation)
+      path.classList.contains("targeted") ? path.classList.remove("targeted") : null
+    }
+  }
+  // reset info text
+  infoText.innerHTML = "";
+  buttons.innerHTML = "";
+  addEventListenersForGainingAndLosingUnitsPhase();
+}

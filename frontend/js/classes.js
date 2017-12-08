@@ -44,6 +44,13 @@ class Country {
     this.name = name
     this.possessive = possessive
   }
+
+  countSupplyCenters() {
+    return this.territories.reduce((total, terr) => {
+      terr.supplyCenter ? total += 1 : null
+      return total
+    }, 0)
+  }
 }
 
 class Territory {
