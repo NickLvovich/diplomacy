@@ -12,6 +12,16 @@ function play() {
       updateDisplay();
       addEventListeners();
       currentTimer = new Timer(15);
+      document.getElementById("headers").innerHTML = `
+      <tr>
+        <th>Country</th>
+        <th>Unit</th>
+        <th>Action</th>
+        <th>Target</th>
+        <th>From</th>
+        <th>To</th>
+      </tr>
+      `
       break;
     case "Order Writing Phase":
       updateDisplay();
@@ -20,10 +30,18 @@ function play() {
     case "Order Resolution Phase":
       holdByDefault(orderStore)
       orderResolution(orderStore);
-      moveResolution(orderStore);
       printOrderMessages(orderStore);
+      // debugger
+      // if (retreatingUnits != []) {
+      //   displayDisplacedUnits(retreatingUnits)
+      // }
+      retreatingUnits = orderResolution(orderStore);
+      deleteUnitsThatCannotRetreat(retreatingUnits)
+      // if (retreatingUnits != []) {
+      //   retreatingUnits.forEach( issue => alert(retreatingUnits.name))
+      // }
+
       addUnits();
-      clearOrderDiplay()
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
@@ -96,7 +114,7 @@ function colorTerritories() {
           countries[countryKey].territories.push(b[0]);
         } catch (err) {
           debugger;
-        }  
+        }
       }
     }
   })
@@ -110,11 +128,6 @@ function colorTerritories() {
       }
     }
   })
-}
-
-function clearOrderDiplay() {
-  var orders = document.querySelectorAll('.order')
-  orders.forEach(x => x.remove())
 }
 
 function addUnits() {

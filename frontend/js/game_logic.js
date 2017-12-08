@@ -1,6 +1,4 @@
 
-
-
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
     if (order.type === "Move" || order.type === "Hold"){
@@ -25,6 +23,7 @@ function isThereConflict(ordersArray){
 }
 
 function orderResolution(ordersArray){
+  
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
   let conflictOrders = conflictingOrders(ordersArray, conflictingLocations)
@@ -47,8 +46,24 @@ function orderResolution(ordersArray){
   return retreatingUnits
 }
 
-function needToRetreat (array){
 
+function printOrderMessages(ordersArray) {
+  document.getElementById("headers").innerHTML = `
+  <tr>
+    <th>Country</th>
+    <th>Status</th>
+  </tr>
+  `
+  let listItems = "";
+  for (let order of ordersArray) {
+    // debugger;
+    listItems += `
+    <tr class="order">
+      <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
+      <td>${order.message}</td>
+    </tr>`
+  }
+  document.getElementById("orders").innerHTML = listItems;
 }
 
 
@@ -65,6 +80,16 @@ function resolveConflict(conflictOrders, conflict){
   }
 }
 
+
+function addStatusToConflictingOrders(ordersArray){
+  ordersArray.forEach( order => {
+    if (order.conflict != true && order.type == "Move"){
+      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} moves to ${order.destination.name}`
+    } else if (order.type == "Support") {
+      order.message = `${order.unit.findOwner().name} ${order.unit.type} supports move or hold to ${order.destination.name}`
+    }
+  })
+}
 
 function conflictingOrders(ordersArray, conflictingLocations){
   let conflictOrders = []
@@ -128,7 +153,7 @@ function holdByDefault(ordersArray){
   orderStore.forEach(order => {  unitsWithOrders.push(order.unit)})
   allUnitsArray.forEach(unit => {
     if (!unitsWithOrders.includes(unit)){
-      createOrReplaceOrder(game.currentTurn, "hold", unit, unit.location, unit.location )
+      createOrReplaceOrder(game.currentTurn, "Hold", unit, unit.location, unit.location, unit.coast )
     }
 
 
