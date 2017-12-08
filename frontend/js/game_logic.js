@@ -67,7 +67,7 @@ function resolveConflict(conflictOrders, conflict){
   if (morethanOne.length > 1 ) {
     conflictOrders.forEach( order => {
       order.conflictOutcome = "neutral";
-      order.message = `${order.unit.findOwner().name} ${order.unit.type} didn't have enough support to take ${order.destination.name}`
+      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} is blocked from moving to ${order.destination.name}`
       })
   } else {
   conflictOrders.forEach(order => {
@@ -106,7 +106,7 @@ function addStatusToConflictingOrders(ordersArray) {
         if (supportedMove === "hold") {
           order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} supports ${supportedPossessive} ${supportedType} - ${order.currentLoc.name} hold`
         } else {
-          order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} supports ${supportedPossessive} ${supportedType} - ${order.currentLoc.name} move to ${order.destination}`
+          order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} supports ${supportedPossessive} ${supportedType} - ${order.currentLoc.name} move to ${order.destination.name}`
         }
       } catch (err) {
         debugger;
