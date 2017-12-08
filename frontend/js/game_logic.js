@@ -21,13 +21,9 @@ function isThereConflict(ordersArray){
   return conflictsArray
 }
 
-<<<<<<< HEAD
 
-function orderResolution(ordersArray){
-=======
 function orderResolution(ordersArray) {
   holdByDefault(ordersArray)
->>>>>>> b84c056682e5f486d3b82cd08392ab9bb4d854ae
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
   conflictingOrders(ordersArray, conflictingLocations)
@@ -36,19 +32,11 @@ function orderResolution(ordersArray) {
     resolveConflict(filterConflicts(ordersArray, conflictingLocations[0]), conflictingLocations[0])
     conflictingLocations.shift()
   }
-
-<<<<<<< HEAD
-
   addStatusToNonConflictingOrders(ordersArray)
-=======
-  addStatusToConflictingOrders(ordersArray)
->>>>>>> b84c056682e5f486d3b82cd08392ab9bb4d854ae
   needsToRetreat(ordersArray)
   return ordersArray
 }
 
-<<<<<<< HEAD
-=======
 function filterForRetreats(ordersArray){
   let retreat = []
   ordersArray.forEach (order => {
@@ -59,7 +47,7 @@ function filterForRetreats(ordersArray){
   debugger;
   return retreat
 }
->>>>>>> b84c056682e5f486d3b82cd08392ab9bb4d854ae
+
 
 function printOrderMessages(ordersArray) {
   document.getElementById("headers").innerHTML = `
