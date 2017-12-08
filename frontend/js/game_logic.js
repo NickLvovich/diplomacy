@@ -1,9 +1,12 @@
+
+
+
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    debugger;
-    if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
+    if (order.type === "Move" || order.type === "Hold"){
     order.unit.coast = order.coast
     order.unit.location = order.destination
+  }
   })
 }
 
@@ -22,6 +25,7 @@ function isThereConflict(ordersArray){
 }
 
 function orderResolution(ordersArray){
+  holdByDefault(ordersArray)
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
   conflictingOrders(ordersArray, conflictingLocations)
@@ -175,5 +179,18 @@ function areSupportsCutOff(ordersArray, support){
 function getMoveDestinations(ordersArray){
   return ordersArray.map(order => {
   return order.destination
+  })
+}
+
+function holdByDefault(ordersArray){
+  unitsWithOrders =  []
+  orderStore.forEach(order => {  unitsWithOrders.push(order.unit)})
+  allUnitsArray.forEach(unit => {
+
+    if (!unitsWithOrders.includes(unit)){
+      createOrReplaceOrder(turn, "hold", unit, unit.location, unit.location )
+    }
+
+
   })
 }

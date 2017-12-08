@@ -25,6 +25,12 @@ function play() {
       // if (retreatingUnits != []) {
       //   displayDisplacedUnits(retreatingUnits)
       // }
+      holdByDefault(orderStore)
+      retreatingUnits = orderResolution(orderStore);
+      deleteUnitsThatCannotRetreat(retreatingUnits)
+      if (retreatingUnits != []) {
+        retreatingUnits.forEach( issue => alert(retreatingUnits.name))
+      }
       addUnits();
       clearOrderDiplay()
       updateDisplay();
@@ -32,7 +38,6 @@ function play() {
       orderStore = []
       break;
     case "Retreat and Disbanding Phase":
-      deleteUnitsThatCannotRetreat(retreatingUnits)
       updateDisplay();
       currentTimer = new Timer(5);
       break;

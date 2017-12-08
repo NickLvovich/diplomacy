@@ -1,19 +1,9 @@
-// Made this a separate file since it will be happening in a different game phase.
-// We can probably merge this back into game logic after.
-
-
-// This is test data. Delete before trying to impliment full functionality.
-// let retreatArray = [countries.Germany.units[0], countries.Germany.units[1], countries.Germany.units[2]]
-
-
 let occupiedTerritories = []
   for (let countryKey of Object.keys(countries)) {
     for (let unit of countries[countryKey].units) {
       occupiedTerritories.push(unit.location.abbreviation)
   }
 }
-//
-
 
 function deleteUnitsThatCannotRetreat(retreatArray){
   retreatArray.forEach(unit => {
@@ -22,6 +12,8 @@ function deleteUnitsThatCannotRetreat(retreatArray){
         country = unit.findOwner()
         console.log(`${country.name} lost a unit in ${unit.location.name}`)
         country.units = country.units.filter(countryUnit => countryUnit != unit)
+        let index = retreatArray.indexOf(unit)
+        retreatArray.splice(index, 1)
     }
   }
     else {
@@ -30,6 +22,8 @@ function deleteUnitsThatCannotRetreat(retreatArray){
           country = unit.findOwner()
           console.log(`${country.name} lost a unit in ${unit.location.name}`)
           country.units = country.units.filter(countryUnit => countryUnit != unit)
+          let index = retreatArray.indexOf(unit)
+          retreatArray.splice(index, 1)
           }
         }
       }
