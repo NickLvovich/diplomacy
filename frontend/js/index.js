@@ -12,39 +12,27 @@ function play() {
       updateDisplay();
       addEventListeners();
       currentTimer = new Timer(15);
-      document.getElementById("headers").innerHTML = `
-      <tr>
-        <th>Country</th>
-        <th>Unit</th>
-        <th>Action</th>
-        <th>Target</th>
-        <th>From</th>
-        <th>To</th>
-      </tr>
-      `
       break;
     case "Order Writing Phase":
       updateDisplay();
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
-      holdByDefault(orderStore)
       orderResolution(orderStore);
-      moveResolution(orderStore);
+      moveResolution(ordersStore);
       printOrderMessages(orderStore);
-      let retreats = filterForRetreats(orderStore)
-      if (retreats != []) {
-        addEventListeners();
-        displayDisplacedUnits(retreats)
-      } else {
-        nextStep()
-      }
+
+      // if (retreats != []) {
+      //   displayDisplacedUnits(retreatingUnits)
+      // }
       addUnits();
+      clearOrderDiplay()
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
       break;
     case "Retreat and Disbanding Phase":
+      deleteUnitsThatCannotRetreat(retreatingUnits)
       updateDisplay();
       currentTimer = new Timer(5);
       break;
@@ -126,6 +114,11 @@ function colorTerritories() {
       }
     }
   })
+}
+
+function clearOrderDiplay() {
+  var orders = document.querySelectorAll('.order')
+  orders.forEach(x => x.remove())
 }
 
 function addUnits() {
