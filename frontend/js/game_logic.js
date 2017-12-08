@@ -3,7 +3,6 @@ function moveResolution(ordersArray){
     if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
     order.unit.coast = order.coast
     order.unit.location = order.destination
-  }
   })
 }
 
