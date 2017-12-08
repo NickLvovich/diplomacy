@@ -13,16 +13,6 @@ function play() {
       updateDisplay();
       addEventListeners();
       currentTimer = new Timer(15);
-      document.getElementById("headers").innerHTML = `
-      <tr>
-        <th>Country</th>
-        <th>Unit</th>
-        <th>Action</th>
-        <th>Target</th>
-        <th>From</th>
-        <th>To</th>
-      </tr>
-      `
       break;
     case "Order Writing Phase":
       infoText.innerHTML = "Select a unit to begin issuing orders"
@@ -34,18 +24,14 @@ function play() {
       orderResolution(orderStore);
       printOrderMessages(orderStore);
       moveResolution(orderStore);
-      // debugger
-      // if (retreatingUnits != []) {
-      //   displayDisplacedUnits(retreatingUnits)
-      // }
-      holdByDefault(orderStore)
-      retreatingUnits = orderResolution(orderStore);
+      retreatingUnits = filterForRetreats(orderStore)
+      if (retreatingUnits != []) {
+        displayDisplacedUnits(retreatingUnits)
+      }
       deleteUnitsThatCannotRetreat(retreatingUnits)
-      // if (retreatingUnits != []) {
-      //   retreatingUnits.forEach( issue => alert(retreatingUnits.name))
-      // }
 
       addUnits();
+      clearOrderDiplay()
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
@@ -134,6 +120,11 @@ function colorTerritories() {
       }
     }
   })
+}
+
+function clearOrderDiplay() {
+  var orders = document.querySelectorAll('.order')
+  orders.forEach(x => x.remove())
 }
 
 function addUnits() {
