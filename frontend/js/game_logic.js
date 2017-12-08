@@ -1,9 +1,10 @@
 
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
-    order.unit.coast = order.coast
-    order.unit.location = order.destination
+    if ((order.type === "Move" || order.type === "Hold") && !(order.conflictOutcome == "neutral" || order.conflictOutcome == "loser")) {
+      order.unit.coast = order.coast
+      order.unit.location = order.destination
+    }   
   })
 }
 
@@ -44,7 +45,6 @@ function filterForRetreats(ordersArray){
       retreat.push(order.unit)
     }
   })
-  debugger;
   return retreat
 }
 
@@ -57,7 +57,6 @@ function printOrderMessages(ordersArray) {
   `
   let listItems = "";
   for (let order of ordersArray) {
-    // debugger;
     listItems += `
     <tr class="order">
       <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
@@ -78,12 +77,12 @@ function resolveConflict(conflictOrders, conflict){
   if (morethanOne.length > 1 ) {
     conflictOrders.forEach( order => {
       order.conflictOutcome = "neutral";
-      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} is blocked from moving to ${order.destination.name}`
+      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} tries to move to ${order.destination.name} but is repelled`
       })
   } else {
-  conflictOrders.forEach(order => {
-      if (order.support == maximum){
-        order.message = `${order.unit.findOwner().name} ${order.type}s ${order.unit.type} from ${order.currentLoc.name} to ${order.destination.name}`
+    conflictOrders.forEach(order => {
+      if (order.support == maximum) {
+        order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} moves to ${order.destination.name}`
         order.conflictOutcome = "winner"
       } else {
         order.conflictOutcome = "loser"
@@ -94,11 +93,10 @@ function resolveConflict(conflictOrders, conflict){
 }
 
 function needsToRetreat(ordersArray){
-  ordersArray.forEach( order => {
+  ordersArray.forEach(order => {
     if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
-      debugger;
       order.retreat = true
-      order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} needs to retreat.`
+      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} is displaced`
     }
   })
 }
@@ -106,7 +104,7 @@ function needsToRetreat(ordersArray){
 function addStatusToConflictingOrders(ordersArray) {
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
-      order.message = `${order.unit.findOwner().name} ${order.unit.type} in ${order.unit.location.name} has moved to ${order.destination.name}`
+      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} moves to ${order.destination.name}`
     } else if (order.type == "Support") {
       try {
         const supportedType = order.currentLoc.findOccupied().type[0].toUpperCase();

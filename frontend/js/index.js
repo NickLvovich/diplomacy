@@ -26,12 +26,9 @@ function play() {
       moveResolution(orderStore);
       retreatingUnits = filterForRetreats(orderStore)
       if (retreatingUnits != []) {
-        displayDisplacedUnits(retreatingUnits)
       }
       deleteUnitsThatCannotRetreat(retreatingUnits)
-
       addUnits();
-      clearOrderDiplay()
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
@@ -40,6 +37,7 @@ function play() {
     case "Retreat and Disbanding Phase":
       infoText.innerHTML = "Select a displaced unit to enter a retreat order"
       updateDisplay();
+      handleRetreatingUnits();
       currentTimer = new Timer(5);
       break;
     case "Gaining and Losing Units Phase":
@@ -293,15 +291,4 @@ function toggleMoves() {
   let elem = document.querySelector('#modal2');
   let instance = new M.Modal(elem)
   instance.open();
-}
-
-function displayDisplacedUnits(units){
-  let displacedDiv = document.querySelector('.displaced')
-  let ul = document.createElement('ul')
-  units.forEach(unit => {
-    let li = document.createElement('li')
-    li.innerText = `${unit.type.charAt(0).toUpperCase()}${unit.type.slice(1, unit.type.length)} in ${unit.location.name} has been displaced.`
-    ul.append(li)
-  })
-  displacedDiv.append(ul)
 }
