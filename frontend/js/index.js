@@ -7,55 +7,42 @@ function updateDisplay() {
 function play() {
   switch (game.currentTurn.phase) {
     case "Diplomatic Phase":
-      infoText.innerHTML = "Select a unit to begin issuing orders"  
+      infoText.innerHTML = "Select a unit to begin issuing orders"
       addUnits();
       game.currentTurn.year === 1901 && game.currentTurn.season === "Spring" ? colorTerritories() : null
       updateDisplay();
       addEventListeners();
       currentTimer = new Timer(15);
-      document.getElementById("headers").innerHTML = `
-      <tr>
-        <th>Country</th>
-        <th>Unit</th>
-        <th>Action</th>
-        <th>Target</th>
-        <th>From</th>
-        <th>To</th>
-      </tr>
-      `
       break;
     case "Order Writing Phase":
-      infoText.innerHTML = "Select a unit to begin issuing orders"    
+      infoText.innerHTML = "Select a unit to begin issuing orders"
       updateDisplay();
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
-      infoText.innerHTML = ""  
+      infoText.innerHTML = ""
       orderResolution(orderStore);
       printOrderMessages(orderStore);
       moveResolution(orderStore);
-      // debugger
-      // if (retreatingUnits != []) {
-      //   displayDisplacedUnits(retreatingUnits)
-      // }
-      holdByDefault(orderStore)
-      retreatingUnits = orderResolution(orderStore);
+      retreatingUnits = filterForRetreats(orderStore)
+      if (retreatingUnits != []) {
+        displayDisplacedUnits(retreatingUnits)
+      }
       deleteUnitsThatCannotRetreat(retreatingUnits)
-      // if (retreatingUnits != []) {
-      //   retreatingUnits.forEach( issue => alert(retreatingUnits.name))
-      // }
+
       addUnits();
+      clearOrderDiplay()
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
       toggleModal()
       break;
     case "Retreat and Disbanding Phase":
-      infoText.innerHTML = "Select a displaced unit to enter a retreat order"    
+      infoText.innerHTML = "Select a displaced unit to enter a retreat order"
       updateDisplay();
       currentTimer = new Timer(5);
       break;
-    case "Gaining and Losing Units Phase":  
+    case "Gaining and Losing Units Phase":
       updateDisplay();
       colorTerritories();
       gainOrLoseUnits();
@@ -119,7 +106,7 @@ function colorTerritories() {
           countries[countryKey].territories.push(b[0]);
         } catch (err) {
           debugger;
-        }  
+        }
       }
     }
   })
@@ -133,6 +120,11 @@ function colorTerritories() {
       }
     }
   })
+}
+
+function clearOrderDiplay() {
+  var orders = document.querySelectorAll('.order')
+  orders.forEach(x => x.remove())
 }
 
 function addUnits() {

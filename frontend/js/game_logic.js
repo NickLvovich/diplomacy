@@ -1,9 +1,9 @@
+
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    if (order.type === "Move" || order.type === "Hold"){
+    if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
     order.unit.coast = order.coast
     order.unit.location = order.destination
-  }
   })
 }
 
@@ -22,7 +22,6 @@ function isThereConflict(ordersArray){
 }
 
 function orderResolution(ordersArray) {
-  debugger;
   holdByDefault(ordersArray)
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
@@ -34,7 +33,19 @@ function orderResolution(ordersArray) {
   }
 
   addStatusToConflictingOrders(ordersArray)
+  needsToRetreat(ordersArray)
   return ordersArray
+}
+
+function filterForRetreats(ordersArray){
+  let retreat = []
+  ordersArray.forEach (order => {
+    if (order.retreat == true) {
+      retreat.push(order.unit)
+    }
+  })
+  debugger;
+  return retreat
 }
 
 function printOrderMessages(ordersArray) {
@@ -44,7 +55,7 @@ function printOrderMessages(ordersArray) {
     <th>Status</th>
   </tr>
   `
-  let listItems = "";  
+  let listItems = "";
   for (let order of ordersArray) {
     // debugger;
     listItems += `
@@ -82,21 +93,20 @@ function resolveConflict(conflictOrders, conflict){
   }
 }
 
-function addDataToConsole(nonconflictingOrders){
-  let div = document.querySelector('.displaced')
-  let ul = document.createElement('ul')
-  nonconflictingOrders.forEach(order => {
-    let li = document.createElement('li')
-    li.innerText = `${order.unit.findOwner().name} ${order.type}s ${order.unit.type} from ${order.currentLoc.name} to ${order.destination.name}.`
-    ul.append(li)
+function needsToRetreat(ordersArray){
+  ordersArray.forEach( order => {
+    if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
+      debugger;
+      order.retreat = true
+      order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} needs to retreat.`
+    }
   })
-  div.append(ul)
 }
 
 function addStatusToConflictingOrders(ordersArray) {
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
-      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} moves to ${order.destination.name}`
+      order.message = `${order.unit.findOwner().name} ${order.unit.type} in ${order.unit.location.name} has moved to ${order.destination.name}`
     } else if (order.type == "Support") {
       try {
         const supportedType = order.currentLoc.findOccupied().type[0].toUpperCase();
@@ -110,7 +120,7 @@ function addStatusToConflictingOrders(ordersArray) {
         }
       } catch (err) {
         debugger;
-      }      
+      }
     } else if (order.type == "Hold") {
       order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} holds`
     }
@@ -129,15 +139,7 @@ function conflictingOrders(ordersArray, conflictingLocations){
     return ordersArray
 }
 
-function nonConflictingOrders(ordersArray, conflictingLocations){
- var newOrders = ordersArray
- let issues = [...conflictingLocations]
-  while (issues.length > 0 ) {
-      newOrders = newOrders.filter( order => order.destination != conflictingLocations[0])
-      issues.shift()
-  }
-  return newOrders
-}
+
 
 function orderTypeHoldOrMove(order) {
   return order.type == "Move" || order.type == "Hold"
@@ -173,15 +175,18 @@ function getMoveDestinations(ordersArray){
   })
 }
 
+function nextStep() {
+  var data = document.querySelector('#info_text')
+  data.innerText = "There are no conflicts. Checkout the order logs to see all the moves."
+}
+
 function holdByDefault(ordersArray){
   unitsWithOrders =  []
   orderStore.forEach(order => {  unitsWithOrders.push(order.unit)})
   allUnitsArray.forEach(unit => {
-
     if (!unitsWithOrders.includes(unit)){
-      createOrReplaceOrder(turn, "Hold", unit, unit.location, unit.location )
+      createOrReplaceOrder(game.currentTurn, "Hold", unit, unit.location, unit.location, unit.coast )
     }
-
 
   })
 }
