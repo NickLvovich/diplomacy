@@ -21,8 +21,8 @@ function isThereConflict(ordersArray){
   return conflictsArray
 }
 
-function orderResolution(ordersArray){
-
+function orderResolution(ordersArray) {
+  holdByDefault(ordersArray)
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
   conflictingOrders(ordersArray, conflictingLocations)
@@ -91,12 +91,26 @@ function needsToRetreat(ordersArray){
   })
 }
 
-function addStatusToConflictingOrders(ordersArray){
+function addStatusToConflictingOrders(ordersArray) {
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
       order.message = `${order.unit.findOwner().name} ${order.unit.type} in ${order.unit.location.name} has moved to ${order.destination.name}`
     } else if (order.type == "Support") {
-      order.message = `${order.unit.findOwner().name} ${order.unit.type} supports move or hold to ${order.destination.name}`
+      try {
+        const supportedType = order.currentLoc.findOccupied().type[0].toUpperCase();
+        const supportedPossessive = countries[order.currentLoc.findOccupied().country].possessive
+        let supportedMove;
+        order.currentLoc === order.destination ? supportedMove = "hold" : supportedMove = "move"
+        if (supportedMove === "hold") {
+          order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} supports ${supportedPossessive} ${supportedType} - ${order.currentLoc.name} hold`
+        } else {
+          order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} supports ${supportedPossessive} ${supportedType} - ${order.currentLoc.name} move to ${order.destination}`
+        }
+      } catch (err) {
+        debugger;
+      }
+    } else if (order.type == "Hold") {
+      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} holds`
     }
   })
 }
