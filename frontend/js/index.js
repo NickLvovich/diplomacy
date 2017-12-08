@@ -19,12 +19,12 @@ function play() {
       break;
     case "Order Resolution Phase":
       orderResolution(orderStore);
-      moveResolution(ordersStore);
+      moveResolution(orderStore);
       printOrderMessages(orderStore);
-      // debugger
-      // if (retreatingUnits != []) {
-      //   displayDisplacedUnits(retreatingUnits)
-      // }
+      let retreats = filterForRetreats(orderStore)
+      if (retreats != []) {
+        displayDisplacedUnits(retreats)
+      }
       addUnits();
       clearOrderDiplay()
       updateDisplay();

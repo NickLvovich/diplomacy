@@ -1,6 +1,5 @@
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    debugger;
     if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
     order.unit.coast = order.coast
     order.unit.location = order.destination
@@ -31,7 +30,8 @@ function orderResolution(ordersArray){
     conflictingLocations.shift()
   }
 
-  addStatusToConflictingOrders(ordersArray)
+  addStatusToNonConflictingOrders(ordersArray)
+  needsToRetreat(ordersArray)
   return ordersArray
 }
 
@@ -72,7 +72,6 @@ function printOrderMessages(ordersArray) {
   div.appendChild(austriaUl);
   div.appendChild(russiaUl);
   div.appendChild(turkeyUl);
-  debugger;
 }
 
 function filterConflicts(array, location){
@@ -101,18 +100,26 @@ function resolveConflict(conflictOrders, conflict){
   }
 }
 
-function addDataToConsole(nonconflictingOrders){
-  let div = document.querySelector('.displaced')
-  let ul = document.createElement('ul')
-  nonconflictingOrders.forEach(order => {
-    let li = document.createElement('li')
-    li.innerText = `${order.unit.findOwner().name} ${order.type}s ${order.unit.type} from ${order.currentLoc.name} to ${order.destination.name}.`
-    ul.append(li)
+function needsToRetreat(ordersArray){
+  ordersArray.forEach( order => {
+    if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
+      order.retreat = true
+      order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} needs to retreat.`
+    }
   })
-  div.append(ul)
 }
 
-function addStatusToConflictingOrders(ordersArray){
+function filterForRetreats(ordersArray){
+  let retreat = []
+  ordersArray.forEach (order => {
+    if (order.retreat == true) {
+      retreat.push(order.unit)
+    }
+  })
+  return retreat
+}
+
+function addStatusToNonConflictingOrders(ordersArray){
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
       order.message = `${order.unit.findOwner().name} ${order.unit.type} in ${order.unit.location.name} has moved to ${order.destination.name}`
@@ -171,9 +178,18 @@ function areSupportsCutOff(ordersArray, support){
   }
 }
 
-
 function getMoveDestinations(ordersArray){
   return ordersArray.map(order => {
   return order.destination
   })
+}
+
+function displayDisplacedUnits(retreatingUnits){
+  let array = []
+  retreatingUnits.forEach( unit => {
+    let hash = {}
+    hash.unit = unit
+    hash.locations = availableLocations(unit)
+  })
+  return array
 }

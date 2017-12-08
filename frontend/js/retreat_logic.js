@@ -51,8 +51,23 @@ function seaNeighborsOccupied(seaNeighbors){
   })
 }
 
-  function findAllUnitsLocations(){
+function findAllUnitsLocations(){
     return allUnitsArray.map(unit =>{
       return unit.location.abbreviation
     })
   }
+
+function availableLocations(unit){
+  let locations = findAllUnitsLocations()
+  let unitLocations;
+  if (unit.type == "army"){
+    unitLocations = unit.location.landNeighbors
+  } else {
+    debugger
+    unitLocations = unit.locations
+  }
+  debugger
+  return unitLocations.filter(location => {
+    return locations.includes(location)
+  })
+}
