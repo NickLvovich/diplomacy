@@ -18,13 +18,10 @@ function play() {
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
-
       holdByDefault(orderStore)
-
       orderResolution(orderStore);
       moveResolution(orderStore);
       printOrderMessages(orderStore);
-
       addUnits();
       clearOrderDiplay()
       updateDisplay();

@@ -129,7 +129,6 @@ function holdByDefault(ordersArray){
   allUnitsArray.forEach(unit => {
     if (!unitsWithOrders.includes(unit)){
       createOrReplaceOrder(game.currentTurn, "hold", unit, unit.location, unit.location )
-      debugger
     }
 
 
