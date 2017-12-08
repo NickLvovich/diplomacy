@@ -12,7 +12,7 @@ body {
 
 #map_action_bar {
   margin-left: -1px;
-  margin-top: 50px; }
+  margin-top: 20px; }
   #map_action_bar nav {
     background-color: #4E7F64; }
     #map_action_bar nav #timer,

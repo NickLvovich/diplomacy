@@ -1,7 +1,4 @@
-<<<<<<< HEAD
 
-=======
->>>>>>> 6a61cbb633a3413efc13b0f0ffaeb2f3cf9d6f27
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
     if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
@@ -24,8 +21,8 @@ function isThereConflict(ordersArray){
   return conflictsArray
 }
 
+
 function orderResolution(ordersArray){
-  
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
   let conflictOrders = conflictingOrders(ordersArray, conflictingLocations)
@@ -45,13 +42,12 @@ function orderResolution(ordersArray){
     conflictingLocations.shift()
   }
 
-<<<<<<< HEAD
-=======
+
   addStatusToNonConflictingOrders(ordersArray)
   needsToRetreat(ordersArray)
   return ordersArray
 }
->>>>>>> 6a61cbb633a3413efc13b0f0ffaeb2f3cf9d6f27
+
 
 function printOrderMessages(ordersArray) {
   document.getElementById("headers").innerHTML = `
@@ -94,10 +90,7 @@ function resolveConflict(conflictOrders, conflict){
   }
 }
 
-<<<<<<< HEAD
 
-function addStatusToConflictingOrders(ordersArray){
-=======
 function needsToRetreat(ordersArray){
   ordersArray.forEach( order => {
     if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
@@ -106,6 +99,7 @@ function needsToRetreat(ordersArray){
     }
   })
 }
+
 
 function filterForRetreats(ordersArray){
   let retreat = []
@@ -117,13 +111,28 @@ function filterForRetreats(ordersArray){
   return retreat
 }
 
-function addStatusToNonConflictingOrders(ordersArray){
->>>>>>> 6a61cbb633a3413efc13b0f0ffaeb2f3cf9d6f27
+
+function addStatusToConflictingOrders(ordersArray) {
+
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
       order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} moves to ${order.destination.name}`
     } else if (order.type == "Support") {
-      order.message = `${order.unit.findOwner().name} ${order.unit.type} supports move or hold to ${order.destination.name}`
+      try {
+        const supportedType = order.currentLoc.findOccupied().type[0].toUpperCase();
+        const supportedPossessive = countries[order.currentLoc.findOccupied().country].possessive
+        let supportedMove;
+        order.currentLoc === order.destination ? supportedMove = "hold" : supportedMove = "move"
+        if (supportedMove === "hold") {
+          order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} supports ${supportedPossessive} ${supportedType} - ${order.currentLoc.name} hold`
+        } else {
+          order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} supports ${supportedPossessive} ${supportedType} - ${order.currentLoc.name} move to ${order.destination}`
+        }
+      } catch (err) {
+        debugger;
+      }
+    } else if (order.type == "Hold") {
+      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} holds`
     }
   })
 }
@@ -200,6 +209,7 @@ function holdByDefault(ordersArray){
   allUnitsArray.forEach(unit => {
     if (!unitsWithOrders.includes(unit)){
       createOrReplaceOrder(game.currentTurn, "Hold", unit, unit.location, unit.location, unit.coast )
+
     }
   })
 }
