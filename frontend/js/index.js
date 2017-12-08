@@ -33,6 +33,7 @@ function play() {
     case "Gaining and Losing Units Phase":
       updateDisplay();
       colorTerritories();
+      gainOrLoseUnits();
       currentTimer = new Timer(5);
       break;
     default:
@@ -101,7 +102,8 @@ function colorTerritories() {
     for (let territory of countries[countryKey].territories) {
       // debugger;
       if (!document.getElementById(territory.abbreviation).classList.contains(countryKey)) {
-        document.getElementById(territory.abbreviation).className = "";
+        const previousOwner = document.getElementById(territory.abbreviation).classList[0]
+        document.getElementById(territory.abbreviation).classList.remove(previousOwner)
         document.getElementById(territory.abbreviation).classList.add(countryKey);
       }
     }
@@ -122,16 +124,16 @@ function addUnits() {
         if (!unit.coast) {
           const x = unit.location.coordinates.main.x
           const y = unit.location.coordinates.main.y
-          gameMap.innerHTML += fleetSVG(x, y, countryKey);
+          gameMap.innerHTML += fleetSVG(x, y, countryKey, unit.id);
         } else {
           const x = unit.location.coordinates[unit.coast].x
           const y = unit.location.coordinates[unit.coast].y
-          gameMap.innerHTML += fleetSVG(x, y, countryKey);
+          gameMap.innerHTML += fleetSVG(x, y, countryKey, unit.id);
         }
       } else if (unit.type === "army") {
         const x = unit.location.coordinates.main.x
         const y = unit.location.coordinates.main.y
-        gameMap.innerHTML += armySVG(x, y, countryKey);
+        gameMap.innerHTML += armySVG(x, y, countryKey, unit.id);
       }
     }
   })
