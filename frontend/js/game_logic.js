@@ -1,6 +1,3 @@
-
-
-
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
     if (order.type === "Move" || order.type === "Hold"){
@@ -40,43 +37,22 @@ function orderResolution(ordersArray){
 }
 
 function printOrderMessages(ordersArray) {
-  let div = document.querySelector('#moves')
-  let fraceUl = document.createElement('ul')
-  let britianUl = document.createElement('ul')
-  let germanyUl = document.createElement('ul')
-  let italyUl = document.createElement('ul')
-  let austriaUl = document.createElement('ul')
-  let russiaUl = document.createElement('ul')
-  let turkeyUl = document.createElement('ul')
-
-  ordersArray.forEach ( order => {
-    let li = document.createElement('li')
-    li.innerText = order.message
-    li.class = "collection-item"
-    if (order.unit.findOwner() === "France") {
-      fraceUl.append(li)
-    } else if (order.unit.findOwner().name === "Britain") {
-      britianUl.append(li)
-    } else if (order.unit.findOwner().name === "Germany") {
-      germanyUl.append(li)
-    } else if (order.unit.findOwner().name === "Italy") {
-      italyUl.append(li)
-    } else if (order.unit.findOwner().name === "Austria") {
-      austriaUl.append(li)
-    } else if (order.unit.findOwner().name === "Russia") {
-      russiaUl.append(li)
-    } else if (order.unit.findOwner().name === "Turkey") {
-      turkeyUl.append(li)
-    }
-  })
-  div.appendChild(fraceUl);
-  div.appendChild(britianUl);
-  div.appendChild(germanyUl);
-  div.appendChild(italyUl);
-  div.appendChild(austriaUl);
-  div.appendChild(russiaUl);
-  div.appendChild(turkeyUl);
-  debugger;
+  document.getElementById("headers").innerHTML = `
+  <tr>
+    <th>Country</th>
+    <th>Status</th>
+  </tr>
+  `
+  let listItems = "";  
+  for (let order of ordersArray) {
+    // debugger;
+    listItems += `
+    <tr class="order">
+      <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
+      <td>${order.message}</td>
+    </tr>`
+  }
+  document.getElementById("orders").innerHTML = listItems;
 }
 
 function filterConflicts(array, location){
@@ -119,7 +95,7 @@ function addDataToConsole(nonconflictingOrders){
 function addStatusToConflictingOrders(ordersArray){
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
-      order.message = `${order.unit.findOwner().name} ${order.unit.type} in ${order.unit.location.name} has moved to ${order.destination.name}`
+      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} moves to ${order.destination.name}`
     } else if (order.type == "Support") {
       order.message = `${order.unit.findOwner().name} ${order.unit.type} supports move or hold to ${order.destination.name}`
     }
