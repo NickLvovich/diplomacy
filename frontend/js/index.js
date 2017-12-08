@@ -18,10 +18,13 @@ function play() {
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
-      retreatingUnits = orderResolution(orderStore);
-      if (retreatingUnits != []) {
-        displayDisplacedUnits(retreatingUnits)
-      }
+      orderResolution(orderStore);
+      moveResolution(ordersStore);
+      printOrderMessages(orderStore);
+      // debugger
+      // if (retreatingUnits != []) {
+      //   displayDisplacedUnits(retreatingUnits)
+      // }
       addUnits();
       clearOrderDiplay()
       updateDisplay();
@@ -270,6 +273,11 @@ $('.fixed-action-btn').floatingActionButton({
 
 function toggleModal() {
   let elem = document.querySelector('.modal');
+  let instance = new M.Modal(elem)
+  instance.open();
+}
+function toggleMoves() {
+  let elem = document.querySelector('#modal2');
   let instance = new M.Modal(elem)
   instance.open();
 }

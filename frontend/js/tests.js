@@ -14,23 +14,60 @@ function retreatingArmysTest() {
 
   franceUnits[0].location = territories.Bur
 
-  let ordersArray = [new Order(1, "move", germanyUnits[0], territories.Ruh, territories.Bur ),
-                     new Order(1, "support", germanyUnits[1], territories.Ruh, territories.Bur ),
-                     new Order(1, "move", germanyUnits[2], territories.Bel, territories.Pic ),
-                     new Order(1, "hold", franceUnits[0], territories.Bur, territories.Bur ),
-                     new Order(1, "move", franceUnits[1], territories.Mar, territories.Spa ),
-                     new Order(1, "move", franceUnits[2], territories.Bre, territories.Gas )];
+  let ordersArray = [new Order(1, "Move", germanyUnits[0], territories.Ruh, territories.Bur ),
+                     new Order(1, "Support", germanyUnits[1], territories.Ruh, territories.Bur ),
+                     new Order(1, "Move", germanyUnits[2], territories.Bel, territories.Pic ),
+                     new Order(1, "Hold", franceUnits[0], territories.Bur, territories.Bur ),
+                     new Order(1, "Move", franceUnits[1], territories.Mar, territories.Spa ),
+                     new Order(1, "Move", franceUnits[2], territories.Bre, territories.Gas )];
 
   let attempt = orderResolution(ordersArray)
 
   let answer = [franceUnits[0]]
 
-  if (answer === attempt) {
+  if (attempt.length == answer.length && attempt.every((v,i)=> v === answer[i])) {
     return true;
   } else {
     return false;
   }
 }
+
+function oneArmyWithMoreSupportTest(){
+  germanyUnits[0].location = territories.Ruh
+  germanyUnits[2].location = territories.Bel
+
+  franceUnits[0].location = territories.Bur
+
+  let ordersArray = [new Order(1, "Support", germanyUnits[0], territories.Ruh, territories.Bur ),
+                     new Order(1, "Move", germanyUnits[1], territories.Ruh, territories.Bur ),
+                     new Order(1, "Move", germanyUnits[2], territories.Bel, territories.Pic ),
+                     new Order(1, "Hold", franceUnits[0], territories.Bur, territories.Bur ),
+                     new Order(1, "Move", franceUnits[1], territories.Mar, territories.Spa ),
+                     new Order(1, "Move", franceUnits[2], territories.Bre, territories.Gas )];
+
+  orderResolution(ordersArray)
+  moveResolution(ordersArray)
+
+}
+
+function armiesWithEvenSupportConflict(){
+  germanyUnits[0].location = territories.Ruh
+  germanyUnits[2].location = territories.Bel
+
+  franceUnits[0].location = territories.Bur
+
+  let ordersArray = [new Order(1, "Move", germanyUnits[0], territories.Ruh, territories.Bel ),
+                     new Order(1, "Move", germanyUnits[1], territories.Ruh, territories.Bur ),
+                     new Order(1, "Move", germanyUnits[2], territories.Bel, territories.Pic ),
+                     new Order(1, "Hold", franceUnits[0], territories.Bur, territories.Bur ),
+                     new Order(1, "Move", franceUnits[1], territories.Mar, territories.Spa ),
+                     new Order(1, "Move", franceUnits[2], territories.Bre, territories.Gas )];
+
+  orderResolution(ordersArray)
+  moveResolution(ordersArray)
+
+}
+
 
 function displayDisplacedUnitsTest(){
   displayDisplacedUnits(units)
