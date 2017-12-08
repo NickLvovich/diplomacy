@@ -32,7 +32,7 @@ function orderResolution(ordersArray) {
     conflictingLocations.shift()
   }
 
-  addStatusToConflictingOrders(ordersArray)
+  addStatusToNonConflictingOrders(ordersArray)
   needsToRetreat(ordersArray)
   return ordersArray
 }
@@ -44,7 +44,6 @@ function filterForRetreats(ordersArray){
       retreat.push(order.unit)
     }
   })
-  debugger;
   return retreat
 }
 
@@ -103,7 +102,7 @@ function needsToRetreat(ordersArray){
   })
 }
 
-function addStatusToConflictingOrders(ordersArray) {
+function addStatusToNonConflictingOrders(ordersArray) {
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
       order.message = `${order.unit.findOwner().name} ${order.unit.type} in ${order.unit.location.name} has moved to ${order.destination.name}`

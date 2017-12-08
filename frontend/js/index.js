@@ -20,16 +20,16 @@ function play() {
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
-      infoText.innerHTML = ""
       orderResolution(orderStore);
       printOrderMessages(orderStore);
       moveResolution(orderStore);
       retreatingUnits = filterForRetreats(orderStore)
       if (retreatingUnits != []) {
         displayDisplacedUnits(retreatingUnits)
+      } else {
+        infoText.innerHTML = "There are no conflicts. Check out the logs."
       }
       deleteUnitsThatCannotRetreat(retreatingUnits)
-
       addUnits();
       clearOrderDiplay()
       updateDisplay();
