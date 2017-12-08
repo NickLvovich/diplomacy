@@ -11,6 +11,7 @@ let currentTimer;
 let unitIndex = 22;
 
 let orderStore = [];
+let retreatingUnits = [];
 let gainingCountries = {}
 let losingCountries = {}
 

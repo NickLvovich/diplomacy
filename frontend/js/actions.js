@@ -88,11 +88,15 @@ function addTargetsSupport(terr, target) {
               if (territories[item].findOccupied() &&
                 !potentialSupports.includes(item) &&
                 item !== terr.abbreviation) {
-                if (territories[abbr2].findOccupied().type === "army" && territories[parsedAbbr].type === "water") {
-                  null
-                } else {
-                  potentialSupports.push(item);
-                }
+                try {
+                  if (territories[item].findOccupied().type === "army" && territories[parsedAbbr].type === "water") {
+                    null
+                  } else {
+                    potentialSupports.push(item);
+                  }
+                } catch(err) {
+                  debugger;
+                }                
               }
             }
           }
@@ -448,7 +452,9 @@ function handleRetreatingUnits() {
       unit.findWhereItCanMove().forEach(abbr => {
         let parsedAbbr;
         /_/.test(abbr) ? parsedAbbr = abbr.split("_")[0] : parsedAbbr = abbr;
-        document.getElementById(parsedAbbr).classList.add("potentialMove");
+        if (!territories[parsedAbbr].findOccupied()) {
+          document.getElementById(parsedAbbr).classList.add("potentialMove");
+        }        
       });
       for (let path of document.querySelectorAll(".targeted")) {
         path.addEventListener("click", e => {

@@ -86,7 +86,7 @@ function resolveConflict(conflictOrders, conflict){
         order.conflictOutcome = "winner"
       } else {
         order.conflictOutcome = "loser"
-        order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} ${order.type == "Hold" ? 'could not hold' : 'did not have support to move to'} ${order.destination.name}`
+        order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} tries to move to ${order.destination.name} but is repelled`
       }
     })
   }
@@ -121,6 +121,10 @@ function addStatusToConflictingOrders(ordersArray) {
       }
     } else if (order.type == "Hold") {
       order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} holds`
+    } else if (order.type === "Convoy") {
+      const convoyedType = order.currentLoc.findOccupied().type[0].toUpperCase();
+      const convoyedPossessive = countries[order.currentLoc.findOccupied().country].possessive
+      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} convoys ${convoyedPossessive} ${convoyedType} - ${order.currentLoc.name} to ${order.destination.name}`
     }
   })
 }
