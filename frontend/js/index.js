@@ -18,13 +18,19 @@ function play() {
       currentTimer = new Timer(5);
       break;
     case "Order Resolution Phase":
+      holdByDefault(orderStore)
       orderResolution(orderStore);
-      moveResolution(orderStore);
       printOrderMessages(orderStore);
-      retreats = 
-      // if (retreats != []) {
+      // debugger
+      // if (retreatingUnits != []) {
       //   displayDisplacedUnits(retreatingUnits)
       // }
+      retreatingUnits = orderResolution(orderStore);
+      deleteUnitsThatCannotRetreat(retreatingUnits)
+      // if (retreatingUnits != []) {
+      //   retreatingUnits.forEach( issue => alert(retreatingUnits.name))
+      // }
+
       addUnits();
       clearOrderDiplay()
       updateDisplay();

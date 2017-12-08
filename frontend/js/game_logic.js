@@ -1,3 +1,4 @@
+
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
     if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
@@ -21,6 +22,7 @@ function isThereConflict(ordersArray){
 }
 
 function orderResolution(ordersArray){
+
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
   conflictingOrders(ordersArray, conflictingLocations)
@@ -34,43 +36,24 @@ function orderResolution(ordersArray){
   return ordersArray
 }
 
-function printOrderMessages(ordersArray) {
-  let div = document.querySelector('#moves')
-  let fraceUl = document.createElement('ul')
-  let britianUl = document.createElement('ul')
-  let germanyUl = document.createElement('ul')
-  let italyUl = document.createElement('ul')
-  let austriaUl = document.createElement('ul')
-  let russiaUl = document.createElement('ul')
-  let turkeyUl = document.createElement('ul')
 
-  ordersArray.forEach ( order => {
-    let li = document.createElement('li')
-    li.innerText = order.message
-    li.class = "collection-item"
-    if (order.unit.findOwner() === "France") {
-      fraceUl.append(li)
-    } else if (order.unit.findOwner().name === "Britain") {
-      britianUl.append(li)
-    } else if (order.unit.findOwner().name === "Germany") {
-      germanyUl.append(li)
-    } else if (order.unit.findOwner().name === "Italy") {
-      italyUl.append(li)
-    } else if (order.unit.findOwner().name === "Austria") {
-      austriaUl.append(li)
-    } else if (order.unit.findOwner().name === "Russia") {
-      russiaUl.append(li)
-    } else if (order.unit.findOwner().name === "Turkey") {
-      turkeyUl.append(li)
-    }
-  })
-  div.appendChild(fraceUl);
-  div.appendChild(britianUl);
-  div.appendChild(germanyUl);
-  div.appendChild(italyUl);
-  div.appendChild(austriaUl);
-  div.appendChild(russiaUl);
-  div.appendChild(turkeyUl);
+function printOrderMessages(ordersArray) {
+  document.getElementById("headers").innerHTML = `
+  <tr>
+    <th>Country</th>
+    <th>Status</th>
+  </tr>
+  `
+  let listItems = "";
+  for (let order of ordersArray) {
+    // debugger;
+    listItems += `
+    <tr class="order">
+      <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
+      <td>${order.message}</td>
+    </tr>`
+  }
+  document.getElementById("orders").innerHTML = listItems;
 }
 
 function filterConflicts(array, location){
@@ -169,4 +152,15 @@ function getMoveDestinations(ordersArray){
 function nextStep() {
   var data = document.querySelector('#info_text')
   data.innerText = "There are no conflicts. Checkout the order logs to see all the moves."
+}
+
+function holdByDefault(ordersArray){
+  unitsWithOrders =  []
+  orderStore.forEach(order => {  unitsWithOrders.push(order.unit)})
+  allUnitsArray.forEach(unit => {
+    if (!unitsWithOrders.includes(unit)){
+      createOrReplaceOrder(game.currentTurn, "Hold", unit, unit.location, unit.location, unit.coast )
+    }
+
+  })
 }
