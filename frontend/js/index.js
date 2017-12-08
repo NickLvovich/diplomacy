@@ -12,6 +12,16 @@ function play() {
       updateDisplay();
       addEventListeners();
       currentTimer = new Timer(15);
+      document.getElementById("headers").innerHTML = `
+      <tr>
+        <th>Country</th>
+        <th>Unit</th>
+        <th>Action</th>
+        <th>Target</th>
+        <th>From</th>
+        <th>To</th>
+      </tr>
+      `
       break;
     case "Order Writing Phase":
       updateDisplay();
@@ -27,7 +37,6 @@ function play() {
         displayDisplacedUnits(retreats)
       }
       addUnits();
-      clearOrderDiplay()
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
@@ -114,11 +123,6 @@ function colorTerritories() {
       }
     }
   })
-}
-
-function clearOrderDiplay() {
-  var orders = document.querySelectorAll('.order')
-  orders.forEach(x => x.remove())
 }
 
 function addUnits() {
