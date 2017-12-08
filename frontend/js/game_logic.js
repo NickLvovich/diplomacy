@@ -1,5 +1,6 @@
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
+    debugger;
     if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
     order.unit.coast = order.coast
     order.unit.location = order.destination
@@ -23,47 +24,61 @@ function isThereConflict(ordersArray){
 function orderResolution(ordersArray){
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
-  let conflictOrders = conflictingOrders(ordersArray, conflictingLocations)
-  let nonconflictingOrders = nonConflictingOrders(ordersArray, conflictingLocations)
-  let retreatingUnits= [];
+  conflictingOrders(ordersArray, conflictingLocations)
+
   while (conflictingLocations.length > 0) {
-    let results = resolveConflict(conflictOrders, conflictingLocations[0])
-    if (results != undefined){
-      nonconflictingOrders.push(results.winner[0])
-      let winningDestination = results.winner[0].destination
-      results.lost.forEach( loser => {
-        if (loser.unit.location === winningDestination){
-          retreatingUnits.push(loser.unit)
-        }
-      })
-    }
+    resolveConflict(filterConflicts(ordersArray, conflictingLocations[0]), conflictingLocations[0])
     conflictingLocations.shift()
   }
 
-  addStatusToNonConflictingOrders(ordersArray)
-  needsToRetreat(ordersArray)
+  addStatusToConflictingOrders(ordersArray)
   return ordersArray
 }
 
 function printOrderMessages(ordersArray) {
-  document.getElementById("headers").innerHTML = `
-  <tr>
-    <th>Country</th>
-    <th>Status</th>
-  </tr>
-  `
-  let listItems = "";
-  for (let order of ordersArray) {
-    // debugger;
-    listItems += `
-    <tr class="order">
-      <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
-      <td>${order.message}</td>
-    </tr>`
-  }
-  document.getElementById("orders").innerHTML = listItems;
+  let div = document.querySelector('#moves')
+  let fraceUl = document.createElement('ul')
+  let britianUl = document.createElement('ul')
+  let germanyUl = document.createElement('ul')
+  let italyUl = document.createElement('ul')
+  let austriaUl = document.createElement('ul')
+  let russiaUl = document.createElement('ul')
+  let turkeyUl = document.createElement('ul')
+
+  ordersArray.forEach ( order => {
+    let li = document.createElement('li')
+    li.innerText = order.message
+    li.class = "collection-item"
+    if (order.unit.findOwner() === "France") {
+      fraceUl.append(li)
+    } else if (order.unit.findOwner().name === "Britain") {
+      britianUl.append(li)
+    } else if (order.unit.findOwner().name === "Germany") {
+      germanyUl.append(li)
+    } else if (order.unit.findOwner().name === "Italy") {
+      italyUl.append(li)
+    } else if (order.unit.findOwner().name === "Austria") {
+      austriaUl.append(li)
+    } else if (order.unit.findOwner().name === "Russia") {
+      russiaUl.append(li)
+    } else if (order.unit.findOwner().name === "Turkey") {
+      turkeyUl.append(li)
+    }
+  })
+  div.appendChild(fraceUl);
+  div.appendChild(britianUl);
+  div.appendChild(germanyUl);
+  div.appendChild(italyUl);
+  div.appendChild(austriaUl);
+  div.appendChild(russiaUl);
+  div.appendChild(turkeyUl);
+  debugger;
 }
 
+function filterConflicts(array, location){
+  return array.filter(order => {
+    return order.conflict == true && order.conflictLocation == location.name})
+}
 
 function resolveConflict(conflictOrders, conflict){
   let maximum = Math.max.apply(Math, conflictOrders.map(order => order.support));
@@ -86,29 +101,21 @@ function resolveConflict(conflictOrders, conflict){
   }
 }
 
-function needsToRetreat(ordersArray){
-  ordersArray.forEach( order => {
-    if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
-      order.retreat = true
-      order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} needs to retreat.`
-    }
+function addDataToConsole(nonconflictingOrders){
+  let div = document.querySelector('.displaced')
+  let ul = document.createElement('ul')
+  nonconflictingOrders.forEach(order => {
+    let li = document.createElement('li')
+    li.innerText = `${order.unit.findOwner().name} ${order.type}s ${order.unit.type} from ${order.currentLoc.name} to ${order.destination.name}.`
+    ul.append(li)
   })
+  div.append(ul)
 }
 
-function filterForRetreats(ordersArray){
-  let retreat = []
-  ordersArray.forEach (order => {
-    if (order.retreat == true) {
-      retreat.push(order.unit)
-    }
-  })
-  return retreat
-}
-
-function addStatusToNonConflictingOrders(ordersArray){
+function addStatusToConflictingOrders(ordersArray){
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
-      order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} moves to ${order.destination.name}`
+      order.message = `${order.unit.findOwner().name} ${order.unit.type} in ${order.unit.location.name} has moved to ${order.destination.name}`
     } else if (order.type == "Support") {
       order.message = `${order.unit.findOwner().name} ${order.unit.type} supports move or hold to ${order.destination.name}`
     }
@@ -116,16 +123,15 @@ function addStatusToNonConflictingOrders(ordersArray){
 }
 
 function conflictingOrders(ordersArray, conflictingLocations){
-  let conflictOrders = []
   ordersArray.forEach( order => {
     conflictingLocations.forEach( location => {
       if (order.destination == location && orderTypeHoldOrMove(order)){
-
-        conflictOrders.push(order);
+        order.conflict = true
+        order.conflictLocation = location.name
       }
     })
   })
-    return conflictOrders
+    return ordersArray
 }
 
 function nonConflictingOrders(ordersArray, conflictingLocations){
@@ -165,28 +171,14 @@ function areSupportsCutOff(ordersArray, support){
   }
 }
 
+
 function getMoveDestinations(ordersArray){
   return ordersArray.map(order => {
   return order.destination
   })
 }
 
-function displayDisplacedUnits(retreatingUnits){
-  let array = []
-  retreatingUnits.forEach( unit => {
-    let hash = {}
-    hash.unit = unit
-    hash.locations = availableLocations(unit)
-  })
-  return array
-}
-
-function holdByDefault(ordersArray){
-  unitsWithOrders =  []
-  orderStore.forEach(order => {  unitsWithOrders.push(order.unit)})
-  allUnitsArray.forEach(unit => {
-    if (!unitsWithOrders.includes(unit)){
-      createOrReplaceOrder(game.currentTurn, "hold", unit, unit.location, unit.location )
-    }
-  })
+function nextStep() {
+  var data = document.querySelector('#info_text')
+  data.innerText = "There are no conflicts. Checkout the order logs to see all the moves."
 }

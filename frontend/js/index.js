@@ -34,7 +34,10 @@ function play() {
       printOrderMessages(orderStore);
       let retreats = filterForRetreats(orderStore)
       if (retreats != []) {
+        addEventListeners();
         displayDisplacedUnits(retreats)
+      } else {
+        nextStep()
       }
       addUnits();
       updateDisplay();
