@@ -29,7 +29,6 @@ function play() {
         displayDisplacedUnits(retreatingUnits)
       }
       deleteUnitsThatCannotRetreat(retreatingUnits)
-
       addUnits();
       clearOrderDiplay()
       updateDisplay();

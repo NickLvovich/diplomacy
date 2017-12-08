@@ -1,11 +1,14 @@
 
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
+    if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome === "neutral" || order.conflictOutcome === "loser")){
     order.unit.coast = order.coast
     order.unit.location = order.destination
+  }
   })
+
 }
+
 
 function isThereConflict(ordersArray){
   let array = []
@@ -34,6 +37,7 @@ function orderResolution(ordersArray) {
   }
   addStatusToNonConflictingOrders(ordersArray)
   needsToRetreat(ordersArray)
+
   return ordersArray
 }
 
@@ -44,7 +48,6 @@ function filterForRetreats(ordersArray){
       retreat.push(order.unit)
     }
   })
-  debugger;
   return retreat
 }
 
@@ -58,7 +61,6 @@ function printOrderMessages(ordersArray) {
   `
   let listItems = "";
   for (let order of ordersArray) {
-    // debugger;
     listItems += `
     <tr class="order">
       <td><img src="assets/flag_icons/png/${order.unit.findOwner().name}.png" style="height: 30px;"/></td>
@@ -98,7 +100,7 @@ function resolveConflict(conflictOrders, conflict){
 function needsToRetreat(ordersArray){
   ordersArray.forEach( order => {
     if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
-      debugger;
+
       order.retreat = true
       order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} needs to retreat.`
     }
@@ -119,7 +121,7 @@ function filterForRetreats(ordersArray){
 
 
 
-function addStatusToConflictingOrders(ordersArray) {
+function addStatusToNonConflictingOrders(ordersArray) {
   ordersArray.forEach( order => {
     if (order.conflict != true && order.type == "Move"){
       order.message = `${order.unit.findOwner().name} ${order.unit.type} in ${order.unit.location.name} has moved to ${order.destination.name}`
@@ -135,7 +137,7 @@ function addStatusToConflictingOrders(ordersArray) {
           order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} supports ${supportedPossessive} ${supportedType} - ${order.currentLoc.name} move to ${order.destination}`
         }
       } catch (err) {
-        debugger;
+
       }
     } else if (order.type == "Hold") {
       order.message = `${order.unit.type[0].toUpperCase()} - ${order.unit.location.name} holds`
@@ -205,4 +207,5 @@ function holdByDefault(ordersArray){
     }
 
   })
+
 }
