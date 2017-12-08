@@ -1,30 +1,7 @@
-
-//  Since all information about where untis are comes from orders, we no longer need this data.
-// let germanyUnits = countries.Germany.units
-// let franceUnits = countries.France.units
-// let britainUnits = countries.Britain.units
-// let italyUnits = countries.Italy.units
-// let austriaUnits = countries.Austria.units
-// let russiaUnits = countries.Russia.units
-// let turkeyUnits = countries.Turkey.units
-// let allUnitsNested = [germanyUnits, franceUnits, britainUnits, italyUnits, austriaUnits, russiaUnits, turkeyUnits]
-// let allUnitsArray = [].concat.apply([], allUnitsNested)
-
-
-// // This data is for testing - delete before trying to take in live data
-// let ordersArray = [new Order(1, "support", countries.Germany.units[0], territories.Mun, territories.Bur ),
-//                    new Order(1, "move", countries.Germany.units[1], territories.Mun, territories.Bur ),
-//                    new Order(1, "move", countries.Germany.units[2], territories.Kie, territories.Mar ),
-//
-//                    new Order(1, "move", countries.France.units[0], territories.Par, territories.Bur ),
-//                    new Order(1, "support", countries.France.units[1], territories.Par, territories.Bur ),
-//                    new Order(1, "move", countries.France.units[2], territories.Bre, territories.Mar )]
-// //
-
-
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    if (order.type === "Move" || order.type === "Hold")
+    debugger;
+    if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
     order.unit.coast = order.coast
     order.unit.location = order.destination
   })
@@ -47,56 +24,114 @@ function isThereConflict(ordersArray){
 function orderResolution(ordersArray){
   addSupports(ordersArray)
   let conflictingLocations = isThereConflict(ordersArray)
-  let conflictOrders = conflictingOrders(ordersArray, conflictingLocations)
-  let nonconflictingOrders = nonConflictingOrders(ordersArray, conflictingLocations)
-  let retreatingUnits= [];
+  conflictingOrders(ordersArray, conflictingLocations)
+
   while (conflictingLocations.length > 0) {
-    let results = resolveConflict(conflictOrders, conflictingLocations[0])
-    if (results != undefined){
-      nonconflictingOrders.push(results.winner[0])
-      let winningDestination = results.winner[0].destination
-      results.lost.forEach( loser => {
-        if (loser.unit.location === winningDestination){
-          retreatingUnits.push(loser.unit)
-        }
-      })
-    }
+    resolveConflict(filterConflicts(ordersArray, conflictingLocations[0]), conflictingLocations[0])
     conflictingLocations.shift()
   }
-  moveResolution(nonconflictingOrders);
-  return retreatingUnits
+
+  addStatusToConflictingOrders(ordersArray)
+  return ordersArray
 }
 
-function needToRetreat (array){
+function printOrderMessages(ordersArray) {
+  let div = document.querySelector('#moves')
+  let fraceUl = document.createElement('ul')
+  let britianUl = document.createElement('ul')
+  let germanyUl = document.createElement('ul')
+  let italyUl = document.createElement('ul')
+  let austriaUl = document.createElement('ul')
+  let russiaUl = document.createElement('ul')
+  let turkeyUl = document.createElement('ul')
 
+  ordersArray.forEach ( order => {
+    let li = document.createElement('li')
+    li.innerText = order.message
+    li.class = "collection-item"
+    if (order.unit.findOwner() === "France") {
+      fraceUl.append(li)
+    } else if (order.unit.findOwner().name === "Britain") {
+      britianUl.append(li)
+    } else if (order.unit.findOwner().name === "Germany") {
+      germanyUl.append(li)
+    } else if (order.unit.findOwner().name === "Italy") {
+      italyUl.append(li)
+    } else if (order.unit.findOwner().name === "Austria") {
+      austriaUl.append(li)
+    } else if (order.unit.findOwner().name === "Russia") {
+      russiaUl.append(li)
+    } else if (order.unit.findOwner().name === "Turkey") {
+      turkeyUl.append(li)
+    }
+  })
+  div.appendChild(fraceUl);
+  div.appendChild(britianUl);
+  div.appendChild(germanyUl);
+  div.appendChild(italyUl);
+  div.appendChild(austriaUl);
+  div.appendChild(russiaUl);
+  div.appendChild(turkeyUl);
+  debugger;
 }
 
+function filterConflicts(array, location){
+  return array.filter(order => {
+    return order.conflict == true && order.conflictLocation == location.name})
+}
 
 function resolveConflict(conflictOrders, conflict){
-  let conflictingOrders =  conflictOrders.filter(order => {
-    return order.destination == conflict
-  })
-  let maximum = Math.max.apply(Math, conflictingOrders.map(order => order.support));
-  let possibleWinners = conflictingOrders.filter( order => order.support === maximum)
-  let losersArray = conflictingOrders.filter( order => order.support !== maximum)
-  let resultsHash = { winner: possibleWinners, lost: losersArray }
-  if (possibleWinners.length === 1){
-    return resultsHash;
+  let maximum = Math.max.apply(Math, conflictOrders.map(order => order.support));
+  let morethanOne = conflictOrders.filter(order => order.support == maximum)
+  if (morethanOne.length > 1 ) {
+    conflictOrders.forEach( order => {
+      order.conflictOutcome = "neutral";
+      order.message = `${order.unit.findOwner().name} ${order.unit.type} didn't have enough support to take ${order.destination.name}`
+      })
+  } else {
+  conflictOrders.forEach(order => {
+      if (order.support == maximum){
+        order.message = `${order.unit.findOwner().name} ${order.type}s ${order.unit.type} from ${order.currentLoc.name} to ${order.destination.name}`
+        order.conflictOutcome = "winner"
+      } else {
+        order.conflictOutcome = "loser"
+        order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} ${order.type == "Hold" ? 'could not hold' : 'did not have support to move to'} ${order.destination.name}`
+      }
+    })
   }
 }
 
+function addDataToConsole(nonconflictingOrders){
+  let div = document.querySelector('.displaced')
+  let ul = document.createElement('ul')
+  nonconflictingOrders.forEach(order => {
+    let li = document.createElement('li')
+    li.innerText = `${order.unit.findOwner().name} ${order.type}s ${order.unit.type} from ${order.currentLoc.name} to ${order.destination.name}.`
+    ul.append(li)
+  })
+  div.append(ul)
+}
+
+function addStatusToConflictingOrders(ordersArray){
+  ordersArray.forEach( order => {
+    if (order.conflict != true && order.type == "Move"){
+      order.message = `${order.unit.findOwner().name} ${order.unit.type} in ${order.unit.location.name} has moved to ${order.destination.name}`
+    } else if (order.type == "Support") {
+      order.message = `${order.unit.findOwner().name} ${order.unit.type} supports move or hold to ${order.destination.name}`
+    }
+  })
+}
 
 function conflictingOrders(ordersArray, conflictingLocations){
-  let conflictOrders = []
   ordersArray.forEach( order => {
     conflictingLocations.forEach( location => {
       if (order.destination == location && orderTypeHoldOrMove(order)){
-
-        conflictOrders.push(order);
+        order.conflict = true
+        order.conflictLocation = location.name
       }
     })
   })
-    return conflictOrders
+    return ordersArray
 }
 
 function nonConflictingOrders(ordersArray, conflictingLocations){

@@ -228,6 +228,7 @@ inkscape:version="0.92.2 5c3e80d, 2017-08-06" preserveAspectRatio="xMinYMin">
     <tspan sodipodi:role="line" x="50" y="150"> </tspan>
   </text>
 </svg>
+<div class="displaced"></div>
 <footer class="page-footer">
   <div class="row">
     <div class="col s9">
@@ -247,7 +248,8 @@ inkscape:version="0.92.2 5c3e80d, 2017-08-06" preserveAspectRatio="xMinYMin">
     </a>
     <ul>
       <li><a class="btn-floating" id="view-chat"><i class="material-icons">chat_bubble</i></a></li>
-      <li><a class="btn-floating" id="view-orders" onclick="toggleModal()"><i class="material-icons">toc</i></a></li>
+      <li><a class="btn-floating" id="view-moves" onclick="toggleMoves()"><i class="material-icons">toc</i></a></li>
+      <li><a class="btn-floating" id="view-orders" onclick="toggleModal()"><i class="material-icons">build</i></a></li>
       <li><a class="btn-floating" id="switch-phase" onclick="switchPhase()"><i class="material-icons">check</i></a></li>
     </ul>
   </div>
@@ -269,6 +271,14 @@ inkscape:version="0.92.2 5c3e80d, 2017-08-06" preserveAspectRatio="xMinYMin">
         <tbody id="orders">
         </tbody>
       </table>
+    </div>
+  </div>
+
+  <div id="modal2" class="modal bottom-sheet">
+    <div class="modal-content">
+      <h4>Move Log</h4>
+        <div id="moves">
+        </div>
     </div>
   </div>
 
