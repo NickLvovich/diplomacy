@@ -88,11 +88,15 @@ function addTargetsSupport(terr, target) {
               if (territories[item].findOccupied() &&
                 !potentialSupports.includes(item) &&
                 item !== terr.abbreviation) {
-                if (territories[abbr2].findOccupied().type === "army" && territories[parsedAbbr].type === "water") {
-                  null
-                } else {
-                  potentialSupports.push(item);
-                }
+                try {
+                  if (territories[item].findOccupied().type === "army" && territories[parsedAbbr].type === "water") {
+                    null
+                  } else {
+                    potentialSupports.push(item);
+                  }
+                } catch(err) {
+                  debugger;
+                }                
               }
             }
           }
@@ -341,7 +345,9 @@ function gainOrLoseUnits() {
 
 function addEventListenersForGainingAndLosingUnitsPhase() {
   if (document.querySelector(".targeted") || document.querySelector(".potentialMove")) {
-    infoText.innerHTML = "Select a yellow territory to create a new unit, or a red territory to delete a unit" 
+    infoText.innerHTML = "Select a yellow territory to create a new unit, or a red territory to delete a unit"
+  } else {
+    infoText.innerHTML = "";
   }
   for (let path of document.querySelectorAll(".targeted")) {
     path.addEventListener("click", e => {
@@ -430,4 +436,63 @@ function createUnit(type, target) {
   infoText.innerHTML = "";
   buttons.innerHTML = "";
   addEventListenersForGainingAndLosingUnitsPhase();
+}
+
+function handleRetreatingUnits() {
+  // color territories
+  for (let unit of retreatingUnits) {
+    const path = document.getElementById(unit.location.abbreviation)
+    path.classList.add("targeted2");
+  }
+  for (let path of document.querySelectorAll(".targeted2")) {
+    path.addEventListener("click", e => {
+      e.target.classList.remove("targeted2")
+      e.target.classList.add("targeted")
+      const unit = retreatingUnits.find(unit => unit.location.abbreviation === e.target.id)
+      unit.findWhereItCanMove().forEach(abbr => {
+        let parsedAbbr;
+        /_/.test(abbr) ? parsedAbbr = abbr.split("_")[0] : parsedAbbr = abbr;
+        if (!territories[parsedAbbr].findOccupied()) {
+          document.getElementById(parsedAbbr).classList.add("potentialMove");
+        }        
+      });
+      for (let path of document.querySelectorAll(".targeted")) {
+        path.addEventListener("click", e => {
+          const unit = retreatingUnits.find(unit => unit.location.abbreviation === e.target.id)
+          const unitOwner = unit.findOwner().name
+          const unitIndex = unit.findOwner().units.findIndex(unit2 => unit2 === unit)
+          unit.findOwner().units.splice(unitIndex, 1)
+          // delete unit from board
+          document.getElementById(`unit_${unit.id}`).remove()
+          // remove class from territory
+          e.target.classList.remove("targeted");
+          // remove potentialMoves
+          for (let potMov of document.querySelectorAll(".potentialMove")) {
+            potMov.classList.remove("potentialMove")
+          }
+        })
+        // REMOVE UNIT FROM RETREATING UNITS?
+      }
+      for (let path of document.querySelectorAll(".potentialMove")) {
+        path.addEventListener("click", e => {
+          const unit = retreatingUnits.find(unit => unit.location.abbreviation === document.querySelector(".targeted").id)
+          document.getElementById(`unit_${unit.id}`).remove()
+          unit.location = territories[e.target.id]
+          if (unit.type === "army") {
+            const x = unit.location.coordinates.main.x
+            const y = unit.location.coordinates.main.y
+            gameMap.innerHTML += armySVG(x, y, unit.findOwner().name, unit.id);
+          } else if (unit.type === "fleet") {
+            const x = unit.location.coordinates.main.x
+            const y = unit.location.coordinates.main.y
+            gameMap.innerHTML += fleetSVG(x, y, unit.findOwner().name, unit.id);
+          }
+          document.querySelector(".targeted").classList.remove("targeted")
+          for (let potMov of document.querySelectorAll(".potentialMove")) {
+            potMov.classList.remove("potentialMove")
+          }
+        })
+      }
+    })    
+  }
 }

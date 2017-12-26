@@ -8,9 +8,20 @@ function play() {
   switch (game.currentTurn.phase) {
     case "Diplomatic Phase":
       infoText.innerHTML = "Select a unit to begin issuing orders"
+      retreatingUnits = [];
       addUnits();
       game.currentTurn.year === 1901 && game.currentTurn.season === "Spring" ? colorTerritories() : null
       updateDisplay();
+      document.getElementById("headers").innerHTML = `
+      <tr>
+        <th>Country</th>
+        <th>Unit</th>
+        <th>Action</th>
+        <th>Target</th>
+        <th>From</th>
+        <th>To</th>
+      </tr>
+      `
       addEventListeners();
       currentTimer = new Timer(15);
       break;
@@ -24,12 +35,10 @@ function play() {
       printOrderMessages(orderStore);
       moveResolution(orderStore);
       retreatingUnits = filterForRetreats(orderStore)
-      deleteUnitsThatCannotRetreat(retreatingUnits)
-      if (retreatingUnits.length > 0) {
-        addEventListeners();
+      if (retreatingUnits != []) {
       }
+      deleteUnitsThatCannotRetreat(retreatingUnits)
       addUnits();
-      clearOrderDiplay()
       updateDisplay();
       currentTimer = new Timer(5);
       orderStore = []
@@ -38,10 +47,10 @@ function play() {
     case "Retreat and Disbanding Phase":
       infoText.innerHTML = "Select a displaced unit to enter a retreat order"
       updateDisplay();
+      handleRetreatingUnits();
       currentTimer = new Timer(5);
       break;
     case "Gaining and Losing Units Phase":
-      addEventListeners();
       updateDisplay();
       colorTerritories();
       gainOrLoseUnits();
@@ -63,7 +72,22 @@ function switchPhase() {
       game.currentTurn.phase = "Order Resolution Phase";
       break;
     case "Order Resolution Phase":
-      game.currentTurn.phase = "Retreat and Disbanding Phase"
+      if (retreatingUnits.length > 0) {
+        game.currentTurn.phase = "Retreat and Disbanding Phase"
+      } else {
+        switch (game.currentTurn.season) {
+          case ("Spring"):
+            game.currentTurn.phase = "Diplomatic Phase";
+            game.currentTurn.season = "Fall"
+            break;
+          case ("Fall"):
+            game.currentTurn.phase = "Gaining and Losing Units Phase"
+            break;
+          default:
+            alert("Something went wrong");
+            break;
+        }
+      }
       break;
     case "Retreat and Disbanding Phase":
       switch (game.currentTurn.season) {
@@ -292,15 +316,4 @@ function toggleMoves() {
   let elem = document.querySelector('#modal2');
   let instance = new M.Modal(elem)
   instance.open();
-}
-
-function displayDisplacedUnits(units){
-  let displacedDiv = document.querySelector('.displaced')
-  let ul = document.createElement('ul')
-  units.forEach(unit => {
-    let li = document.createElement('li')
-    li.innerText = `${unit.type.charAt(0).toUpperCase()}${unit.type.slice(1, unit.type.length)} in ${unit.location.name} has been displaced.`
-    ul.append(li)
-  })
-  displacedDiv.append(ul)
 }
