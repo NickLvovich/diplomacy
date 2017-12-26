@@ -24,12 +24,10 @@ function play() {
       printOrderMessages(orderStore);
       moveResolution(orderStore);
       retreatingUnits = filterForRetreats(orderStore)
-      if (retreatingUnits != []) {
-        displayDisplacedUnits(retreatingUnits)
-      } else {
-        infoText.innerHTML = "There are no conflicts. Check out the logs."
-      }
       deleteUnitsThatCannotRetreat(retreatingUnits)
+      if (retreatingUnits.length > 0) {
+        addEventListeners();
+      }
       addUnits();
       clearOrderDiplay()
       updateDisplay();
@@ -43,6 +41,7 @@ function play() {
       currentTimer = new Timer(5);
       break;
     case "Gaining and Losing Units Phase":
+      addEventListeners();
       updateDisplay();
       colorTerritories();
       gainOrLoseUnits();

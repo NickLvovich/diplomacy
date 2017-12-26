@@ -1,9 +1,10 @@
 
 function moveResolution(ordersArray){
   ordersArray.forEach( order => {
-    if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser"))
+    if ((order.type === "Move" || order.type === "Hold") && !( order.conflictOutcome == "neutral" || order.conflictOutcome == "loser")){
     order.unit.coast = order.coast
     order.unit.location = order.destination
+  }
   })
 }
 
@@ -95,7 +96,6 @@ function resolveConflict(conflictOrders, conflict){
 function needsToRetreat(ordersArray){
   ordersArray.forEach( order => {
     if(order.conflict == true && order.conflictOutcome == "loser" && order.type == "Hold"){
-      debugger;
       order.retreat = true
       order.message = `${order.unit.findOwner().name}'s' ${order.unit.type} needs to retreat.`
     }
